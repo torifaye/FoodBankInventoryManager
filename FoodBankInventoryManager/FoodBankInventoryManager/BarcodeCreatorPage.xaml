@@ -1,0 +1,54 @@
+﻿<Page x:Class="FoodBankInventoryManager.BarcodeCreatorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FoodBankInventoryManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="725"
+      Title="Barcode Creator">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="txtBarcodedata" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="22" 
+                 Margin="100,0,100,0" VerticalAlignment="Bottom" MaxLines="1" MinLines="1"/>
+
+        <Button x:Name="btnGenerateBarcode" Click="btnGenerateBarcode_Click" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" 
+                Height="100" Width="150" Grid.ColumnSpan="2" Margin="0,10,172,20">
+            <TextBlock TextWrapping="Wrap" FontSize="24">Generate Barcode</TextBlock>
+        </Button>
+
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="282" Margin="91,34,0,0" Grid.Row="1" 
+                    Grid.RowSpan="3" VerticalAlignment="Top" Width="366" Grid.Column="1">
+            <TextBlock FontSize="18" HorizontalAlignment="Center" >*Barcode Image Preview*</TextBlock>
+            <Border  BorderBrush="Black"  BorderThickness="5" Height="244">
+                <Image x:Name="imgBarcode"  />
+            </Border>
+        </StackPanel>
+
+        <Button x:Name="btnPrintBarcode" Content="Print Barcode(s)" FontSize="22" Grid.Column="2" HorizontalAlignment="Left"
+                Margin="42,56,0,0" Grid.Row="3" VerticalAlignment="Top" Width="173" Height="64" Click="btnPrintBarcode_Click">
+        </Button>
+
+        <Button x:Name="btnAddtoPrint" FontSize="22" Grid.Column="1" HorizontalAlignment="Left" Margin="91,56,0,0" 
+                Grid.Row="3" VerticalAlignment="Top" Width="173" Height="64"  Grid.ColumnSpan="2" Click="btnAddtoPrint_Click">
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center">Add to Print Preview</TextBlock>
+        </Button>
+
+        <ListBox x:Name="lstCurrentBarcodes" HorizontalAlignment="Left" Height="314" Margin="44,30,0,0" Grid.Row="2" 
+                 VerticalAlignment="Top" Width="228" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+    </Grid>
+</Page>

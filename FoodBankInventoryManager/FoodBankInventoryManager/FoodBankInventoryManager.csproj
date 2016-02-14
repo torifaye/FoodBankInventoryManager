@@ -80,6 +80,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="ScannerEmulator.xaml.cs">
+      <DependentUpon>ScannerEmulator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ScannerEmulator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StatisticsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

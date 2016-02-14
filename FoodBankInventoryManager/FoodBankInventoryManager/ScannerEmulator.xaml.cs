@@ -33,6 +33,7 @@ namespace FoodBankInventoryManager
 
         private void btnBin_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void btnShelf_Click(object sender, RoutedEventArgs e)

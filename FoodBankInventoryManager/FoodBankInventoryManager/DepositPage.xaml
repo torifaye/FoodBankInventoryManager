@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="725"
-      Title="Add To Inventory">
+      Title="Add To Inventory"
+      Loaded="Page_Loaded">
     <Grid Background="LightGray">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -59,10 +60,11 @@
                             </Border>
                             <Border BorderBrush="Black" 
                                     BorderThickness="1">
-                                <ComboBox Grid.Row="1"
+                                <ComboBox x:Name="comboSort"
+                                          Grid.Row="1"
                                           Grid.Column="0" 
                                           Width="255" 
-                                          Height="29"/>
+                                          FontSize="18"/>
                             </Border>
                         </DockPanel>
                     </Viewbox>

@@ -38,8 +38,18 @@ namespace FoodBankInventoryManager
             {
                 comboSort.Items.Add(item);
             }
+    
             comboSort.SelectedIndex = 0;
                
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnScan_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

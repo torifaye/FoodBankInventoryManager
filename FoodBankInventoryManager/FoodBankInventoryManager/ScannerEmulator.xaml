@@ -1,0 +1,90 @@
+﻿<Window x:Class="FoodBankInventoryManager.ScannerEmulator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FoodBankInventoryManager"
+        mc:Ignorable="d"
+        Title="Scanner Emulator" MaxHeight="260" MaxWidth="420" Height="260" Width="420" MinHeight="260" MinWidth="420">
+    <Grid Margin="0,10,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   Text="Food Code: "
+                   VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="Bin Code:  "/>
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="Shelf Code:  "/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Orientation="Horizontal">
+            <TextBox x:Name="txtFood"
+                     FontSize="12"
+                     Width="95"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>
+            <Button x:Name="btnFood" 
+                    Content="Randomize"
+                    Click="btnFood_Click"
+                    Height="22" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Horizontal">
+            <TextBox x:Name="txtBin"
+                     FontSize="12"
+                     Width="95"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>
+            <Button x:Name="btnBin"
+                    Content="Randomize"
+                    Click="btnBin_Click"
+                    Height="22" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Horizontal">
+            <TextBox x:Name="txtShelf"
+                     FontSize="12"
+                     Width="95"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>
+            <Button x:Name="btnShelf"
+                    Content="Randomize"
+                    Click="btnShelf_Click"
+                    Height="22" Width="100"/>
+        </StackPanel>
+
+        <Button x:Name="btnRandomizeAll"
+                Grid.Row="3" Grid.Column="0"
+                Content="Randomize All"
+                Click="btnRandomizeAll_Click"
+                Height="22"
+                Width="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+
+        <Button x:Name="btnAddToInv"
+                Grid.Row="3"
+                Grid.Column="1"
+                Content="Add To Inventory"
+                Click="btnAddToInv_Click"
+                Height="22"
+                Width="100"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+    </Grid>
+</Window>

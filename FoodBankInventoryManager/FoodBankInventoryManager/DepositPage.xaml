@@ -117,16 +117,40 @@
             <Grid Grid.Column="1"
                   Background="LightGray">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
-                <Border BorderBrush="Black" 
-                        BorderThickness="1">
-                    <Grid Grid.Row="0" 
-                          VerticalAlignment="Center"
-                          Margin="0,91,0,28"
+                <Border BorderBrush="Black"
+                        BorderThickness="1"
+                        Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".5*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0"
+                               Content="Scanner"
+                               Height="Auto"
+                               FontSize="12"
+                               FontFamily="Rockwell"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                        <Button x:Name="btnScan"
+                                Margin="10,50,10,5"
+                                Grid.Row="1"
+                                Content="Open Scanner"
+                                FontFamily="Rockwell"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Height="70"
+                                VerticalAlignment="Top"
+                                Click="btnScan_Click"/>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" Grid.Row="1">
+                    <Grid VerticalAlignment="Bottom"
                           Height="189">
 
                         <Grid.RowDefinitions>
@@ -157,7 +181,8 @@
                                      TextAlignment="Left"/>
                         </StackPanel>
 
-                        <Button Margin="10, 0, 10, 5" 
+                        <Button x:Name="btnAdd"
+                                Margin="10, 0, 10, 5" 
                                 Grid.Row="2" 
                                 Content="Add Item"
                                 FontFamily="Rockwell" 
@@ -165,12 +190,12 @@
                                 FontWeight="Bold" 
                                 Height="30" 
                                 VerticalAlignment="Top"
-                                RenderTransformOrigin="0.5,0.5">
+                                Click="btnAdd_Click">
                         </Button>
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" 
+                <Border Grid.Row="3" 
                         BorderBrush="Black" 
                         BorderThickness="1">
                     <Button Content="Cancel"

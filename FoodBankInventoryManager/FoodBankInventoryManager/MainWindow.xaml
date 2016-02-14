@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
         Title="Food Bank Manager"
+                  Loaded="NavigationWindow_Loaded"
                   Height="650" Width="725" 
                   Source="LoginPage.xaml"
                   MinHeight="650" 

@@ -216,5 +216,10 @@
                 </Border>
             </Grid>
         </Grid>
+        <Grid x:Name="inputBox" 
+              Visibility="Collapsed">
+            <Grid Background="Black"
+                  Opacity="0.5"/>
+        </Grid>
     </Grid>
 </Page>

@@ -24,5 +24,9 @@ namespace FoodBankInventoryManager
         {
             InitializeComponent();
         }
+
+        private void NavigationWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

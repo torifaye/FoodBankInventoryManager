@@ -50,10 +50,6 @@ namespace FoodBankInventoryManager
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            inputBox.Visibility = Visibility.Visible;
-            ScannerEmulator se = new ScannerEmulator();
-            se.ShowDialog();
-            inputBox.Visibility = Visibility.Collapsed;
         }
     }
 }

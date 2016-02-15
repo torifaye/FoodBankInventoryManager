@@ -69,15 +69,18 @@
                         </DockPanel>
                     </Viewbox>
 
-                    <DataGrid Grid.Row="2" 
+                    <DataGrid x:Name="grdItems"
+                              Grid.Row="2" 
                               Height="444" 
                               VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Item Name"
-                                                    Width="3*"/>
+                                                    Width="3*"
+                                                    />
                             <DataGridTemplateColumn Header="Item Type" 
                                                     Width="1.4*"/>
-                            <DataGridTemplateColumn Header="Quantity"/>
+                            <DataGridTemplateColumn Header="Quantity"
+                                                    />
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Grid.Row="3" 

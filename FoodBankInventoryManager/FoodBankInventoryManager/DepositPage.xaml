@@ -78,7 +78,7 @@
                                                     Width="3*"
                                                     />
                             <DataGridTemplateColumn Header="Item Type" 
-                                                    Width="1.4*"/>
+                                                    Width="1.45*"/>
                             <DataGridTemplateColumn Header="Quantity"
                                                     />
                         </DataGrid.Columns>

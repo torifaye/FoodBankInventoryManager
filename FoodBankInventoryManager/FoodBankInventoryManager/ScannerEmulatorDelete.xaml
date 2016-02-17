@@ -1,0 +1,107 @@
+﻿<Window x:Class="FoodBankInventoryManager.ScannerEmulatorDelete"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FoodBankInventoryManager"
+        mc:Ignorable="d"
+        Title="ScannerEmulatorDelete" MaxHeight="260" MaxWidth="420" Height="260" Width="420" MinHeight="260" MinWidth="420">
+
+    <Grid Margin="0,10,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        
+
+        <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,15" Content="  Food to be Removed" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16"></Label>
+
+        
+
+            <TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="txtFood" Margin="5"/>
+        <TextBlock IsHitTestVisible="False" Text="Enter Food Code Here" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,0" Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtFood}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Button x:Name="btnRmvFromInv" Grid.Row="0" Grid.Column="0" Margin="0, 65, 0, 0"
+                Content="Remove From Inventory"
+                Height="22"
+                Width="150"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="  Bin To Be Removed:">
+            </Label>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0">
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
+                </TextBlock>
+            </Border>
+
+            <Label Grid.Column="1" Content="  Shelf to Remove Bin From:">
+            </Label>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0">
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
+                </TextBlock>
+            </Border>
+
+
+        </Grid>
+        
+
+        <!--<StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Horizontal">
+                <TextBox x:Name="txtBin"
+                     FontSize="12"
+                     Width="95"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>
+                <Button x:Name="btnBin"
+                    Content="Randomize"
+                    Click="btnBin_Click"
+                    Height="22" Width="100"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1"
+                    Orientation="Horizontal">
+                <TextBox x:Name="txtShelf"
+                     FontSize="12"
+                     Width="95"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"/>-->
+        <!--<Button x:Name="btnShelf"
+                    Content="Randomize"
+                    Click="btnShelf_Click"
+                    Height="22" Width="100"/>
+            </StackPanel>
+
+            <Button x:Name="btnRandomizeAll"
+                Grid.Row="3" Grid.Column="0"
+                Content="Randomize All"
+                Click="btnRandomizeAll_Click"
+                Height="22"
+                Width="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>-->
+
+        
+    </Grid>
+</Window>

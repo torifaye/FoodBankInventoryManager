@@ -31,7 +31,8 @@
             <TextBlock TextWrapping="Wrap" FontSize="24">Generate Barcode</TextBlock>
         </Button>
 
-        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="282" Margin="91,34,0,0" Grid.Row="1" 
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" 
+                    HorizontalAlignment="Left" Height="282" Margin="91,34,0,0" Grid.Row="1" 
                     Grid.RowSpan="3" VerticalAlignment="Top" Width="366" Grid.Column="1">
             <TextBlock FontSize="18" HorizontalAlignment="Center" >*Barcode Image Preview*</TextBlock>
             <Border  BorderBrush="Black"  BorderThickness="5" Height="244">

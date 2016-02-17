@@ -83,6 +83,9 @@
     <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScannerEmulatorDelete.xaml.cs">
+      <DependentUpon>ScannerEmulatorDelete.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ScannerEmulator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScannerEmulatorDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

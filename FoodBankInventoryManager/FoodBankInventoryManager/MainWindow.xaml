@@ -11,5 +11,6 @@
                   Source="LoginPage.xaml"
                   MinHeight="650" 
                   MaxHeight="700" MaxWidth="800" 
-                  IsTabStop="False" FontFamily="Rockwell">
+                  IsTabStop="False" FontFamily="Rockwell"
+                  ShowsNavigationUI="False">
 </NavigationWindow>

@@ -63,16 +63,6 @@ namespace FoodBankInventoryManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FBM_logo {
-            get {
-                object obj = ResourceManager.GetObject("FBM_logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Reach_Out_Lakota {
             get {
                 object obj = ResourceManager.GetObject("Reach_Out_Lakota", resourceCulture);

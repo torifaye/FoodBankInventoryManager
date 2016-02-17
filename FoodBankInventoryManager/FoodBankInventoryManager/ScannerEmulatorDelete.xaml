@@ -42,7 +42,7 @@
                 Height="22"
                 Width="150"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center" Click="btnRmvFromInv_Click"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -53,14 +53,14 @@
             <Label Grid.Column="0" Content="  Bin To Be Removed:">
             </Label>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0">
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
+                <TextBlock x:Name="txtBinRemove" Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
                 </TextBlock>
             </Border>
 
             <Label Grid.Column="1" Content="  Shelf to Remove Bin From:">
             </Label>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0">
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
+                <TextBlock x:Name="txtShelfRemove" Grid.Column="0" VerticalAlignment="Center" Height="50" Margin="10, 0, 10, 0" FontSize="12">
                 </TextBlock>
             </Border>
 

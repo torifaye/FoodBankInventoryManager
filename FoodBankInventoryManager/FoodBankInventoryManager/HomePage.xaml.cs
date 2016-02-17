@@ -20,9 +20,13 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class HomePage : Page
     {
+        bool admin;
+
         public HomePage(bool isAdmin)
         {
             InitializeComponent();
+
+            admin = isAdmin;
 
             if (isAdmin)
             {
@@ -42,7 +46,7 @@ namespace FoodBankInventoryManager
 
         private void btnRemove_Items_Click(object sender, RoutedEventArgs e)
         {
-            WithdrawalPage w = new WithdrawalPage();
+            ScannerEmulatorDelete w = new ScannerEmulatorDelete();
             this.NavigationService.Navigate(w);
         }
 
@@ -50,16 +54,24 @@ namespace FoodBankInventoryManager
         {
             if (helpLabels.Visibility == Visibility.Hidden)
             {
-                helpAdd_Items.Visibility = Visibility.Visible;
-                helpRemove_Items.Visibility = Visibility.Visible;
+                if (admin)
+                {
+                    helpAdd_Items.Visibility = Visibility.Visible;
+                    helpRemove_Items.Visibility = Visibility.Visible;
+                    helpBarcode.Visibility = Visibility.Visible;
+                }
                 helpStats.Visibility = Visibility.Visible;
                 helpMap.Visibility = Visibility.Visible;
                 helpLabels.Visibility = Visibility.Visible;
             }
             else
             {
-                helpAdd_Items.Visibility = Visibility.Hidden;
-                helpRemove_Items.Visibility = Visibility.Hidden;
+                if (admin)
+                {
+                    helpAdd_Items.Visibility = Visibility.Hidden;
+                    helpRemove_Items.Visibility = Visibility.Hidden;
+                    helpBarcode.Visibility = Visibility.Hidden;
+                }
                 helpStats.Visibility = Visibility.Hidden;
                 helpMap.Visibility = Visibility.Hidden;
                 helpLabels.Visibility = Visibility.Hidden;
@@ -83,5 +95,12 @@ namespace FoodBankInventoryManager
             StatisticsPage s = new StatisticsPage();
             this.NavigationService.Navigate(s);
         }
+
+        private void bttnHome_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage l = new LoginPage();
+            this.NavigationService.Navigate(l);
+        }
     }
 }
+

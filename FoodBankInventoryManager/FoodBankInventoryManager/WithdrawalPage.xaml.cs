@@ -25,9 +25,10 @@ namespace FoodBankInventoryManager
             InitializeComponent();
         }
 
-        private void btnRemoveAll_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Are you sure you want to remove ALL items in the current bin?", "Food Bank Manager", MessageBoxButton.YesNo);
+            ScannerEmulatorDelete sed = new ScannerEmulatorDelete();
+            sed.ShowDialog();
         }
     }
 }

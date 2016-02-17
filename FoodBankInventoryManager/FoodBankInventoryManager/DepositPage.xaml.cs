@@ -26,7 +26,7 @@ namespace FoodBankInventoryManager
         public DepositPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext();
+            dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

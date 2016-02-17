@@ -88,20 +88,16 @@ namespace FoodBankInventoryManager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAddToInv_Click(object sender, RoutedEventArgs e)
+        private void btnRemoveFromInv_Click(object sender, RoutedEventArgs e)
         {
             //Instances of each table
             Food foodItem = new Food();
-            Bin binItem = new Bin();
-            Shelf shelfItem = new Shelf();
+            //Bin binItem = new Bin();
+            //Shelf shelfItem = new Shelf();
             //Gets the text fields and sets the item's instance's code to it
             foodItem.FoodCode = Convert.ToInt32(txtFood.Text);
-            binItem.BinCode = Convert.ToInt32(txtBin.Text);
-            shelfItem.ShelfCode = Convert.ToInt32(txtShelf.Text);
             //Sets the changes ready to insert when changes are submitted
-            dbContext.Foods.InsertOnSubmit(foodItem);
-            dbContext.Bins.InsertOnSubmit(binItem);
-            dbContext.Shelfs.InsertOnSubmit(shelfItem);
+            dbContext.Foods.DeleteOnSubmit(foodItem);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window

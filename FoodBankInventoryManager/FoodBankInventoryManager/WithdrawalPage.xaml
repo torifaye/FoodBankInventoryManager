@@ -81,7 +81,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" Margin="25" Content="Withdrawal Emulator" FontSize="36" HorizontalAlignment="Center">
+            <Button Grid.Column="1" Margin="25" Content="Withdrawal Emulator" FontSize="36" HorizontalAlignment="Center" Click="Button_Click">
                 
             </Button>
         </Grid>

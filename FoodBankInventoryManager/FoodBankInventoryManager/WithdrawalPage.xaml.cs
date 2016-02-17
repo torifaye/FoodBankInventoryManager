@@ -30,5 +30,10 @@ namespace FoodBankInventoryManager
             ScannerEmulatorDelete sed = new ScannerEmulatorDelete();
             sed.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

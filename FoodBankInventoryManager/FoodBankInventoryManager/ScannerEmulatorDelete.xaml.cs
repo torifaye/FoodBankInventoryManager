@@ -24,23 +24,25 @@ namespace FoodBankInventoryManager
         public ScannerEmulatorDelete()
         {
             rand = new Random();
-            dbContext = new L2S_FoodBankDBDataContext();
+            dbContext = new L2S_FoodBankDBDataContext(@"M:\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
             InitializeComponent();
         }
 
+
         private void btnFood_Click(object sender, RoutedEventArgs e)
         {
+            
             //Gathers all of the food codes currently in the database
-            int[] foodCodes = (from items in dbContext.GetTable<Food>() select items.FoodCode).ToArray<int>();
+           /* string[] foodCodes = (from items in dbContext.GetTable<Food>() orderby dbContext.GetTable<InvBin>() select items.FoodCode).ToArray<string>()*/;
             //if the table isn't empty, selects a random existing food code, otherwise just generates a new food code
-            if (foodCodes.Length > 0)
-            {
-                txtFood.Text = foodCodes[rand.Next(foodCodes.Length)].ToString();
-            }
-            else
-            {
-                txtFood.Text = rand.Next().ToString();
-            }
+            //if (foodCodes.Length > 0)
+            //{
+            //    txtFood.Text = foodCodes[rand.Next(foodCodes.Length)].ToString();
+            //}
+            //else
+            //{
+            //    txtFood.Text = rand.Next().ToString();
+            //}
         }
 
         //private void btnBin_Click(object sender, RoutedEventArgs e)
@@ -80,28 +82,47 @@ namespace FoodBankInventoryManager
         private void btnRandomizeAll_Click(object sender, RoutedEventArgs e)
         {
             btnFood_Click(sender, e);
-            //btnBin_Click(sender, e);
-            //btnShelf_Click(sender, e);
         }
         /// <summary>
         /// Adds the generated codes to the database
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnRemoveFromInv_Click(object sender, RoutedEventArgs e)
+        //private void btnRemoveFromInv_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Instances of each table
+        //    Food foodItem = new Food();
+        //    Bin binItem = new Bin();
+        //    Shelf shelfItem = new Shelf();
+        //    Gets the text fields and sets the item's instance's code to it
+        //    foodItem.FoodCode = txtFood.Text;
+        //    Sets the changes ready to insert when changes are submitted
+        //    dbContext.Foods.DeleteOnSubmit(foodItem);
+        //    Submits the changes to the database
+        //    dbContext.SubmitChanges();
+        //    Closes the window
+        //    Close();
+        //}
+
+        private void btnRmvFromInv_Click(object sender, RoutedEventArgs e)
         {
-            //Instances of each table
-            Food foodItem = new Food();
-            //Bin binItem = new Bin();
-            //Shelf shelfItem = new Shelf();
-            //Gets the text fields and sets the item's instance's code to it
-            foodItem.FoodCode = Convert.ToInt32(txtFood.Text);
-            //Sets the changes ready to insert when changes are submitted
-            dbContext.Foods.DeleteOnSubmit(foodItem);
-            //Submits the changes to the database
+            //string[] foodQuery = (from food in dbContext.GetTable<InvBin>() where food.FoodCode == txtFood.Text orderby food.DateEntered select food).ToArray<string>();
+            //Gathers info from Bins for oldest to newest
+            //IQueryable < InvBin > dateQuery = from database in foodQuery orderby database.DateEntered select database;
+            var item = (from food in dbContext.GetTable<InvBin>() where food.FoodCode == txtFood.Text orderby food.DateEntered select food).First();
+
+            txtBinRemove.Text = Convert.ToString(item.BinCode);
+            txtShelfRemove.Text = Convert.ToString(item.ShelfCode);
+
+            //delete from InvBin based on BinCode
+            dbContext.InvBins.DeleteOnSubmit(item);
             dbContext.SubmitChanges();
-            //Closes the window
-            Close();
+            //foreach (var item in foodQuery)
+            //{
+            //    txtFood.Text = Convert.ToString(item);
+            //    //Do stuff
+            //    break;
+            //}
         }
     }
 }

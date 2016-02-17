@@ -33,14 +33,14 @@ namespace FoodBankInventoryManager
         {
             //useful if you need to get data from the database such as table names
             //var dataModel = new AttributeMappingSource().GetModel(typeof(L2S_FoodBankDBDataContext));
-            string[] sortOptions = new string[] { "Item Name (A-Z)", "Item Name (Z-A)", "Quantity (Asc.)","Quantity (Desc.)" };
+            string[] sortOptions = new string[] { "Item Name (A-Z)", "Item Name (Z-A)", "Quantity (Asc.)", "Quantity (Desc.)" };
             foreach (string item in sortOptions)
             {
                 comboSort.Items.Add(item);
             }
-    
+
             comboSort.SelectedIndex = 0;
-               
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -54,6 +54,18 @@ namespace FoodBankInventoryManager
             ScannerEmulator se = new ScannerEmulator();
             se.ShowDialog();
             inputBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void bttnHome_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(true);
+            this.NavigationService.Navigate(h);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(true);
+            this.NavigationService.Navigate(h);
         }
     }
 }

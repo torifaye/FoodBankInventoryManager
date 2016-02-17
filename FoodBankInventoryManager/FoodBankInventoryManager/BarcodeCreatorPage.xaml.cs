@@ -28,10 +28,14 @@ namespace FoodBankInventoryManager
         private Barcode b;
         private Bitmap dImg;
         private List<Bitmap> barcodes;
+        private List<string> barcodeValues;
+        private string barcodeData = "";
+
         public BarcodeCreatorPage()
         {
             b = new Barcode();
             barcodes = new List<Bitmap>();
+            barcodeValues = new List<string>();
             InitializeComponent();
         }
 
@@ -57,10 +61,11 @@ namespace FoodBankInventoryManager
                 bImg.EndInit();
                 //img is an Image control.
                 imgBarcode.Source = bImg;
+
             }
             catch (Exception)
             {
-                MessageBox.Show("An error has occured, Clearing the current barcode.");
+                MessageBox.Show("An error has occured, please enter a barcode string [1-13] characters.");
                 txtBarcodedata.Text = "";
 
             }
@@ -84,17 +89,18 @@ namespace FoodBankInventoryManager
                     for (int i = 0; i < barcodes.Count; i++)
                     {
 
-                        if (r < 6)
+                        if (r < 10)
                         {
-                            e.Graphics.DrawImage(barcodes[i], barcodes[i].Height * r, c);
-                            r++;
+                            e.Graphics.DrawImage(barcodes[i], c, (barcodes[i].Height * r));
                         }
                         else
                         {
-                            c = barcodes[i].Width * c;
+                            c += 250;
                             r = 0;
-                            e.Graphics.DrawImage(barcodes[i], barcodes[i].Height * r, c);
+                            e.Graphics.DrawImage(barcodes[i], c, 0);
                         }
+
+                        r++;
                     }
                 }
             }
@@ -106,8 +112,53 @@ namespace FoodBankInventoryManager
 
         private void btnAddtoPrint_Click(object sender, RoutedEventArgs e)
         {
-            barcodes.Add(dImg);
+            if (barcodes.Count < 30)
+            {
+                barcodes.Add(dImg);
+                barcodeValues.Add(txtBarcodedata.Text);
+            }
+
+            if (barcodes.Count >= 30)
+            {
+                MessageBox.Show("Max barcode per sheet limit reached (30)", "Food Bank Manager");
+            }
+
+            txtNumBarcodes.Text = barcodes.Count.ToString();
+            txtBarcodedata.Text = "";
         }
+
+
+        private void bttnHome_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(true);
+            this.NavigationService.Navigate(h);
+        }
+
+        private void txtBarcodedata_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnGenerateBarcode_Click(sender, e);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string result = "";
+
+            for (int i = 0; i < barcodeValues.Count; i++)
+            {
+                result += barcodeValues[i] + "\n";
+            }
+
+            MessageBox.Show(result, "Food Bank Manager");
+        }
+
+
+
+
+
+
         #region Barcode Interface
         /// <summary>
         ///  Barcode interface for symbology layout.

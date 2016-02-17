@@ -8,28 +8,28 @@
   </Table>
   <Table Name="dbo.Food" Member="Foods">
     <Type Name="Food">
-      <Column Name="FoodCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FoodCode" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PricePerItem" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="MinimumQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Food_InvBin" Member="InvBins" ThisKey="FoodCode" OtherKey="FoodCode" Type="InvBin" />
-    </Type>
-  </Table>
-  <Table Name="dbo.InvBin" Member="InvBins">
-    <Type Name="InvBin">
-      <Column Name="BinCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ShelfCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="FoodCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DateEntered" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Bin_InvBin" Member="Bin" ThisKey="BinCode" OtherKey="BinCode" Type="Bin" IsForeignKey="true" />
-      <Association Name="Food_InvBin" Member="Food" ThisKey="FoodCode" OtherKey="FoodCode" Type="Food" IsForeignKey="true" />
-      <Association Name="Shelf_InvBin" Member="Shelf" ThisKey="ShelfCode" OtherKey="ShelfCode" Type="Shelf" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Shelf" Member="Shelfs">
     <Type Name="Shelf">
       <Column Name="ShelfCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Shelf_InvBin" Member="InvBins" ThisKey="ShelfCode" OtherKey="ShelfCode" Type="InvBin" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InvBin" Member="InvBins">
+    <Type Name="InvBin">
+      <Column Name="BinCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ShelfCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FoodCode" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateEntered" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Bin_InvBin" Member="Bin" ThisKey="BinCode" OtherKey="BinCode" Type="Bin" IsForeignKey="true" />
+      <Association Name="Food_InvBin" Member="Food" ThisKey="FoodCode" OtherKey="FoodCode" Type="Food" IsForeignKey="true" />
+      <Association Name="Shelf_InvBin" Member="Shelf" ThisKey="ShelfCode" OtherKey="ShelfCode" Type="Shelf" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

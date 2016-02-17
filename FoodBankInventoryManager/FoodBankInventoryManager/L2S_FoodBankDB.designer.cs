@@ -36,12 +36,12 @@ namespace FoodBankInventoryManager
     partial void InsertFood(Food instance);
     partial void UpdateFood(Food instance);
     partial void DeleteFood(Food instance);
-    partial void InsertInvBin(InvBin instance);
-    partial void UpdateInvBin(InvBin instance);
-    partial void DeleteInvBin(InvBin instance);
     partial void InsertShelf(Shelf instance);
     partial void UpdateShelf(Shelf instance);
     partial void DeleteShelf(Shelf instance);
+    partial void InsertInvBin(InvBin instance);
+    partial void UpdateInvBin(InvBin instance);
+    partial void DeleteInvBin(InvBin instance);
     #endregion
 		
 		public L2S_FoodBankDBDataContext() : 
@@ -90,19 +90,19 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		public System.Data.Linq.Table<InvBin> InvBins
-		{
-			get
-			{
-				return this.GetTable<InvBin>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Shelf> Shelfs
 		{
 			get
 			{
 				return this.GetTable<Shelf>();
+			}
+		}
+		
+		public System.Data.Linq.Table<InvBin> InvBins
+		{
+			get
+			{
+				return this.GetTable<InvBin>();
 			}
 		}
 	}
@@ -203,7 +203,7 @@ namespace FoodBankInventoryManager
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _FoodCode;
+		private string _FoodCode;
 		
 		private decimal _PricePerItem;
 		
@@ -215,7 +215,7 @@ namespace FoodBankInventoryManager
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnFoodCodeChanging(int value);
+    partial void OnFoodCodeChanging(string value);
     partial void OnFoodCodeChanged();
     partial void OnPricePerItemChanging(decimal value);
     partial void OnPricePerItemChanged();
@@ -229,8 +229,8 @@ namespace FoodBankInventoryManager
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodCode", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int FoodCode
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodCode", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FoodCode
 		{
 			get
 			{
@@ -335,6 +335,96 @@ namespace FoodBankInventoryManager
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Shelf")]
+	public partial class Shelf : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ShelfCode;
+		
+		private EntitySet<InvBin> _InvBins;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnShelfCodeChanging(int value);
+    partial void OnShelfCodeChanged();
+    #endregion
+		
+		public Shelf()
+		{
+			this._InvBins = new EntitySet<InvBin>(new Action<InvBin>(this.attach_InvBins), new Action<InvBin>(this.detach_InvBins));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShelfCode", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ShelfCode
+		{
+			get
+			{
+				return this._ShelfCode;
+			}
+			set
+			{
+				if ((this._ShelfCode != value))
+				{
+					this.OnShelfCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ShelfCode = value;
+					this.SendPropertyChanged("ShelfCode");
+					this.OnShelfCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shelf_InvBin", Storage="_InvBins", ThisKey="ShelfCode", OtherKey="ShelfCode")]
+		public EntitySet<InvBin> InvBins
+		{
+			get
+			{
+				return this._InvBins;
+			}
+			set
+			{
+				this._InvBins.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_InvBins(InvBin entity)
+		{
+			this.SendPropertyChanging();
+			entity.Shelf = this;
+		}
+		
+		private void detach_InvBins(InvBin entity)
+		{
+			this.SendPropertyChanging();
+			entity.Shelf = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InvBin")]
 	public partial class InvBin : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -345,7 +435,7 @@ namespace FoodBankInventoryManager
 		
 		private int _ShelfCode;
 		
-		private int _FoodCode;
+		private string _FoodCode;
 		
 		private System.DateTime _DateEntered;
 		
@@ -365,7 +455,7 @@ namespace FoodBankInventoryManager
     partial void OnBinCodeChanged();
     partial void OnShelfCodeChanging(int value);
     partial void OnShelfCodeChanged();
-    partial void OnFoodCodeChanging(int value);
+    partial void OnFoodCodeChanging(string value);
     partial void OnFoodCodeChanged();
     partial void OnDateEnteredChanging(System.DateTime value);
     partial void OnDateEnteredChanged();
@@ -429,8 +519,8 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodCode", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int FoodCode
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodCode", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FoodCode
 		{
 			get
 			{
@@ -554,7 +644,7 @@ namespace FoodBankInventoryManager
 					}
 					else
 					{
-						this._FoodCode = default(int);
+						this._FoodCode = default(string);
 					}
 					this.SendPropertyChanged("Food");
 				}
@@ -613,96 +703,6 @@ namespace FoodBankInventoryManager
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Shelf")]
-	public partial class Shelf : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ShelfCode;
-		
-		private EntitySet<InvBin> _InvBins;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnShelfCodeChanging(int value);
-    partial void OnShelfCodeChanged();
-    #endregion
-		
-		public Shelf()
-		{
-			this._InvBins = new EntitySet<InvBin>(new Action<InvBin>(this.attach_InvBins), new Action<InvBin>(this.detach_InvBins));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShelfCode", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ShelfCode
-		{
-			get
-			{
-				return this._ShelfCode;
-			}
-			set
-			{
-				if ((this._ShelfCode != value))
-				{
-					this.OnShelfCodeChanging(value);
-					this.SendPropertyChanging();
-					this._ShelfCode = value;
-					this.SendPropertyChanged("ShelfCode");
-					this.OnShelfCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shelf_InvBin", Storage="_InvBins", ThisKey="ShelfCode", OtherKey="ShelfCode")]
-		public EntitySet<InvBin> InvBins
-		{
-			get
-			{
-				return this._InvBins;
-			}
-			set
-			{
-				this._InvBins.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_InvBins(InvBin entity)
-		{
-			this.SendPropertyChanging();
-			entity.Shelf = this;
-		}
-		
-		private void detach_InvBins(InvBin entity)
-		{
-			this.SendPropertyChanging();
-			entity.Shelf = null;
 		}
 	}
 }

@@ -24,16 +24,16 @@ namespace FoodBankInventoryManager
         public ScannerEmulator()
         {
             rand = new Random();
-            dbContext = new L2S_FoodBankDBDataContext();
+            dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
             InitializeComponent();
         }
 
         private void btnFood_Click(object sender, RoutedEventArgs e)
         {
             //Gathers all of the food codes currently in the database
-            int[] foodCodes = (from items in dbContext.GetTable<Food>() select items.FoodCode).ToArray<int>();
+            string[] foodCodes = (from items in dbContext.GetTable<Food>() select items.FoodCode).ToArray<string>();
             //if the table isn't empty, selects a random existing food code, otherwise just generates a new food code
-            if (foodCodes.Length > 0)
+            if (foodCodes.Length > 5)
             {
                 txtFood.Text = foodCodes[rand.Next(foodCodes.Length)].ToString();
             }
@@ -48,7 +48,7 @@ namespace FoodBankInventoryManager
             //Gathers all of the bin codes currently in the database
             int[] binCodes = (from items in dbContext.GetTable<Bin>() select items.BinCode).ToArray<int>();
             //if the table isn't empty, selects a random existing bin code, otherwise just generates a new bin code
-            if (binCodes.Length > 0)
+            if (binCodes.Length > 5)
             {
                 txtBin.Text = binCodes[rand.Next(binCodes.Length)].ToString();
             }
@@ -63,7 +63,7 @@ namespace FoodBankInventoryManager
             //Gathers all of the shelf codes currently in the database
             int[] shelfCodes = (from items in dbContext.GetTable<Shelf>() select items.ShelfCode).ToArray<int>();
             //if the table isn't empty, selects a random existing shelf code, otherwise just generates a new shelf code
-            if (shelfCodes.Length > 0)
+            if (shelfCodes.Length > 5)
             {
                 txtShelf.Text = shelfCodes[rand.Next(shelfCodes.Length)].ToString();
             }
@@ -95,7 +95,7 @@ namespace FoodBankInventoryManager
             Bin binItem = new Bin();
             Shelf shelfItem = new Shelf();
             //Gets the text fields and sets the item's instance's code to it
-            foodItem.FoodCode = Convert.ToInt32(txtFood.Text);
+            foodItem.FoodCode = txtFood.Text;
             binItem.BinCode = Convert.ToInt32(txtBin.Text);
             shelfItem.ShelfCode = Convert.ToInt32(txtShelf.Text);
             //Sets the changes ready to insert when changes are submitted

@@ -103,10 +103,13 @@ namespace FoodBankInventoryManager
             //Closes the window
         }
 
-        private void bttnHome_Click(object sender, RoutedEventArgs e)
+        private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             HomePage h = new HomePage(true);
             this.NavigationService.Navigate(h);
         }
+
+
+
     }
 }

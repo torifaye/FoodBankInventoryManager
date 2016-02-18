@@ -23,8 +23,8 @@ namespace FoodBankInventoryManager
         private L2S_FoodBankDBDataContext dbContext;
         private string foodCode;
         private int binCode;
-        private int shelfCode; 
-
+        private int shelfCode;
+        private int quantity;
         public ScannerEmulator()
         {
             rand = new Random();
@@ -99,6 +99,8 @@ namespace FoodBankInventoryManager
             btnFood_Click(sender, e);
             btnBin_Click(sender, e);
             btnShelf_Click(sender, e);
+            quantity = rand.Next(50);
+            txtQuantity.Text = quantity.ToString();
         }
         /// <summary>
         /// Adds the generated codes to the database
@@ -107,14 +109,25 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void btnAddToInv_Click(object sender, RoutedEventArgs e)
         {
+            quantity = Convert.ToInt32(txtQuantity.Text);
             //An instance object to be added to the database
             InvBin invBin = new InvBin();
+            Food food = new Food();
+            Bin bin = new Bin();
+            Shelf shelf = new Shelf();
             //Sets a volue for all of the columns in the invBin table
+            food.FoodCode = foodCode;
             invBin.FoodCode = foodCode;
+            bin.BinCode = binCode;
             invBin.BinCode = binCode;
+            shelf.ShelfCode = shelfCode;
             invBin.ShelfCode = shelfCode;
             invBin.DateEntered = DateTime.Now;
+            invBin.Quantity = quantity;
             //Sets the changes ready to insert when changes are submitted
+            dbContext.Foods.InsertOnSubmit(food);
+            dbContext.Bins.InsertOnSubmit(bin);
+            dbContext.Shelfs.InsertOnSubmit(shelf);
             dbContext.InvBins.InsertOnSubmit(invBin);
             //Submits the changes to the database
             dbContext.SubmitChanges();

@@ -153,6 +153,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="L2S_FoodBankDB.dbml.layout">
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </None>

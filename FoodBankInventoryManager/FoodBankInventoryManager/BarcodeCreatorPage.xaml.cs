@@ -41,6 +41,8 @@ namespace FoodBankInventoryManager
 
         private void btnGenerateBarcode_Click(object sender, RoutedEventArgs e)
         {
+            barcodeData = txtBarcodedata.Text;
+
             int W = 200;
             int H = 100;
             b.Alignment = AlignmentPositions.CENTER;
@@ -115,7 +117,7 @@ namespace FoodBankInventoryManager
             if (barcodes.Count < 30)
             {
                 barcodes.Add(dImg);
-                barcodeValues.Add(txtBarcodedata.Text);
+                barcodeValues.Add(barcodeData);
             }
 
             if (barcodes.Count >= 30)
@@ -144,14 +146,22 @@ namespace FoodBankInventoryManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string result = "";
+            string result = "Barcodes\n";
 
-            for (int i = 0; i < barcodeValues.Count; i++)
+            if (barcodeValues.Count > 0)
             {
-                result += barcodeValues[i] + "\n";
-            }
+                for (int i = 0; i < barcodeValues.Count; i++)
+                {
+                    result += (i + 1) + ") " + barcodeValues[i] + "\n";
 
-            MessageBox.Show(result, "Food Bank Manager");
+                }
+
+                MessageBox.Show(result, "Food Bank Manager"); 
+            }
+            else
+            {
+                MessageBox.Show("No Barcodes in Preview", "Food Bank Manager");
+            }
         }
 
 

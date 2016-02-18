@@ -24,64 +24,8 @@ namespace FoodBankInventoryManager
         public ScannerEmulatorDelete()
         {
             rand = new Random();
-            dbContext = new L2S_FoodBankDBDataContext(@"M:\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source = SQLEXPRESS; AttachDbFilename = C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf; Integrated Security = True; User Instance = True");
             InitializeComponent();
-        }
-
-
-        private void btnFood_Click(object sender, RoutedEventArgs e)
-        {
-            
-            //Gathers all of the food codes currently in the database
-           /* string[] foodCodes = (from items in dbContext.GetTable<Food>() orderby dbContext.GetTable<InvBin>() select items.FoodCode).ToArray<string>()*/;
-            //if the table isn't empty, selects a random existing food code, otherwise just generates a new food code
-            //if (foodCodes.Length > 0)
-            //{
-            //    txtFood.Text = foodCodes[rand.Next(foodCodes.Length)].ToString();
-            //}
-            //else
-            //{
-            //    txtFood.Text = rand.Next().ToString();
-            //}
-        }
-
-        //private void btnBin_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //Gathers all of the bin codes currently in the database
-        //    int[] binCodes = (from items in dbContext.GetTable<Bin>() select items.BinCode).ToArray<int>();
-        //    //if the table isn't empty, selects a random existing bin code, otherwise just generates a new bin code
-        //    if (binCodes.Length > 0)
-        //    {
-        //        txtBin.Text = binCodes[rand.Next(binCodes.Length)].ToString();
-        //    }
-        //    else
-        //    {
-        //        txtBin.Text = rand.Next().ToString();
-        //    }
-        //}
-
-        //private void btnShelf_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //Gathers all of the shelf codes currently in the database
-        //    int[] shelfCodes = (from items in dbContext.GetTable<Shelf>() select items.ShelfCode).ToArray<int>();
-        //    //if the table isn't empty, selects a random existing shelf code, otherwise just generates a new shelf code
-        //    if (shelfCodes.Length > 0)
-        //    {
-        //        txtShelf.Text = shelfCodes[rand.Next(shelfCodes.Length)].ToString();
-        //    }
-        //    else
-        //    {
-        //        txtShelf.Text = rand.Next(51).ToString();
-        //    }
-        //}
-        /// <summary>
-        /// Randomizes codes for all fields
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRandomizeAll_Click(object sender, RoutedEventArgs e)
-        {
-            btnFood_Click(sender, e);
         }
         /// <summary>
         /// Adds the generated codes to the database
@@ -117,17 +61,12 @@ namespace FoodBankInventoryManager
             //delete from InvBin based on BinCode
             dbContext.InvBins.DeleteOnSubmit(item);
             dbContext.SubmitChanges();
-            //foreach (var item in foodQuery)
-            //{
-            //    txtFood.Text = Convert.ToString(item);
-            //    //Do stuff
-            //    break;
-            //}
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-
+            HomePage h = new HomePage(true);
+            this.NavigationService.Navigate(h);
         }
     }
 }

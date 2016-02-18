@@ -212,7 +212,7 @@
                         Grid.Column="1"
                         VerticalAlignment="Center" 
                         Height="50" 
-                        Margin="10, 0, 10, 0">
+                        Margin="0, 0, 20, 0">
                     <TextBlock x:Name="txtShelfRemove"
                                Grid.Column="0"
                                VerticalAlignment="Center" 
@@ -233,6 +233,6 @@
                 Width="40" 
                 FontSize="22" 
                 FontWeight="Bold" 
-                Click="btnHome_Click">⌂</Button>
+                Click="btnHome_Click" Margin="0,-10,0,0">⌂</Button>
     </Grid>
 </Page>

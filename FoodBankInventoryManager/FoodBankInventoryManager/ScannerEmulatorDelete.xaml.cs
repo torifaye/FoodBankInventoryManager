@@ -17,7 +17,7 @@ namespace FoodBankInventoryManager
     /// <summary>
     /// Interaction logic for ScannerEmulator.xaml
     /// </summary>
-    public partial class ScannerEmulatorDelete : Window
+    public partial class ScannerEmulatorDelete : Page
     {
         private Random rand;
         private L2S_FoodBankDBDataContext dbContext;
@@ -123,6 +123,11 @@ namespace FoodBankInventoryManager
             //    //Do stuff
             //    break;
             //}
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

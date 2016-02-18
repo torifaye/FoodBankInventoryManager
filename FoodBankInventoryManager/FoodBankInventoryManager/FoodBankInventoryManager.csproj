@@ -89,6 +89,9 @@
     <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StorageMap.xaml.cs">
+      <DependentUpon>StorageMap.xaml</DependentUpon>
+    </Compile>
     <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +141,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StorageMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -153,7 +160,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="L2S_FoodBankDB.dbml.layout">
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </None>

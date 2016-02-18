@@ -64,8 +64,12 @@ namespace FoodBankInventoryManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(true);
-            this.NavigationService.Navigate(h);
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

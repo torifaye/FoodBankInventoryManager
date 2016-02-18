@@ -132,24 +132,104 @@
                  FontSize="12"
                  Width="120"
                  VerticalAlignment="Center"/>
+        <TextBlock IsHitTestVisible="False" 
+                   Grid.Row="0"
+                   Text="Food Code" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" 
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtFood}" 
+                                     Value="">
+                            <Setter Property="Visibility" 
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBox x:Name="txtBin"
                  Grid.Row="1"
                  FontSize="12"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
+        <TextBlock IsHitTestVisible="False" 
+                   Text="Bin Code"
+                   Grid.Row="1"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" 
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtBin}" 
+                                     Value="">
+                            <Setter Property="Visibility" 
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBox x:Name="txtShelf"
                  Grid.Row="2"
                  FontSize="12"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
+        <TextBlock IsHitTestVisible="False" 
+                   Text="Shelf Code"
+                   Grid.Row="2"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" 
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtShelf}" 
+                                     Value="">
+                            <Setter Property="Visibility" 
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBox x:Name="txtQuantity"
                  Grid.Row="3"
                  FontSize="12"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
+        <TextBlock IsHitTestVisible="False"
+                   Grid.Row="3"
+                   Text="Quantity" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" 
+                            Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtQuantity}" 
+                                     Value="">
+                            <Setter Property="Visibility" 
+                                    Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <Button x:Name="btnRandomizeAll"
                 Grid.Row="4" Grid.Column="0"
                 Content="Randomize All"

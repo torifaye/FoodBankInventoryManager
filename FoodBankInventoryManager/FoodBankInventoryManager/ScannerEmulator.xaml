@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
-        Title="Scanner Emulator" MaxHeight="260" MaxWidth="420" Height="260" Width="420" MinHeight="260" MinWidth="420">
+        Title="Scanner Emulator" 
+        MaxHeight="260" 
+        MaxWidth="420" 
+        Height="260"
+        Width="420" 
+        MinHeight="260" 
+        MinWidth="420">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

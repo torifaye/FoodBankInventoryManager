@@ -23,10 +23,17 @@ namespace FoodBankInventoryManager
     public partial class DepositPage : Page
     {
         private L2S_FoodBankDBDataContext dbContext;
+        //These three arrays will capture the food items that the user inputs this session and will delete them after the user clicks finish adding
+        private List<string> itemNamesThisSession;
+        private List<int> quantitiesThisSession;
+        private List<DateTime> datesThisSession;
         public DepositPage()
         {
             InitializeComponent();
             dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
+            itemNamesThisSession = new List<string>();
+            quantitiesThisSession = new List<int>();
+            datesThisSession = new List<DateTime>();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +60,11 @@ namespace FoodBankInventoryManager
             inputBox.Visibility = Visibility.Visible;
             ScannerEmulator se = new ScannerEmulator();
             se.ShowDialog();
+            InvBin invBinThisSession = se.getCapturedData();
+            //grdItems.ItemsSource = dbContext.GetTable<InvBin>();
+            //itemNamesThisSession.Add(invBinThisSession.FoodCode);
+            //quantitiesThisSession.Add(invBinThisSession.Quantity);
+            //datesThisSession.Add(invBinThisSession.DateEntered);
             inputBox.Visibility = Visibility.Collapsed;
         }
 
@@ -64,8 +76,13 @@ namespace FoodBankInventoryManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(true);
-            this.NavigationService.Navigate(h);
+
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

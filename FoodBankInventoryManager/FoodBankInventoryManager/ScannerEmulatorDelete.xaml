@@ -132,18 +132,21 @@
 
         <Label Grid.Row="0"
                Grid.Column="0"
-               Margin="0,0,0,55" 
-               Content="  Food to be Removed" 
+               Margin="0,0,0,255" 
+               Content="Withdrawal"
+               FontFamily="Rockwell"
                VerticalAlignment="Center" 
                HorizontalAlignment="Center"
-               FontSize="16"></Label>
+               FontSize="32"></Label>
 
 
 
         <TextBox  Width="350"  
                   VerticalAlignment="Center" 
                   HorizontalAlignment="Center" 
-                  x:Name="txtFood" 
+                  x:Name="txtFood"
+                  FontSize="30"
+                  FontFamily="Rockwell"
                   Margin="5"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Enter Food Code Here" 
@@ -155,6 +158,10 @@
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
                             Value="Collapsed"/>
+                    <Setter Property="FontSize"
+                            Value="20"/>
+                    <Setter Property="FontFamily"
+                            Value="Rockwell"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Text, ElementName=txtFood}" 
                                      Value="">
@@ -167,15 +174,17 @@
         </TextBlock>
 
         <Button x:Name="btnRmvFromInv" 
-                Grid.Row="0" 
+                Grid.Row="0"
+                FontSize="20"
+                FontFamily="Rockwell"
                 Grid.Column="0" 
                 Margin="0, 105, 0, 0"
                 Content="Remove From Inventory"
                 Height="44"
                 Width="300"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"/>
-
+                HorizontalAlignment="Center"
+                Click="btnRmvFromInv_Click"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -184,20 +193,25 @@
 
             <StackPanel Orientation="Vertical">
                 <Label Grid.Column="0" 
-                       Content="  Bin To Be Removed:">
+                       Content="  Bin To Be Removed:"
+                       HorizontalAlignment="Center"
+                       Margin="111,0,50.5,0">
                 </Label>
                 <Border BorderBrush="Black" 
                         BorderThickness="1" 
                         Grid.Column="0" 
                         VerticalAlignment="Center" 
-                        Height="50" 
-                        Margin="10, 0, 10, 0">
+                        Height="50"
+                        Width="200"
+                        Margin="111,0,50.5,0">
                     <TextBlock x:Name="txtBinRemove"
-                               Grid.Column="0" 
+                               Grid.Column="0"
                                VerticalAlignment="Center" 
-                               Height="50" 
-                               Margin="10, 0, 10, 0" 
-                               FontSize="12">
+                               Height="50"
+                               FontFamily="Rockwell"
+                               FontSize="30"
+                               HorizontalAlignment="Center"
+                               Margin="10, 0, 10, 0">
                     </TextBlock>
                 </Border>
             </StackPanel>
@@ -205,20 +219,25 @@
             <StackPanel Orientation="Vertical" 
                         Grid.Column="1">
                 <Label Grid.Column="1" 
-                       Content="  Shelf to Remove Bin From:">
+                       Content="  Shelf to Remove Bin From:"
+                       HorizontalAlignment="Center"
+                       Margin="50.5,0,111.5,0">
                 </Label>
                 <Border BorderBrush="Black" 
                         BorderThickness="1"
                         Grid.Column="1"
                         VerticalAlignment="Center" 
-                        Height="50" 
-                        Margin="10, 0, 10, 0">
-                    <TextBlock x:Name="txtShelfRemove"
+                        Height="50"
+                        Width="200" 
+                        Margin="50.5,0,111.5,0">
+                <TextBlock x:Name="txtShelfRemove"
                                Grid.Column="0"
                                VerticalAlignment="Center" 
-                               Height="50" 
+                               Height="50"
+                               HorizontalAlignment="Center"
                                Margin="10, 0, 10, 0" 
-                               FontSize="12">
+                               FontSize="30"
+                               FontFamily="Rockwell">
                     </TextBlock>
                 </Border>
             </StackPanel>
@@ -233,6 +252,6 @@
                 Width="40" 
                 FontSize="22" 
                 FontWeight="Bold" 
-                Click="btnHome_Click">⌂</Button>
+                Click="btnHome_Click" Margin="0,-10,0,0">⌂</Button>
     </Grid>
 </Page>

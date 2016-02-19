@@ -44,6 +44,7 @@ namespace FoodBankInventoryManager
                                     Quantity = items.Quantity
                                 };
             grdItems.ItemsSource = inventoryInfo;
+            txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();
         }
     }
 }

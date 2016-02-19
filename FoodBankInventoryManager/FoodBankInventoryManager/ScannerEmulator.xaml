@@ -129,7 +129,8 @@
 
         <TextBox x:Name="txtFood"
                  Grid.Row="0"
-                 FontSize="12"
+                 FontSize="14"
+                 FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"/>
         <TextBlock IsHitTestVisible="False" 
@@ -142,6 +143,10 @@
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
                             Value="Collapsed"/>
+                    <Setter Property="FontFamily"
+                            Value="Rockwell"/>
+                    <Setter Property="FontSize"
+                            Value="14"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Text, ElementName=txtFood}" 
                                      Value="">
@@ -154,7 +159,8 @@
         </TextBlock>
         <TextBox x:Name="txtBin"
                  Grid.Row="1"
-                 FontSize="12"
+                 FontSize="14"
+                 FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
@@ -168,6 +174,10 @@
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
                             Value="Collapsed"/>
+                    <Setter Property="FontSize"
+                            Value="14"/>
+                    <Setter Property="FontFamily"
+                            Value="Rockwell"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Text, ElementName=txtBin}" 
                                      Value="">
@@ -180,7 +190,8 @@
         </TextBlock>
         <TextBox x:Name="txtShelf"
                  Grid.Row="2"
-                 FontSize="12"
+                 FontSize="14"
+                 FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
@@ -194,6 +205,10 @@
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
                             Value="Collapsed"/>
+                    <Setter Property="FontSize"
+                            Value="14"/>
+                    <Setter Property="FontFamily"
+                            Value="Rockwell"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Text, ElementName=txtShelf}" 
                                      Value="">
@@ -206,7 +221,8 @@
         </TextBlock>
         <TextBox x:Name="txtQuantity"
                  Grid.Row="3"
-                 FontSize="12"
+                 FontSize="14"
+                 FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"/>
@@ -220,6 +236,10 @@
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
                             Value="Collapsed"/>
+                    <Setter Property="FontSize"
+                            Value="14"/>
+                    <Setter Property="FontFamily"
+                            Value="Rockwell"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Text, ElementName=txtQuantity}" 
                                      Value="">

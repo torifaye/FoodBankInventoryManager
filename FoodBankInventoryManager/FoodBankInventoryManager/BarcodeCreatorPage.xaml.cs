@@ -51,10 +51,17 @@ namespace FoodBankInventoryManager
             b.RotateFlipType = RotateFlipType.RotateNoneFlipNone;
             b.LabelPosition = LabelPositions.BOTTOMCENTER;
 
+            string tempbarcode = txtBarcodedata.Text.Trim().ToUpper();
+
+            while (tempbarcode.Length < 13)
+            {
+                tempbarcode += " ";
+            }
+
             try
             {
 
-                dImg = (Bitmap)b.Encode(type, txtBarcodedata.Text.Trim().ToUpper(), System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
+                dImg = (Bitmap)b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
                 MemoryStream ms = new MemoryStream();
                 dImg.Save(ms, ImageFormat.Jpeg);
                 BitmapImage bImg = new BitmapImage();

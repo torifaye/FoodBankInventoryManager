@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="330"
-      Title="Statistics">
+      Title="Statistics"
+      Loaded="Page_Loaded">
 
     <Page.Resources>
         <Style x:Key="FocusVisual">
@@ -134,19 +135,25 @@
                     Grid.RowSpan="2">
             <TextBlock TextAlignment="Center"
                        FontWeight="Bold">Items</TextBlock>
-            <DataGrid>
+            <DataGrid x:Name="grdItems"
+                      ItemsSource="{Binding Path=FoodBankDB}"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Item Name"
+                    <DataGridTextColumn Header="Item Name"
+                                            Binding="{Binding Path=FoodCode}"
                                             Width="*" 
                                             IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Type" 
-                                            Width="*" 
-                                            IsReadOnly="True">
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Quantity"
-                                            Width="*" 
-                                            IsReadOnly="True">
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Date Entered" 
+                                        Width="*"
+                                        Binding="{Binding Path=DateEntered}"
+                                        IsReadOnly="True">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity"
+                                        Width="*"
+                                        Binding="{Binding Path=Quantity}"
+                                        IsReadOnly="True"
+                                        >
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

@@ -20,15 +20,30 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class StatisticsPage : Page
     {
+        private L2S_FoodBankDBDataContext dbContext;
         public StatisticsPage()
         {
             InitializeComponent();
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
             this.NavigationService.Navigate(h);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var inventoryInfo = from items in dbContext.GetTable<InvBin>()
+                                where items.FoodCode != null
+                                select new InventoryInfo
+                                {
+                                    FoodCode = items.FoodCode,
+                                    DateEntered = items.DateEntered,
+                                    Quantity = items.Quantity
+                                };
+            grdItems.ItemsSource = inventoryInfo;
         }
     }
 }

@@ -138,14 +138,18 @@
                     <DataGrid x:Name="grdItems"
                               Grid.Row="2" 
                               Height="444" 
-                              VerticalAlignment="Top">
+                              VerticalAlignment="Top"
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Item Name"
-                                                    Width="3*"
-                                                    />
-                            <DataGridTemplateColumn Header="Item Type" 
-                                                    Width="1.45*"/>
-                            <DataGridTemplateColumn Header="Quantity"
+                            <DataGridTextColumn Header="Item Name"
+                                                    
+                                                    Width="3*">
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Date Entered"
+                                                
+                                                Width="1.45*"/>
+                            <DataGridTextColumn Header="Quantity"
+                                                
                                                     />
                         </DataGrid.Columns>
                     </DataGrid>

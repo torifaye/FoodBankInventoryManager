@@ -75,6 +75,7 @@
     <Compile Include="DepositPage.xaml.cs">
       <DependentUpon>DepositPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryInfo.cs" />
     <Compile Include="L2S_FoodBankDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

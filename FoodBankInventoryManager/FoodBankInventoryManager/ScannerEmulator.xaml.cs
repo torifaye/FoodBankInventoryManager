@@ -109,6 +109,9 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void btnAddToInv_Click(object sender, RoutedEventArgs e)
         {
+            foodCode = txtFood.Text;
+            binCode = Convert.ToInt32(txtBin.Text);
+            shelfCode = Convert.ToInt32(txtShelf.Text);
             quantity = Convert.ToInt32(txtQuantity.Text);
             //An instance object to be added to the database
             InvBin invBin = new InvBin();

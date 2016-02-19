@@ -97,8 +97,10 @@
         <Button x:Name="btnStats" Grid.Column="2" Grid.Row="3" Margin="-10,10,20,10" FontSize="22" Cursor="Hand" Click="btnStats_Click">
             <TextBlock TextWrapping="Wrap" TextAlignment="Center">Inventory Reports</TextBlock>
         </Button>
-        <Button x:Name="btnMap" Content="Storage Map" Grid.Column="3" Grid.Row="3" Margin="-10,10,20,10" FontSize="24" Cursor="Hand"/>
-        <Button x:Name="btnCreateBarcode" Grid.Column="1" Grid.Row="4" Margin="171,10,20,10" FontSize="24" 
+       
+        <!--<Button x:Name="btnMap" Content="Storage Map" Grid.Column="3" Grid.Row="3" Margin="-10,10,20,10" FontSize="24" Cursor="Hand"/>-->
+        
+        <Button x:Name="btnCreateBarcode" Grid.Column="2" Grid.Row="3" Margin="171,10,20,10" FontSize="24" 
                 Cursor="Hand" Grid.ColumnSpan="2" Click="btnCreateBarcode_Click">
             <TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Barcode Creator"/></TextBlock>
         </Button>
@@ -131,16 +133,16 @@
                 BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="3" Grid.Row="3" BorderThickness="1" VerticalAlignment="Top">
             <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*4</TextBlock>
         </Border>
-        <Border x:Name="helpBarcode" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" Background="Orange" 
+        <!--<Border x:Name="helpBarcode" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" Background="Orange" 
                 BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="2" Grid.Row="4" BorderThickness="1" VerticalAlignment="Top">
             <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*5</TextBlock>
-        </Border>
+        </Border>-->
         <StackPanel x:Name="helpLabels" Visibility="Hidden" Orientation="Vertical" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Label FontStyle="Italic" FontSize="12">* Click on "Add Items" to add items to the Food Bank Mangager Inventory.</Label>
             <Label FontStyle="Italic" FontSize="12">** Click on "Remove Items" to remove items from the Food Bank Inventory.</Label>
             <Label FontStyle="Italic" FontSize="12">*** Click on "Data" to see a display of the total number of each item.</Label>
-            <Label FontStyle="Italic" FontSize="12">**** Click on "Storage Map" to see a layout of the storage bins.</Label>
-            <Label FontStyle="Italic" FontSize="12">***** Click on "Barcode Creator" to generate barcodes for bins.</Label>
+            <!--<Label FontStyle="Italic" FontSize="12">**** Click on "Storage Map" to see a layout of the storage bins.</Label>-->
+            <Label FontStyle="Italic" FontSize="12">**** Click on "Barcode Creator" to generate barcodes for bins.</Label>
         </StackPanel>
 
 

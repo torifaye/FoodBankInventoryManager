@@ -58,7 +58,7 @@ namespace FoodBankInventoryManager
                 {
                     helpAdd_Items.Visibility = Visibility.Visible;
                     helpRemove_Items.Visibility = Visibility.Visible;
-                    helpBarcode.Visibility = Visibility.Visible;
+                    //helpBarcode.Visibility = Visibility.Visible;
                 }
                 helpStats.Visibility = Visibility.Visible;
                 helpMap.Visibility = Visibility.Visible;
@@ -70,7 +70,7 @@ namespace FoodBankInventoryManager
                 {
                     helpAdd_Items.Visibility = Visibility.Hidden;
                     helpRemove_Items.Visibility = Visibility.Hidden;
-                    helpBarcode.Visibility = Visibility.Hidden;
+                    //helpBarcode.Visibility = Visibility.Hidden;
                 }
                 helpStats.Visibility = Visibility.Hidden;
                 helpMap.Visibility = Visibility.Hidden;

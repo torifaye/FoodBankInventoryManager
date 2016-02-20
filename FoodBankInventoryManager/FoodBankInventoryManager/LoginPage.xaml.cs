@@ -20,7 +20,7 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class LoginPage : Page
     {
-        private const string PASSWORD = "";
+        private const string PASSWORD = "12345";
 
         public LoginPage()
         {

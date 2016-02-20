@@ -136,20 +136,21 @@
                     </Viewbox>
 
                     <DataGrid x:Name="grdItems"
+                              ItemsSource="{Binding Path=FoodBankDB}"
                               Grid.Row="2" 
-                              Height="444" 
-                              VerticalAlignment="Top"
-                              AutoGenerateColumns="False">
+                              Height="444"
+                              AutoGenerateColumns="False"
+                              VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Item Name"
-                                                    
-                                                    Width="3*">
+                                                Binding="{Binding Path=FoodCode}"    
+                                                Width="3*">
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Date Entered"
-                                                
+                                                Binding="{Binding Path=DateEntered}"
                                                 Width="1.45*"/>
                             <DataGridTextColumn Header="Quantity"
-                                                
+                                                Binding="{Binding Path=Quantity}"
                                                     />
                         </DataGrid.Columns>
                     </DataGrid>

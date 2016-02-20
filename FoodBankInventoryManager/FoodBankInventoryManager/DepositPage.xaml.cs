@@ -23,6 +23,7 @@ namespace FoodBankInventoryManager
     public partial class DepositPage : Page
     {
         private L2S_FoodBankDBDataContext dbContext;
+        private DateTime dateOpened;
         //These three arrays will capture the food items that the user inputs this session and will delete them after the user clicks finish adding
         private List<string> itemNamesThisSession;
         private List<int> quantitiesThisSession;
@@ -30,7 +31,8 @@ namespace FoodBankInventoryManager
         public DepositPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+            dateOpened = DateTime.Now;
             itemNamesThisSession = new List<string>();
             quantitiesThisSession = new List<int>();
             datesThisSession = new List<DateTime>();
@@ -60,7 +62,15 @@ namespace FoodBankInventoryManager
             inputBox.Visibility = Visibility.Visible;
             ScannerEmulator se = new ScannerEmulator();
             se.ShowDialog();
-            InvBin invBinThisSession = se.getCapturedData();
+            var inventoryInfo = from items in dbContext.GetTable<InvBin>()
+                                where items.DateEntered.CompareTo(dateOpened) < 0
+                                select new InventoryInfo
+                                {
+                                    FoodCode = items.FoodCode,
+                                    DateEntered = items.DateEntered,
+                                    Quantity = items.Quantity
+                                };
+            grdItems.ItemsSource = inventoryInfo;
             //grdItems.ItemsSource = dbContext.GetTable<InvBin>();
             //itemNamesThisSession.Add(invBinThisSession.FoodCode);
             //quantitiesThisSession.Add(invBinThisSession.Quantity);

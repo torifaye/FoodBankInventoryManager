@@ -29,7 +29,7 @@ namespace FoodBankInventoryManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
+            HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
             this.NavigationService.Navigate(h);
         }
 

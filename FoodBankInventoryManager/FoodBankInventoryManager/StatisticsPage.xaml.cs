@@ -29,8 +29,18 @@ namespace FoodBankInventoryManager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
-            this.NavigationService.Navigate(h);
+            if (LoginPage.isAdministrator==true)
+            {
+                HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
+                LoginPage.isAdministrator = true;
+                this.NavigationService.Navigate(h);
+            }
+            else
+            {
+                HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
+                LoginPage.isAdministrator = false;
+                this.NavigationService.Navigate(h);
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

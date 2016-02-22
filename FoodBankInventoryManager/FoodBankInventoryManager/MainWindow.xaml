@@ -12,5 +12,5 @@
                   MinHeight="650" 
                   MaxHeight="700" MaxWidth="800" 
                   IsTabStop="False" FontFamily="Rockwell"
-                  ShowsNavigationUI="False">
+                  ShowsNavigationUI="False" Icon="Resources/Picture1.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 </NavigationWindow>

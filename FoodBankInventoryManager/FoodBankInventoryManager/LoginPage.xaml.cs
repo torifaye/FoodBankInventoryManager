@@ -20,6 +20,7 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class LoginPage : Page
     {
+        public static bool isAdministrator;
         private const string PASSWORD = "12345";
 
         public LoginPage()
@@ -30,6 +31,7 @@ namespace FoodBankInventoryManager
         private void btnLoginGuest_Click(object sender, RoutedEventArgs e)
         {
             HomePage h = new HomePage(false);
+            isAdministrator = false;
             this.NavigationService.Navigate(h);
         }
 
@@ -50,6 +52,7 @@ namespace FoodBankInventoryManager
             if (password == PASSWORD)
             {
                 HomePage h = new HomePage(true);
+                isAdministrator = true;
                 this.NavigationService.Navigate(h);
             }
             else

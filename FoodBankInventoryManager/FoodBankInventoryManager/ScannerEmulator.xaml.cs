@@ -118,6 +118,7 @@ namespace FoodBankInventoryManager
             {
                 dbContext.Shelfs.InsertOnSubmit(shelf);
             }
+            dbContext.InvBins.InsertOnSubmit(invBin);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window

@@ -26,11 +26,22 @@ namespace FoodBankInventoryManager.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\FoodBankDB.mdf;Integrat" +
-            "ed Security=True;User Instance=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLEXPRESS;AttachDbFilename=|DataDirectory|\\FoodBankDB.mdf;Integrated" +
+            " Security=True;User Instance=True")]
         public string FoodBankDBConnectionString {
             get {
                 return ((string)(this["FoodBankDBConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\FoodBankDB.mdf;Integrat" +
+            "ed Security=True;Connect Timeout=30;User Instance=True")]
+        public string FoodBankDBConnectionString1 {
+            get {
+                return ((string)(this["FoodBankDBConnectionString1"]));
             }
         }
     }

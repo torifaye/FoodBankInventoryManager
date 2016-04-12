@@ -25,6 +25,7 @@ namespace FoodBankInventoryManager
         private int binCode;
         private int shelfCode;
         private int quantity;
+        private DateTime dateEntered;
         private InvBin invBin;
         private Food food;
         private Bin bin;
@@ -35,6 +36,7 @@ namespace FoodBankInventoryManager
             foodCode = "";
             binCode = 0;
             shelfCode = 0;
+            dateEntered = DateTime.Now;
             dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
             invBin = new InvBin();
             food = new Food();
@@ -103,7 +105,7 @@ namespace FoodBankInventoryManager
             invBin.BinCode = binCode;
             shelf.ShelfCode = shelfCode;
             invBin.ShelfCode = shelfCode;
-            invBin.DateEntered = DateTime.Now;
+            invBin.DateEntered = DateTime.Now; 
             invBin.Quantity = quantity;
             //Sets the changes ready to insert when changes are submitted
             if ((from items in dbContext.GetTable<Food>() where items.FoodCode == food.FoodCode select items.FoodCode).ToArray<string>().Length == 0)

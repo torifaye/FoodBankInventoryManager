@@ -32,7 +32,6 @@ namespace FoodBankInventoryManager
         {
             InitializeComponent();
             dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
-            dateOpened = DateTime.Now;
             itemNamesThisSession = new List<string>();
             quantitiesThisSession = new List<int>();
             datesThisSession = new List<DateTime>();
@@ -43,6 +42,7 @@ namespace FoodBankInventoryManager
             //useful if you need to get data from the database such as table names
             //var dataModel = new AttributeMappingSource().GetModel(typeof(L2S_FoodBankDBDataContext));
             string[] sortOptions = new string[] { "Item Name (A-Z)", "Item Name (Z-A)", "Quantity (Asc.)", "Quantity (Desc.)" };
+            dateOpened = DateTime.Now;
             foreach (string item in sortOptions)
             {
                 comboSort.Items.Add(item);
@@ -63,7 +63,7 @@ namespace FoodBankInventoryManager
             ScannerEmulator se = new ScannerEmulator();
             se.ShowDialog();
             var inventoryInfo = from items in dbContext.GetTable<InvBin>()
-                                where items.DateEntered.CompareTo(dateOpened) < 0
+                                where items.DateEntered > dateOpened
                                 select new InventoryInfo
                                 {
                                     FoodCode = items.FoodCode,

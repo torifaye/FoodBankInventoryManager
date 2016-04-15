@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,12 +40,7 @@ namespace FoodBankInventoryManager
             //delete from InvBin based on BinCode
             dbContext.InvBins.DeleteOnSubmit(oldestItem);
             dbContext.SubmitChanges();
-            //foreach (var item in foodQuery)
-            //{
-            //    txtFood.Text = Convert.ToString(item);
-            //    //Do stuff
-            //    break;
-            //}
+            SqlCommand cmd = new SqlCommand("SELECT * FROM ");
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)

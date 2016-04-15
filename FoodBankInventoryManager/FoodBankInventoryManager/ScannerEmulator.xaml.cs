@@ -126,9 +126,5 @@ namespace FoodBankInventoryManager
             //Closes the window
             Close();
         }
-        public InvBin getCapturedData()
-        {
-            return invBin;
-        }
     }
 }

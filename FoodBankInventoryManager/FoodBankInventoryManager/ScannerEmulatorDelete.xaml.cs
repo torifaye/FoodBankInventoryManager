@@ -40,7 +40,6 @@ namespace FoodBankInventoryManager
             //delete from InvBin based on BinCode
             dbContext.InvBins.DeleteOnSubmit(oldestItem);
             dbContext.SubmitChanges();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM ");
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)

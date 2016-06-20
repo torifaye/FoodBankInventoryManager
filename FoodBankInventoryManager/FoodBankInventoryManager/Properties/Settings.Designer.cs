@@ -44,5 +44,16 @@ namespace FoodBankInventoryManager.Properties {
                 return ((string)(this["FoodBankDBConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-ABVBM4U\\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Secu" +
+            "rity=True")]
+        public string FoodBankDBConnectionString2 {
+            get {
+                return ((string)(this["FoodBankDBConnectionString2"]));
+            }
+        }
     }
 }

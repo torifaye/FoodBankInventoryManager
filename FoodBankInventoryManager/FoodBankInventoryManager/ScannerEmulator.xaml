@@ -234,7 +234,7 @@
                  HorizontalAlignment="Center"/>
         <TextBlock IsHitTestVisible="False"
                    Grid.Row="3"
-                   Text="Quantity" 
+                   Text="Quantity of Bins" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center" 
                    Foreground="DarkGray">

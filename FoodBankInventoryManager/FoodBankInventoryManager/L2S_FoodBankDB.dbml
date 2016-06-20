@@ -1,35 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FoodBankDB" Class="L2S_FoodBankDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True" SettingsObjectName="FoodBankInventoryManager.Properties.Settings" SettingsPropertyName="FoodBankDBConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True" SettingsObjectName="FoodBankInventoryManager.Properties.Settings" SettingsPropertyName="FoodBankDBConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Bin" Member="Bins">
     <Type Name="Bin">
-      <Column Name="BinCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Bin_InvBin" Member="InvBins" ThisKey="BinCode" OtherKey="BinCode" Type="InvBin" />
+      <Column Name="BinId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Bin_InventoryEntry" Member="InventoryEntries" ThisKey="BinId" OtherKey="BinId" Type="InventoryEntry" />
     </Type>
   </Table>
   <Table Name="dbo.Food" Member="Foods">
     <Type Name="Food">
-      <Column Name="FoodCode" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PricePerItem" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="MinimumQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Food_InvBin" Member="InvBins" ThisKey="FoodCode" OtherKey="FoodCode" Type="InvBin" />
+      <Column Name="FoodId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FoodName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AverageQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Food_InventoryEntry" Member="InventoryEntries" ThisKey="FoodId" OtherKey="FoodId" Type="InventoryEntry" />
     </Type>
   </Table>
-  <Table Name="dbo.InvBin" Member="InvBins">
-    <Type Name="InvBin">
-      <Column Name="BinCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ShelfCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="FoodCode" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.InventoryEntry" Member="InventoryEntries">
+    <Type Name="InventoryEntry">
+      <Column Name="EntryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FoodId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BinId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ShelfId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BinQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DateEntered" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Bin_InvBin" Member="Bin" ThisKey="BinCode" OtherKey="BinCode" Type="Bin" IsForeignKey="true" />
-      <Association Name="Food_InvBin" Member="Food" ThisKey="FoodCode" OtherKey="FoodCode" Type="Food" IsForeignKey="true" />
-      <Association Name="Shelf_InvBin" Member="Shelf" ThisKey="ShelfCode" OtherKey="ShelfCode" Type="Shelf" IsForeignKey="true" />
+      <Association Name="Bin_InventoryEntry" Member="Bin" ThisKey="BinId" OtherKey="BinId" Type="Bin" IsForeignKey="true" />
+      <Association Name="Food_InventoryEntry" Member="Food" ThisKey="FoodId" OtherKey="FoodId" Type="Food" IsForeignKey="true" />
+      <Association Name="Shelf_InventoryEntry" Member="Shelf" ThisKey="ShelfId" OtherKey="ShelfId" Type="Shelf" IsForeignKey="true" />
+      <Association Name="User_InventoryEntry" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Shelf" Member="Shelfs">
     <Type Name="Shelf">
-      <Column Name="ShelfCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Shelf_InvBin" Member="InvBins" ThisKey="ShelfCode" OtherKey="ShelfCode" Type="InvBin" />
+      <Column Name="ShelfId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Shelf_InventoryEntry" Member="InventoryEntries" ThisKey="ShelfId" OtherKey="ShelfId" Type="InventoryEntry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_InventoryEntry" Member="InventoryEntries" ThisKey="UserId" OtherKey="UserId" Type="InventoryEntry" />
     </Type>
   </Table>
 </Database>

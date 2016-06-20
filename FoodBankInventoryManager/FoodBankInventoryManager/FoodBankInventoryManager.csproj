@@ -81,6 +81,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="MinQuantityWindow.xaml.cs">
+      <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RijndaelSimple.cs" />
     <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
@@ -130,6 +134,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MinQuantityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScannerEmulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,7 +189,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Picture1.png">

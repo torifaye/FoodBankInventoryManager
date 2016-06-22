@@ -22,11 +22,11 @@ namespace FoodBankInventoryManager
         private Random rand;
         private L2S_FoodBankDBDataContext dbContext;
         private string foodCode;
-        private int binCode;
-        private int shelfCode;
+        private string binId;
+        private string shelfId;
         private int quantity;
         private DateTime dateEntered;
-        private InvBin invBin;
+        private InventoryEntry invEntry;
         private Food food;
         private Bin bin;
         private Shelf shelf;
@@ -34,11 +34,11 @@ namespace FoodBankInventoryManager
         {
             rand = new Random();
             foodCode = "";
-            binCode = 0;
-            shelfCode = 0;
+            binId = "";
+            shelfId = "";
             dateEntered = DateTime.Now;
-            dbContext = new L2S_FoodBankDBDataContext(@"C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf");
-            invBin = new InvBin();
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
+            invEntry = new InventoryEntry();
             food = new Food();
             bin = new Bin();
             shelf = new Shelf();
@@ -48,7 +48,7 @@ namespace FoodBankInventoryManager
         private void btnFood_Click(object sender, RoutedEventArgs e)
         {
             //Gathers all of the food codes currently in the database
-            string[] foodCodes = (from items in dbContext.GetTable<InvBin>() select items.FoodCode).ToArray<string>();
+            string[] foodCodes = (from items in dbContext.GetTable<InventoryEntry>() select items.FoodId).ToArray<string>();
             //a selection of possible chars that a random string can contain
             string possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
             //if the table isn't empty, selects a random existing food code, otherwise just generates a new food code
@@ -64,14 +64,14 @@ namespace FoodBankInventoryManager
         private void btnBin_Click(object sender, RoutedEventArgs e)
         {
             //if the table isn't empty, selects a random existing bin code, otherwise just generates a new bin code
-            binCode = rand.Next(9999);
-            txtBin.Text = binCode.ToString();
+            binId = rand.Next(9999).ToString();
+            txtBin.Text = binId.ToString();
         }
 
         private void btnShelf_Click(object sender, RoutedEventArgs e)
         {
-            shelfCode = rand.Next(51);
-            txtShelf.Text = shelfCode.ToString();
+            shelfId = rand.Next(51).ToString();
+            txtShelf.Text = shelfId.ToString();
         }
         /// <summary>
         /// Randomizes codes for all fields
@@ -94,33 +94,33 @@ namespace FoodBankInventoryManager
         private void btnAddToInv_Click(object sender, RoutedEventArgs e)
         {
             foodCode = txtFood.Text;
-            binCode = Convert.ToInt32(txtBin.Text);
-            shelfCode = Convert.ToInt32(txtShelf.Text);
+            binId = txtBin.Text;
+            shelfId = txtShelf.Text;
             quantity = Convert.ToInt32(txtQuantity.Text);
             //An instance object to be added to the database
             //Sets a volue for all of the columns in the invBin table
-            food.FoodCode = foodCode;
-            invBin.FoodCode = foodCode;
-            bin.BinCode = binCode;
-            invBin.BinCode = binCode;
-            shelf.ShelfCode = shelfCode;
-            invBin.ShelfCode = shelfCode;
-            invBin.DateEntered = DateTime.Now; 
-            invBin.Quantity = quantity;
+            food.FoodId = foodCode;
+            invEntry.FoodId = foodCode;
+            bin.BinId = binId;
+            invEntry.BinId = binId;
+            shelf.ShelfId = shelfId;
+            invEntry.ShelfId = shelfId;
+            invEntry.DateEntered = DateTime.Now; 
+            invEntry.BinQty = quantity;
             //Sets the changes ready to insert when changes are submitted
-            if ((from items in dbContext.GetTable<Food>() where items.FoodCode == food.FoodCode select items.FoodCode).ToArray<string>().Length == 0)
+            if ((from items in dbContext.GetTable<Food>() where items.FoodId == food.FoodId select items.FoodId).ToArray<string>().Length == 0)
             {
                 dbContext.Foods.InsertOnSubmit(food); 
             }
-            if ((from items in dbContext.GetTable<Bin>() where items.BinCode == bin.BinCode select items.BinCode).ToArray<int>().Length == 0)
+            if ((from items in dbContext.GetTable<Bin>() where items.BinId == bin.BinId select items.BinId).ToArray<string>().Length == 0)
             {
                 dbContext.Bins.InsertOnSubmit(bin);
             }
-            if ((from items in dbContext.GetTable<Shelf>() where items.ShelfCode == shelf.ShelfCode select items.ShelfCode).ToArray<int>().Length == 0)
+            if ((from items in dbContext.GetTable<Shelf>() where items.ShelfId == shelf.ShelfId select items.ShelfId).ToArray<string>().Length == 0)
             {
                 dbContext.Shelfs.InsertOnSubmit(shelf);
             }
-            dbContext.InvBins.InsertOnSubmit(invBin);
+            dbContext.InventoryEntries.InsertOnSubmit(invEntry);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window

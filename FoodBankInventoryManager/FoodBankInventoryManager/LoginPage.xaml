@@ -72,27 +72,37 @@
             </Setter>
         </Style>
     </Page.Resources>
+    <StackPanel Orientation="Vertical">
 
-    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Account Management">
+                    <MenuItem Header="_Create a new account"/>
+                    <MenuItem Header="_Change password"/>
+                    <MenuItem Header="_Change existing account"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button x:Name="btnLoginGuest" Height="100" Width="100" Margin="0,0,100,0" Click="btnLoginGuest_Click">
-                <TextBlock TextWrapping="Wrap" FontSize="22">Continue as Guest</TextBlock>
-            </Button>
-            <Label VerticalAlignment="Center" FontSize="24">or</Label>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="100,0,0,0">
-                <TextBlock HorizontalAlignment="Center" FontSize="18">Continue as Admin:</TextBlock>
-                <PasswordBox x:Name="pwBoxAdmin" Width="200" Height="26" FontSize="18" FontFamily="Rockwell" KeyDown="pwBoxAdmin_KeyDown"/>
-                <Button x:Name="btnLoginAdmin" Width="100" Height="50" FontSize="22" Margin="0,10,0,0" Click="btnLoginAdmin_Click">Login</Button>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                <Button x:Name="btnLoginGuest" Height="100" Width="100" Margin="0,0,100,0" Click="btnLoginGuest_Click">
+                    <TextBlock TextWrapping="Wrap" FontSize="22">Continue as Guest</TextBlock>
+                </Button>
+                <Label VerticalAlignment="Center" FontSize="24">or</Label>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="100,0,0,0">
+                    <TextBlock HorizontalAlignment="Center" FontSize="18">Continue as Admin:</TextBlock>
+                    <PasswordBox x:Name="pwBoxAdmin" Width="200" Height="26" FontSize="18" FontFamily="Rockwell" KeyDown="pwBoxAdmin_KeyDown"/>
+                    <Button x:Name="btnLoginAdmin" Width="100" Height="50" FontSize="22" Margin="0,10,0,0" Click="btnLoginAdmin_Click">Login</Button>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
 
-        <Image Margin="30,0,30,90" Source="pack://siteoforigin:,,,/Resources/Reach-Out-Lakota.png"></Image>
-    </Grid>
+            <Image Margin="30,0,30,90" Source="pack://siteoforigin:,,,/Resources/Reach-Out-Lakota.png"></Image>
+        </Grid>
+    </StackPanel>
 </Page>

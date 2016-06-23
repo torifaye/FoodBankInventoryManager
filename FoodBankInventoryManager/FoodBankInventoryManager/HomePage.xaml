@@ -21,46 +21,94 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <SolidColorBrush x:Key="Button.Static.Background" 
+                         Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" 
+                         Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" 
+                         Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" 
+                         Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" 
+                         Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" 
+                         Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" 
+                         Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" 
+                         Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" 
+                         Color="#FF838383"/>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FocusVisualStyle" 
+                    Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" 
+                    Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" 
+                    Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" 
+                    Value="1"/>
+            <Setter Property="HorizontalContentAlignment" 
+                    Value="Center"/>
+            <Setter Property="VerticalContentAlignment" 
+                    Value="Center"/>
+            <Setter Property="Padding" 
+                    Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="7" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border x:Name="border" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                CornerRadius="7" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" 
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            <Trigger Property="IsDefaulted" 
+                                     Value="true">
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="true">
+                                <Setter Property="Background" 
+                                        TargetName="border" 
+                                        Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{StaticResource Button.MouseOver.Border}"/>
                             </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            <Trigger Property="IsPressed" 
+                                     Value="true">
+                                <Setter Property="Background" 
+                                        TargetName="border"
+                                        Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{StaticResource Button.Pressed.Border}"/>
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            <Trigger Property="IsEnabled" 
+                                     Value="false">
+                                <Setter Property="Background" 
+                                        TargetName="border" 
+                                        Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" 
+                                        TargetName="border" 
+                                        Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" 
+                                        TargetName="contentPresenter" 
+                                        Value="{StaticResource Button.Disabled.Foreground}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -87,67 +135,173 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="image" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="10,10,50,50" 
+        <Image x:Name="image" 
+               Grid.Row="0" Grid.Column="0" 
+               Grid.RowSpan="2" 
+               Grid.ColumnSpan="3"
+               Margin="10,10,50,50" 
                Source="pack://siteoforigin:,,,/Resources/Reach-Out-Lakota.png"  />
 
-        <Button x:Name="btnAdd_Items" Content="Add Items" Grid.Column="2" Grid.Row="2" Margin="-10,10,20,10" 
-                FontSize="26" Cursor="Hand" Click="btnAdd_Items_Click"/>
-        <Button x:Name="btnRemove_Items" Content="Withdraw Items" Grid.Column="3" Grid.Row="2" Margin="-10,10,20,10" 
-                FontSize="22" Click="btnRemove_Items_Click" Cursor="Hand"/>
-        <Button x:Name="btnStats" Grid.Column="2" Grid.Row="3" Margin="-10,10,20,10" FontSize="22" Cursor="Hand" Click="btnStats_Click">
-            <TextBlock TextWrapping="Wrap" TextAlignment="Center">Inventory Reports</TextBlock>
+        <Button x:Name="btnAdd_Items" 
+                Content="Add Items" 
+                Grid.Column="2" 
+                Grid.Row="2" 
+                Margin="-10,10,20,10" 
+                FontSize="26" 
+                Cursor="Hand" 
+                Click="btnAdd_Items_Click"/>
+        <Button x:Name="btnRemove_Items" 
+                Content="Withdraw Items" 
+                Grid.Column="3" 
+                Grid.Row="2" 
+                Margin="-10,10,20,10" 
+                FontSize="22" 
+                Click="btnRemove_Items_Click" 
+                Cursor="Hand"/>
+        <Button x:Name="btnStats" 
+                Grid.Row="3" Grid.Column="2" 
+                Margin="-10,10,20,10" 
+                FontSize="22" 
+                Cursor="Hand" 
+                Click="btnStats_Click">
+            <TextBlock TextWrapping="Wrap" 
+                       TextAlignment="Center">
+                Inventory Reports</TextBlock>
         </Button>
        
-        <!--<Button x:Name="btnMap" Content="Storage Map" Grid.Column="3" Grid.Row="3" Margin="-10,10,20,10" FontSize="24" Cursor="Hand"/>-->
-        
-        <Button x:Name="btnCreateBarcode" Grid.Column="2" Grid.Row="3" Margin="171,10,20,10" FontSize="24" 
-                Cursor="Hand" Grid.ColumnSpan="2" Click="btnCreateBarcode_Click">
-            <TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Barcode Creator"/></TextBlock>
+        <Button x:Name="btnCreateBarcode" 
+                Grid.Column="2" 
+                Grid.Row="3" 
+                Margin="171,10,20,10" 
+                FontSize="24" 
+                Cursor="Hand" 
+                Grid.ColumnSpan="2" 
+                Click="btnCreateBarcode_Click">
+            <TextBlock TextWrapping="Wrap" 
+                       TextAlignment="Center">
+                <Run Text="Barcode Creator"/></TextBlock>
         </Button>
 
 
-        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" HorizontalAlignment="Center" Margin="0,-20,0,0">
-            <Label FontSize="60" FontWeight="Bold" Foreground="Red" Content="Food"/>
-            <Label FontSize="60" FontWeight="Bold" Margin="0,-25,0,0" Foreground="Red" Content="Bank"/>
-            <Label FontSize="60" FontWeight="Bold" Margin="0,-25,0,0"  Foreground="Red" Content="Manager."/>
+        <StackPanel Orientation="Vertical" 
+                    Grid.Row="2" Grid.Column="0" 
+                    Grid.RowSpan="3" Grid.ColumnSpan="2"  
+                    HorizontalAlignment="Center" 
+                    Margin="0,-20,0,0">
+            <Label FontSize="60" 
+                   FontWeight="Bold" 
+                   Foreground="Red" 
+                   Content="Food"/>
+            <Label FontSize="60"
+                   FontWeight="Bold" 
+                   Margin="0,-25,0,0" 
+                   Foreground="Red" 
+                   Content="Bank"/>
+            <Label FontSize="60"
+                   FontWeight="Bold" 
+                   Margin="0,-25,0,0"  
+                   Foreground="Red" 
+                   Content="Manager"/>
         </StackPanel>
 
-        <Button x:Name="btnHelp" Content="?" Grid.Column="3" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Bottom"
-                Margin="0,0,10,10" FontSize="25" Width="30" Click="btnHelp_Click" Cursor="Help"/>
+        <Button x:Name="btnHelp" 
+                Content="?" 
+                Grid.Row="5" Grid.Column="3"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                Margin="0,0,10,10" 
+                FontSize="25"
+                Width="30" 
+                Click="btnHelp_Click" 
+                Cursor="Help"/>
 
-        <Border x:Name="helpAdd_Items"  Visibility="Hidden"  CornerRadius="15" Width="35" Height="30" 
-                Background="Orange" BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="2" Grid.Row="2" 
-                BorderThickness="1" VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*1</TextBlock>
+        <Border x:Name="helpAdd_Items"  
+                Grid.Row="2" Grid.Column="2" 
+                Visibility="Hidden"  
+                CornerRadius="15" 
+                Width="35" Height="30" 
+                Background="Orange" 
+                BorderBrush="Black" 
+                Margin="-190,0,0,0"  
+                BorderThickness="1" 
+                VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" 
+                       FontSize="20" 
+                       Foreground="Black">*1</TextBlock>
         </Border>
-        <Border x:Name="helpRemove_Items" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" 
-                Background="Orange" BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="3" Grid.Row="2" 
-                BorderThickness="1" VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*2</TextBlock>
+        
+        <Border x:Name="helpRemove_Items" 
+                Grid.Row="2" Grid.Column="3"
+                Visibility="Hidden" 
+                CornerRadius="15" 
+                Width="35" Height="30" 
+                Background="Orange" 
+                BorderBrush="Black" 
+                Margin="-190,0,0,0"  
+                BorderThickness="1" 
+                VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" 
+                       FontSize="20" 
+                       Foreground="Black">*2</TextBlock>
         </Border>
-        <Border x:Name="helpStats" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" Background="Orange" 
-                BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="2" Grid.Row="3" BorderThickness="1" VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*3</TextBlock>
+        <Border x:Name="helpStats"
+                Grid.Row="3" Grid.Column="2" 
+                Visibility="Hidden" 
+                CornerRadius="15" 
+                Width="35" Height="30" 
+                Background="Orange" 
+                BorderBrush="Black" 
+                Margin="-190,0,0,0"  
+                BorderThickness="1" 
+                VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" 
+                       FontSize="20" 
+                       Foreground="Black">*3</TextBlock>
         </Border>
-        <Border x:Name="helpMap" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" Background="Orange" 
-                BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="3" Grid.Row="3" BorderThickness="1" VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*4</TextBlock>
+        <Border x:Name="helpMap" 
+                Grid.Row="3" Grid.Column="3"
+                Visibility="Hidden" 
+                CornerRadius="15" 
+                Width="35" Height="30" 
+                Background="Orange" 
+                BorderBrush="Black"
+                Margin="-190,0,0,0"
+                BorderThickness="1" 
+                VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" 
+                       FontSize="20" 
+                       Foreground="Black">*4</TextBlock>
         </Border>
-        <!--<Border x:Name="helpBarcode" Visibility="Hidden" CornerRadius="15" Width="35" Height="30" Background="Orange" 
-                BorderBrush="Black" Margin="-190,0,0,0" Grid.Column="2" Grid.Row="4" BorderThickness="1" VerticalAlignment="Top">
-            <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="Black">*5</TextBlock>
-        </Border>-->
-        <StackPanel x:Name="helpLabels" Visibility="Hidden" Orientation="Vertical" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Label FontStyle="Italic" FontSize="12">* Click on "Add Items" to add items to the Food Bank Mangager Inventory.</Label>
-            <Label FontStyle="Italic" FontSize="12">** Click on "Withdraw Items" to remove items from the Food Bank Inventory.</Label>
-            <Label FontStyle="Italic" FontSize="12">*** Click on "Inventory Reports" to see a display of the total number of each item.</Label>
-            <!--<Label FontStyle="Italic" FontSize="12">**** Click on "Storage Map" to see a layout of the storage bins.</Label>-->
-            <Label FontStyle="Italic" FontSize="12">**** Click on "Barcode Creator" to generate barcodes for bins.</Label>
+        <StackPanel x:Name="helpLabels" 
+                    Grid.Row="4" Grid.Column="0"
+                    Visibility="Hidden"
+                    Orientation="Vertical"
+                    Grid.RowSpan="2" 
+                    Grid.ColumnSpan="4" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Left">
+            <Label FontStyle="Italic" 
+                   FontSize="12">
+                * Click on "Add Items" to add items to the Food Bank Mangager Inventory.</Label>
+            <Label FontStyle="Italic" 
+                   FontSize="12">
+                ** Click on "Withdraw Items" to remove items from the Food Bank Inventory.</Label>
+            <Label FontStyle="Italic" 
+                   FontSize="12">
+                *** Click on "Inventory Reports" to see a display of the total number of each item.</Label>
+            <Label FontStyle="Italic" 
+                   FontSize="12">
+                **** Click on "Barcode Creator" to generate barcodes for bins.</Label>
         </StackPanel>
 
 
 
-        <Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>
-
+        <Button x:Name="btnHome" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="40" Width="40" 
+                FontSize="22" 
+                FontWeight="Bold" 
+                Click="bttnHome_Click">⌂</Button>
     </Grid>
 </Page>

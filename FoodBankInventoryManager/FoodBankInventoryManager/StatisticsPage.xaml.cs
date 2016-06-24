@@ -24,7 +24,7 @@ namespace FoodBankInventoryManager
         public StatisticsPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,13 +45,13 @@ namespace FoodBankInventoryManager
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var inventoryInfo = from items in dbContext.GetTable<InvBin>()
-                                where items.FoodCode != null
+            var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
+                                where items.FoodId != null
                                 select new InventoryInfo
                                 {
-                                    FoodCode = items.FoodCode,
+                                    FoodCode = items.FoodId,
                                     DateEntered = items.DateEntered,
-                                    Quantity = items.Quantity
+                                    Quantity = items.BinQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();

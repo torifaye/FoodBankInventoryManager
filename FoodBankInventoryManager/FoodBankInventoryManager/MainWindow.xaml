@@ -11,6 +11,9 @@
                   Source="LoginPage.xaml"
                   MinHeight="650" 
                   MaxHeight="700" MaxWidth="800" 
-                  IsTabStop="False" FontFamily="Rockwell"
-                  ShowsNavigationUI="False" Icon="Resources/Picture1.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+                  IsTabStop="False" 
+                  FontFamily="Rockwell"
+                  Icon="Resources/Picture1.png" 
+                  ResizeMode="NoResize" 
+                  WindowStartupLocation="CenterScreen">
 </NavigationWindow>

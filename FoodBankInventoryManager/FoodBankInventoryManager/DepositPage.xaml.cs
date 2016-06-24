@@ -31,7 +31,7 @@ namespace FoodBankInventoryManager
         public DepositPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
             itemNamesThisSession = new List<string>();
             quantitiesThisSession = new List<int>();
             datesThisSession = new List<DateTime>();
@@ -62,13 +62,13 @@ namespace FoodBankInventoryManager
             inputBox.Visibility = Visibility.Visible;
             ScannerEmulator se = new ScannerEmulator();
             se.ShowDialog();
-            var inventoryInfo = from items in dbContext.GetTable<InvBin>()
+            var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
                                 where items.DateEntered > dateOpened
                                 select new InventoryInfo
                                 {
-                                    FoodCode = items.FoodCode,
+                                    FoodCode = items.FoodId,
                                     DateEntered = items.DateEntered,
-                                    Quantity = items.Quantity
+                                    Quantity = items.BinQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             //grdItems.ItemsSource = dbContext.GetTable<InvBin>();

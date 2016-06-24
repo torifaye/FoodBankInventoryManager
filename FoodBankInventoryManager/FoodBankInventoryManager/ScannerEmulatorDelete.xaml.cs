@@ -25,7 +25,7 @@ namespace FoodBankInventoryManager
         public ScannerEmulatorDelete()
         {
             rand = new Random();
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\YostR\Source\Repos\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankInventoryManager\FoodBankDB.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True");
+            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
             InitializeComponent();
         }
         private void btnRmvFromInv_Click(object sender, RoutedEventArgs e)
@@ -33,12 +33,12 @@ namespace FoodBankInventoryManager
             //string[] foodQuery = (from food in dbContext.GetTable<InvBin>() where food.FoodCode == txtFood.Text orderby food.DateEntered select food).ToArray<string>();
             //Gathers info from Bins for oldest to newest
             //IQueryable < InvBin > dateQuery = from database in foodQuery orderby database.DateEntered select database;
-            var oldestItem = (from food in dbContext.GetTable<InvBin>() where food.FoodCode == txtFood.Text orderby food.DateEntered select food).First();
-            txtBinRemove.Text = Convert.ToString(oldestItem.BinCode);
-            txtShelfRemove.Text = Convert.ToString(oldestItem.ShelfCode);
+            var oldestItem = (from food in dbContext.GetTable<InventoryEntry>() where food.FoodId == txtFood.Text orderby food.DateEntered select food).First();
+            txtBinRemove.Text = oldestItem.BinId;
+            txtShelfRemove.Text = oldestItem.ShelfId;
 
             //delete from InvBin based on BinCode
-            dbContext.InvBins.DeleteOnSubmit(oldestItem);
+            dbContext.InventoryEntries.DeleteOnSubmit(oldestItem);
             dbContext.SubmitChanges();
         }
 

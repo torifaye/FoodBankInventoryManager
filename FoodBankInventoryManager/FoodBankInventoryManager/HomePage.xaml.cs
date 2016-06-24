@@ -101,6 +101,16 @@ namespace FoodBankInventoryManager
             LoginPage l = new LoginPage();
             this.NavigationService.Navigate(l);
         }
+
+        private void btnBinMaitenance_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAuditTrail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

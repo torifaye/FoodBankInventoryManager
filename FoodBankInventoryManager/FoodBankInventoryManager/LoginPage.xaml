@@ -8,7 +8,34 @@
       d:DesignHeight="650" d:DesignWidth="725"
       Title="LoginPage">
     <Page.Resources>
-        <Style x:Key="FocusVisual">
+
+        <ControlTemplate x:Key="FocusVisual1"
+            TargetType="Frame">
+            <DockPanel Margin="7">
+                <StackPanel Margin="7"
+                            Orientation="Horizontal"
+                            DockPanel.Dock="Top">
+                    <Button Content="←" 
+                            FontFamily="Rockwell"
+                            FontSize="24"
+                            Command="{x:Static NavigationCommands.BrowseBack}" 
+                            IsEnabled="{TemplateBinding CanGoBack}"/>
+                    <Button Content="→" 
+                            Command="{x:Static NavigationCommands.BrowseForward}" 
+                            IsEnabled="{TemplateBinding CanGoForward}"/>
+                </StackPanel>
+
+                <Border BorderBrush="Green"
+                        Margin="7"
+                        BorderThickness="7"
+                        Padding="7"
+                        CornerRadius="7"
+                        Background="White">
+                    <ContentPresenter/>
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <Style x:Key="FocusVisual2">
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -29,7 +56,7 @@
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>

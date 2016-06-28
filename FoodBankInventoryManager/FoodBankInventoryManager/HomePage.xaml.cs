@@ -104,7 +104,8 @@ namespace FoodBankInventoryManager
 
         private void btnBinMaitenance_Click(object sender, RoutedEventArgs e)
         {
-
+            BinMaitenance b = new BinMaitenance();
+            this.NavigationService.Navigate(b);
         }
 
         private void btnAuditTrail_Click(object sender, RoutedEventArgs e)

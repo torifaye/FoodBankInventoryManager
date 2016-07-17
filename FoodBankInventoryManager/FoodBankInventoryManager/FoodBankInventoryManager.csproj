@@ -72,11 +72,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountManagementPage.xaml.cs">
-      <DependentUpon>AccountManagementPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="BinMaitenancePage.xaml.cs">
       <DependentUpon>BinMaitenancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAccountWindow.xaml.cs">
+      <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DepositPage.xaml.cs">
       <DependentUpon>DepositPage.xaml</DependentUpon>
@@ -94,24 +94,21 @@
     <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScannerEmulatorDelete.xaml.cs">
-      <DependentUpon>ScannerEmulatorDelete.xaml</DependentUpon>
+    <Compile Include="DeletePage.xaml.cs">
+      <DependentUpon>DeletePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StorageMap.xaml.cs">
-      <DependentUpon>StorageMap.xaml</DependentUpon>
-    </Compile>
-    <Page Include="AccountManagementPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BinMaitenancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,15 +153,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ScannerEmulatorDelete.xaml">
+    <Page Include="DeletePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StatisticsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StorageMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -134,7 +134,7 @@
                             Margin="100,0,0,0">
                     <TextBlock HorizontalAlignment="Center" 
                                FontSize="18">
-                        Continue as Admin:</TextBlock>
+                        Login as User</TextBlock>
                     <PasswordBox x:Name="pwBoxAdmin" 
                                  Width="200" Height="26" 
                                  FontSize="18" 

@@ -143,15 +143,21 @@
                               VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Item Name"
-                                                Binding="{Binding Path=FoodCode}"    
-                                                Width="3*">
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Date Entered"
-                                                Binding="{Binding Path=DateEntered}"
-                                                Width="1.45*"/>
-                            <DataGridTextColumn Header="Quantity"
+                                                FontFamily="Rockwell"
+                                                Binding="{Binding Path=FoodId}"    
+                                                Width="3*"/>
+                            <DataGridTextColumn Header="Bin #"
+                                                FontFamily="Rockwell"
+                                                Binding="{Binding Path=BinId}"
+                                                Width="1*"/>
+                            <DataGridTextColumn Header="Shelf #"
+                                                FontFamily="Rockwell"
+                                                Binding="{Binding Path=ShelfId}"
+                                                Width="1*"/>
+                            <DataGridTextColumn Header="Qty."
+                                                FontFamily="Rockwell"
                                                 Binding="{Binding Path=Quantity}"
-                                                    />
+                                                Width="0.65*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Grid.Row="3" 

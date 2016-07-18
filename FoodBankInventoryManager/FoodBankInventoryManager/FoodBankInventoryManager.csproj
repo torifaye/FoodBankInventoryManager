@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Account.cs" />
     <Compile Include="BinMaitenancePage.xaml.cs">
       <DependentUpon>BinMaitenancePage.xaml</DependentUpon>
     </Compile>
@@ -89,6 +90,9 @@
     </Compile>
     <Compile Include="MinQuantityWindow.xaml.cs">
       <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordManagementWindow.xaml.cs">
+      <DependentUpon>PasswordManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RijndaelSimple.cs" />
     <Compile Include="ScannerEmulator.xaml.cs">
@@ -146,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MinQuantityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

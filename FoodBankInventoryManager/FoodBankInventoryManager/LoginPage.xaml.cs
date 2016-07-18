@@ -60,5 +60,16 @@ namespace FoodBankInventoryManager
                 MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
             }
         }
+
+        private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAccountWindow c = new CreateAccountWindow();
+            this.NavigationService.Navigate(c);
+        }
+
+        private void mItemPassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

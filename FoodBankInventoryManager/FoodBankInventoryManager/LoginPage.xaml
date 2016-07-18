@@ -104,8 +104,12 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Account Management">
-                    <MenuItem Header="_Create new account..."/>
-                    <MenuItem Header="_Change password..."/>
+                    <MenuItem x:Name="mItemNewAccount"
+                              Header="_Create new account..."
+                              Click="mItemNewAccount_Click"/>
+                    <MenuItem x:Name="mItemPassword"
+                              Header="_Change password..."
+                              Click="mItemPassword_Click"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

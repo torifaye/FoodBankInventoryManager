@@ -8,15 +8,19 @@ namespace FoodBankInventoryManager
 {
     class InventoryInfo
     {
-        public string FoodCode
+        public string FoodId
         {
             get; set;
         }
-        public DateTime DateEntered
+        public string BinId
         {
             get; set;
         }
-        public int Quantity
+        public string ShelfId
+        {
+            get; set;
+        }
+        public int BinQuantity
         {
             get; set;
         }

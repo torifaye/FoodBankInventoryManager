@@ -69,7 +69,8 @@ namespace FoodBankInventoryManager
 
         private void mItemPassword_Click(object sender, RoutedEventArgs e)
         {
-
+            PasswordManagementWindow p = new PasswordManagementWindow();
+            this.NavigationService.Navigate(p);
         }
     }
 }

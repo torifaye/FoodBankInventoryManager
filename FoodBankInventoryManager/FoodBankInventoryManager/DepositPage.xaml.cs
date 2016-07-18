@@ -66,9 +66,10 @@ namespace FoodBankInventoryManager
                                 where items.DateEntered > dateOpened
                                 select new InventoryInfo
                                 {
-                                    FoodCode = items.FoodId,
-                                    DateEntered = items.DateEntered,
-                                    Quantity = items.BinQty
+                                    FoodId = items.FoodId,
+                                    BinId = items.BinId,
+                                    ShelfId = items.ShelfId,
+                                    BinQuantity = items.BinQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             //grdItems.ItemsSource = dbContext.GetTable<InvBin>();
@@ -83,16 +84,5 @@ namespace FoodBankInventoryManager
             HomePage h = new HomePage(true);
             this.NavigationService.Navigate(h);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace FoodBankInventoryManager
         private static uint myUserId;
         private string myFirstName;
         private string myLastName;
-        private string myPassword;
+        private SecureString myPassword;
         private string myEmail;
         private bool myAccessLevel;
 
@@ -32,6 +33,11 @@ namespace FoodBankInventoryManager
         {
             get { return myLastName; }
             set { myLastName = value; }
+        }
+        public SecureString Password
+        {
+            get { return Password; }
+            set { myPassword = value; }
         }
         public string Email
         {

@@ -818,6 +818,8 @@ namespace FoodBankInventoryManager
 		
 		private string _LastName;
 		
+		private string _Email;
+		
 		private string _Password;
 		
 		private EntitySet<InventoryEntry> _InventoryEntries;
@@ -832,6 +834,8 @@ namespace FoodBankInventoryManager
     partial void OnFirstNameChanged();
     partial void OnLastNameChanging(string value);
     partial void OnLastNameChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
     partial void OnPasswordChanging(string value);
     partial void OnPasswordChanged();
     #endregion
@@ -898,6 +902,26 @@ namespace FoodBankInventoryManager
 					this._LastName = value;
 					this.SendPropertyChanged("LastName");
 					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
 				}
 			}
 		}

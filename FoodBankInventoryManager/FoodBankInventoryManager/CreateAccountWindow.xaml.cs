@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Mail;
+using NUnit.Framework;
 
 namespace FoodBankInventoryManager
 {
@@ -21,13 +22,17 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class CreateAccountWindow : Window
     {
-        private Account newUser;
         private bool[] emptyFields;
+        private L2S_FoodBankDBDataContext dbContext;
+        private User myAccount;
+
 
         public CreateAccountWindow()
         {
             InitializeComponent();
             emptyFields = new bool[7];
+            dbContext = new L2S_FoodBankDBDataContext();
+            myAccount = new User();
         }
 
         private void cBoxAccessLevel_Loaded(object sender, RoutedEventArgs e)
@@ -46,40 +51,22 @@ namespace FoodBankInventoryManager
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if (txtFirstName.Text.ToString().Trim() != null)
+            myAccount.FirstName = txtFirstName.Text;
+            myAccount.LastName = txtLastName.Text;
+            //TODO: Confirm that the email that they give is valid
+            if (txtEmail.Text == txtConfirmEmail.Text)
             {
-                newUser.FirstName = txtFirstName.Text;
-                emptyFields[0] = false;
+                myAccount.Email = txtEmail.Text;
             }
-            if (txtLastName.Text.ToString().Trim() != null)
+            string mySalt = BCrypt.GenerateSalt();
+            string myHash = BCrypt.HashPassword(pwBoxPassword.Password, mySalt);
+            if (BCrypt.CheckPassword(pwBoxConfirmPassword.Password, myHash))
             {
-                newUser.LastName = txtLastName.Text;
-                emptyFields[1] = false;
+                myAccount.Password = myHash;
             }
-            if (txtEmail.Text.ToString().Trim() != null)
-            {
-                emptyFields[2] = false;
-            }
-            if (txtConfirmEmail.Text.ToString().Trim() != null)
-            {
-                emptyFields[3] = false;
-            }
-            if (pwBoxPassword.Password.ToString().Trim() != null)
-            {
-                emptyFields[4] = false;
-            }
-            if (pwBoxConfirmPassword.Password.ToString().Trim() != null)
-            {
-                emptyFields[5] = false;
-            }
-            if (cBoxAccessLevel.SelectedIndex > -1)
-            {
-                emptyFields[6] = false;
-            }
-            for (int i = 0; i < emptyFields.Length; i++)
-            {
-                //TODO: MessageBox.Show() the user what fields they have not filled out
-            }
+            //TODO: Set the user's access level based on what they've chosen from the combobox
+            //TODO: Insert the user item created during this window's lifespan into the database
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

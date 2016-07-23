@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Mail;
-using NUnit.Framework;
+//using NUnit.Framework;
 
 namespace FoodBankInventoryManager
 {
@@ -25,6 +25,7 @@ namespace FoodBankInventoryManager
         private bool[] emptyFields;
         private L2S_FoodBankDBDataContext dbContext;
         private User myAccount;
+        private int comboBoxChoice;
 
 
         public CreateAccountWindow()
@@ -46,11 +47,13 @@ namespace FoodBankInventoryManager
 
         private void cBoxAccessLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //TODO: Based on what the user decides, change their access level in the database
+            comboBoxChoice = cBoxAccessLevel.SelectedIndex;
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: If the user forgets to feel out a field, don't allow database insert
+            //and alert them
             myAccount.FirstName = txtFirstName.Text;
             myAccount.LastName = txtLastName.Text;
             //TODO: Confirm that the email that they give is valid
@@ -64,8 +67,16 @@ namespace FoodBankInventoryManager
             {
                 myAccount.Password = myHash;
             }
-            //TODO: Set the user's access level based on what they've chosen from the combobox
-            //TODO: Insert the user item created during this window's lifespan into the database
+            if (comboBoxChoice == 0)
+            {
+                myAccount.IsAdmin = true;
+            }
+            else
+            {
+                myAccount.IsAdmin = false;
+            }
+            dbContext.Users.InsertOnSubmit(myAccount);
+            dbContext.SubmitChanges();
 
         }
 

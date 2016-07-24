@@ -49,9 +49,11 @@ namespace FoodBankInventoryManager
                                 where items.FoodId != null
                                 select new InventoryInfo
                                 {
-                                    FoodCode = items.FoodId,
-                                    DateEntered = items.DateEntered,
-                                    Quantity = items.BinQty
+                                    FoodId = items.FoodId,
+                                    BinId = items.BinId,
+                                    ShelfId = items.ShelfId,
+                                    BinQuantity = items.BinQty,
+                                    User = items.User
                                 };
             grdItems.ItemsSource = inventoryInfo;
             txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();

@@ -278,14 +278,14 @@
                 <Border Grid.Row="3" 
                         BorderBrush="Black" 
                         BorderThickness="1">
-                    <Button x:Name="btnCancel"
+                    <!--<Button x:Name="btnCancel"
                             Content="Cancel"
                             FontFamily="Rockwell" 
                             FontSize="12" 
                             FontWeight="Bold"
                             Margin="10"
                             Click="btnCancel_Click">
-                    </Button>
+                    </Button>-->
                 </Border>
 
                 <Border Grid.Row="2" 

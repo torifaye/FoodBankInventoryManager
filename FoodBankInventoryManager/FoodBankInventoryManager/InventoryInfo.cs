@@ -20,6 +20,10 @@ namespace FoodBankInventoryManager
         {
             get; set;
         }
+        public User User
+        {
+            get; set;
+        }
         public int BinQuantity
         {
             get; set;

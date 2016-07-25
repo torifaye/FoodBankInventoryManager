@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Net.Mail;
 
 namespace FoodBankInventoryManager
 {
@@ -30,6 +31,7 @@ namespace FoodBankInventoryManager
         private Food food;
         private Bin bin;
         private Shelf shelf;
+
         public ScannerEmulator()
         {
             rand = new Random();

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Mail;
-//using NUnit.Framework;
 
 namespace FoodBankInventoryManager
 {
@@ -53,7 +52,7 @@ namespace FoodBankInventoryManager
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             //TODO: If the user forgets to feel out a field, don't allow database insert
-            //and alert them
+            //and then alert them
             myAccount.FirstName = txtFirstName.Text;
             myAccount.LastName = txtLastName.Text;
             //TODO: Confirm that the email that they give is valid
@@ -78,6 +77,40 @@ namespace FoodBankInventoryManager
             dbContext.Users.InsertOnSubmit(myAccount);
             dbContext.SubmitChanges();
 
+            //TODO: Figure out if Reach Out Lakota uses outlook or gmail
+            try
+            {
+                MailMessage mail = new MailMessage();
+                //Gmail
+                SmtpClient gmailServer = new SmtpClient("smtp.gmail.com");
+                //Outlook
+                SmtpClient outlookServer = new SmtpClient("smtp-mail.outlook.com");
+                mail.From = new MailAddress("ROLFoodBankInventoryManager@gmail.com");
+                mail.To.Add(myAccount.Email);
+                mail.Subject = "Account Created for " + myAccount.LastName + ", " + myAccount.LastName;
+                mail.Body = "You have successfully created an account! Below is a summary of your account information: \n" +
+                    "Name: " + String.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
+                    "Access Level: " + "Standard\n " + //Determine access level based on access level value
+                    "Time of Account Creation: " + DateTime.Now;
+                //Useful to know for later when sending exported spreadsheet for quarterly inventory reports
+                //Attachment attachment = new Attachment("filename"); 
+
+                //For outlook, this could also be 25
+                gmailServer.Port = 587;
+                outlookServer.Port = 587;
+
+                //Account information for gmail account that emails will be sent from
+                gmailServer.Credentials = new NetworkCredential("ROLFoodBankInventoryManager@gmail.com", "M74gKDourdqSlwVR6bbN");
+                //Ensures that the client uses Secure Socket Layer (SSL) to encrypt the connection
+                gmailServer.EnableSsl = true;
+
+                gmailServer.Send(mail);
+                MessageBox.Show("Mail successfully sent to " + myAccount.Email);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

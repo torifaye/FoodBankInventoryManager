@@ -136,6 +136,11 @@ namespace FoodBankInventoryManager
             txtBarcodedata.Text = "";
         }
 
+        private void clearBarcode_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         private void bttnHome_Click(object sender, RoutedEventArgs e)
         {
@@ -1542,5 +1547,7 @@ namespace FoodBankInventoryManager
             #endregion
         }//class
         #endregion
+
+       
     }
 }

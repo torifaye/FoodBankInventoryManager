@@ -50,9 +50,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\Downloads\bcrypt.net-0.1\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -75,12 +72,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BCrypt.cs" />
+    <Compile Include="AccountManagementPage.xaml.cs">
+      <DependentUpon>AccountManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BinMaitenancePage.xaml.cs">
       <DependentUpon>BinMaitenancePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreateAccountWindow.xaml.cs">
-      <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DepositPage.xaml.cs">
       <DependentUpon>DepositPage.xaml</DependentUpon>
@@ -94,27 +90,27 @@
     <Compile Include="MinQuantityWindow.xaml.cs">
       <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PasswordManagementWindow.xaml.cs">
-      <DependentUpon>PasswordManagementWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DeletePage.xaml.cs">
-      <DependentUpon>DeletePage.xaml</DependentUpon>
+    <Compile Include="ScannerEmulatorDelete.xaml.cs">
+      <DependentUpon>ScannerEmulatorDelete.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StorageMap.xaml.cs">
+      <DependentUpon>StorageMap.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AccountManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BinMaitenancePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CreateAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,19 +151,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PasswordManagementWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ScannerEmulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeletePage.xaml">
+    <Page Include="ScannerEmulatorDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StatisticsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StorageMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +182,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\HelveticaNeue-Regular.ttf" />
     <None Include="L2S_FoodBankDB.dbml.layout">
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </None>

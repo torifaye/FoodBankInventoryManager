@@ -45,10 +45,10 @@ namespace FoodBankInventoryManager
             dateOpened = DateTime.Now;
             foreach (string item in sortOptions)
             {
-                comboSort.Items.Add(item);
+                //comboSort.Items.Add(item);
             }
 
-            comboSort.SelectedIndex = 0;
+            //comboSort.SelectedIndex = 0;
 
         }
 

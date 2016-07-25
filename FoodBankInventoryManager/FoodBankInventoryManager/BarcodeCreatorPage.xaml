@@ -7,71 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="725"
       Title="Barcode Creator">
-    <Page.Resources>
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" SnapsToDevicePixels="True" 
-                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
-                                   StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="7" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" 
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -83,44 +19,124 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="txtBarcodedata" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="22" 
-                 Margin="100,0,100,0" VerticalAlignment="Bottom" MaxLines="1" MinLines="1" KeyDown="txtBarcodedata_KeyDown"/>
+        <!--<Label Grid.Row="0"
+               Grid.Column="1"
+               Margin="0, 25, 0, 0"
+               FontFamily="Rockwell"
+               FontSize="24"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"> Enter the barcode text
+        </Label>-->
 
-        <Button x:Name="btnGenerateBarcode" Click="btnGenerateBarcode_Click" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" 
-                Height="100" Width="150" Grid.ColumnSpan="2" Margin="0,20,174,100" Grid.RowSpan="2">
-            <TextBlock TextWrapping="Wrap" FontSize="24">Generate Barcode</TextBlock>
+        <TextBox x:Name="txtBarcodedata"  
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 VerticalAlignment="Center"
+                 Margin="20, 15, 20, 40"
+                 Height="30"
+                 FontSize="24"
+                 MaxLines="1" 
+                 MinLines="1" 
+                 KeyDown="txtBarcodedata_KeyDown"
+                 IsHitTestVisible="False"
+                 Text="Enter Barcode Here"
+                 Foreground="DarkGray"
+                 TextAlignment="Center"
+                 />
+
+        <Button x:Name="btnGenerateBarcode"
+                Click="btnGenerateBarcode_Click"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="20, 10, 20, 10"
+                Padding="5, 2, 5, 2"
+                Style="{DynamicResource ButtonStyle}">
+            <TextBlock TextWrapping="Wrap" FontSize="24">Create Barcode</TextBlock>
         </Button>
 
-        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" 
-                    HorizontalAlignment="Left" Height="383" Margin="91,34,0,0" Grid.Row="1" 
-                    Grid.RowSpan="4" VerticalAlignment="Top" Width="366" Grid.Column="1">
-            <TextBlock FontSize="18" HorizontalAlignment="Center" >*Barcode Image Preview*</TextBlock>
-            <Border  BorderBrush="Black"  BorderThickness="5" Height="244">
-                <Image x:Name="imgBarcode"  />
-            </Border>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <Border  Grid.Row="1"
+                     Grid.Column="1"
+                     Grid.RowSpan="2"
+                     Margin="10, 20, 10, 0"
+                     BorderBrush="Black"
+                     BorderThickness="1">
+            <Image x:Name="imgBarcode"/>
+        </Border>
 
-                <Button x:Name="btnAddtoPrint" FontSize="22" Width="173" Height="64" Click="btnAddtoPrint_Click">
-                    <TextBlock TextWrapping="Wrap" TextAlignment="Center">Add to Print Preview</TextBlock>
-                </Button>
 
-                <Button x:Name="btnPrintBarcode" Content="Print Barcode(s)" FontSize="22"  Width="173" Height="64" Click="btnPrintBarcode_Click">
-                </Button>
-            </StackPanel>
+
+        <Button x:Name="btnAddtoPrint"
+                        Click="btnAddtoPrint_Click"
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        HorizontalAlignment="Left"
+                        Margin="15,20,0,20"
+                        Style="{DynamicResource ButtonStyle}" Width="133">
+            <TextBlock TextAlignment="Center">
+               Add To<LineBreak/>Preview
+            </TextBlock>
+        </Button>
+
+        <Label Grid.Column="1"
+               Grid.Row="3"
+               FontSize="20"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontWeight="Bold"
+               FontFamily="Rockwell">
+            OR
+        </Label>
+
+        <Button x:Name="clearBarcode"  Grid.Column="1"
+                 Grid.Row="3"
+                 HorizontalAlignment="Right"
+                 Margin="0,20,15,20"
+                 Style="{DynamicResource ButtonStyle}" Width="133" Click="clearBarcode_Click">
+            <TextBlock TextAlignment="Center">
+               Clear<LineBreak/>Barcode
+            </TextBlock>
+        </Button>
+
+
+        <Button x:Name="btnPrintBarcode" 
+                Grid.Column="2"
+                Grid.Row="4"
+                Margin="25, 20, 25, 20"
+                Click="btnPrintBarcode_Click"   
+                Style="{DynamicResource ButtonStyle}">
+            <TextBlock TextAlignment="Center">
+                Print<LineBreak/>Barcode(s)
+            </TextBlock>
+        </Button>
+
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="4"
+                    Grid.Column="0">
+            <TextBlock TextAlignment="Center" 
+                       FontSize="16" 
+                       FontFamily="Rockwell" 
+                       >Barcodes in<LineBreak/>Preview:</TextBlock>
+            <TextBlock x:Name="txtNumBarcodes"
+                       FontSize="24" 
+                       TextAlignment="Center"
+                       FontFamily="Rockwell">0</TextBlock>
+            <Button Width="150"
+                    Height="35"
+                    Margin="3, 0, 3, 0"
+                    FontSize="12"
+                    Click="Button_Click"
+                    Style="{DynamicResource ButtonStyle}">View Current Values</Button>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="72,72,214,10" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16" Margin="0,0,0,0">Number of Barcodes in Preview:</TextBlock>
-            <TextBlock x:Name="txtNumBarcodes"  FontSize="24" TextAlignment="Center">0</TextBlock>
-            <Button Width="150" Click="Button_Click">View current values</Button>
-        </StackPanel>
-
-        <Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>
+        <!--<Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>-->
 
     </Grid>
 </Page>

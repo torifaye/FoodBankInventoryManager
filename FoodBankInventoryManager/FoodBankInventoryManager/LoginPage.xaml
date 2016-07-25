@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="725"
       Title="LoginPage">
-    <Page.Resources>
+    <!--<Page.Resources>
 
         <ControlTemplate x:Key="FocusVisual1"
             TargetType="Frame">
@@ -98,58 +98,97 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Page.Resources>
-    <StackPanel Orientation="Vertical">
+    </Page.Resources>-->
+    
+        
 
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Account Management">
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.6*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Grid.ColumnSpan="1" HorizontalAlignment ="Center" Grid.RowSpan="2" Margin="0, 25, 0, 0">
+            <Image x:Name="image" 
+               Grid.Row="0" Grid.Column="0" 
+               Source="Resources/reach-out-lakota.png"/>
+
+            <TextBlock FontSize="32" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Rockwell" Margin="0, -30, 0, 0">
+                Reach Out Lakota<LineBreak/>Food Bank Manager
+            </TextBlock>
+        </StackPanel>
+
+        <DockPanel Grid.Column="0" 
+                   Grid.Row="0" 
+                   Grid.ColumnSpan="3"
+                   VerticalAlignment="Top"
+                   Height="20">
+            <Menu DockPanel.Dock="Top" Background="White">
+                <MenuItem Header="Account Management" FontWeight="Bold">
                     <MenuItem Header="_Create new account..."/>
                     <MenuItem Header="_Change password..."/>
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" 
-                        Grid.Row="1" 
-                        HorizontalAlignment="Center">
-                <Button x:Name="btnLoginGuest" 
-                        Height="100" Width="100" 
-                        Margin="0,0,100,0" 
-                        Click="btnLoginGuest_Click">
-                    <TextBlock TextWrapping="Wrap" 
-                               FontSize="22">
+        <Label Grid.Column="1" 
+               Grid.Row="2"
+               Content="Enter Administrator Password" 
+               FontSize="20"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               FontWeight="Bold"
+               FontFamily="Rockwell">
+        </Label>
+
+        <PasswordBox x:Name="pwBoxAdmin"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Margin="15"
+                     FontSize="30"
+                     FontFamily="Rockwell" 
+                     KeyDown="pwBoxAdmin_KeyDown"/>
+
+        <Button Grid.Column="1" 
+                Grid.Row="4"
+                Margin="125, 0, 125, 25"
+                Click="btnLoginAdmin_Click"
+                Style="{DynamicResource ButtonStyle}">
+                Login
+        </Button>
+
+        <Label Grid.Column="1"
+               Grid.Row="5"
+               FontSize="20"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontWeight="Bold"
+               FontFamily="Rockwell">
+            OR
+        </Label>
+
+        <Button x:Name="btnLoginGuest" 
+                Grid.Column="1"
+                Grid.Row="6"     
+                Click="btnLoginGuest_Click"
+                Margin="80, 25, 80, 0"
+                Padding="0"
+                Style="{DynamicResource ButtonStyle}">
+            <TextBlock FontSize="22">
                         Continue as Guest</TextBlock>
-                </Button>
-                <Label VerticalAlignment="Center" 
-                       FontSize="24">or</Label>
-                <StackPanel Orientation="Vertical" 
-                            VerticalAlignment="Center" 
-                            Margin="100,0,0,0">
-                    <TextBlock HorizontalAlignment="Center" 
-                               FontSize="18">
-                        Continue as Admin:</TextBlock>
-                    <PasswordBox x:Name="pwBoxAdmin" 
-                                 Width="200" Height="26" 
-                                 FontSize="18" 
-                                 FontFamily="Rockwell" 
-                                 KeyDown="pwBoxAdmin_KeyDown"/>
-                    <Button x:Name="btnLoginAdmin" 
-                            Width="100" Height="50"
-                            FontSize="22"
-                            Margin="0,10,0,0" 
-                            Click="btnLoginAdmin_Click">Login</Button>
-                </StackPanel>
-            </StackPanel>
-
-            <Image Margin="30,0,30,90" 
-                   Source="pack://siteoforigin:,,,/Resources/Reach-Out-Lakota.png"></Image>
-        </Grid>
-    </StackPanel>
+        </Button>
+    </Grid>
 </Page>

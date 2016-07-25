@@ -112,6 +112,11 @@ namespace FoodBankInventoryManager
         {
 
         }
+
+        private void btnAdd_Items_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+
+        }
     }
 }
 

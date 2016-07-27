@@ -822,7 +822,7 @@ namespace FoodBankInventoryManager
 		
 		private string _Password;
 		
-		private bool _IsAdmin;
+		private int _AccessLevel;
 		
 		private EntitySet<InventoryEntry> _InventoryEntries;
 		
@@ -840,8 +840,8 @@ namespace FoodBankInventoryManager
     partial void OnEmailChanged();
     partial void OnPasswordChanging(string value);
     partial void OnPasswordChanged();
-    partial void OnIsAdminChanging(bool value);
-    partial void OnIsAdminChanged();
+    partial void OnAccessLevelChanging(int value);
+    partial void OnAccessLevelChanged();
     #endregion
 		
 		public User()
@@ -950,22 +950,22 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAdmin", DbType="Bit NOT NULL")]
-		public bool IsAdmin
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccessLevel", DbType="Int NOT NULL")]
+		public int AccessLevel
 		{
 			get
 			{
-				return this._IsAdmin;
+				return this._AccessLevel;
 			}
 			set
 			{
-				if ((this._IsAdmin != value))
+				if ((this._AccessLevel != value))
 				{
-					this.OnIsAdminChanging(value);
+					this.OnAccessLevelChanging(value);
 					this.SendPropertyChanging();
-					this._IsAdmin = value;
-					this.SendPropertyChanged("IsAdmin");
-					this.OnIsAdminChanged();
+					this._AccessLevel = value;
+					this.SendPropertyChanged("AccessLevel");
+					this.OnAccessLevelChanged();
 				}
 			}
 		}

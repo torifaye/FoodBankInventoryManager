@@ -42,7 +42,7 @@
       <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="Char(60) NOT NULL" CanBeNull="false" />
-      <Column Name="IsAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="User_InventoryEntry" Member="InventoryEntries" ThisKey="UserId" OtherKey="UserId" Type="InventoryEntry" />
     </Type>
   </Table>

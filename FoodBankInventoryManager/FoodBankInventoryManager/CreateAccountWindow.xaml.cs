@@ -66,13 +66,9 @@ namespace FoodBankInventoryManager
             {
                 myAccount.Password = myHash;
             }
-            if (comboBoxChoice == 0)
+            if (cBoxAccessLevel.SelectedIndex != -1)
             {
-                myAccount.IsAdmin = true;
-            }
-            else
-            {
-                myAccount.IsAdmin = false;
+                myAccount.AccessLevel = cBoxAccessLevel.SelectedIndex;
             }
             dbContext.Users.InsertOnSubmit(myAccount);
             dbContext.SubmitChanges();
@@ -100,7 +96,7 @@ namespace FoodBankInventoryManager
                 outlookServer.Port = 587;
 
                 //Account information for gmail account that emails will be sent from
-                gmailServer.Credentials = new NetworkCredential("ROLFoodBankInventoryManager@gmail.com", "M74gKDourdqSlwVR6bbN");
+                gmailServer.Credentials = new NetworkCredential("ROLFoodBankInventoryManager@gmail.com", "5LWP5MhOetfhFVlZv1bg");
                 //Ensures that the client uses Secure Socket Layer (SSL) to encrypt the connection
                 gmailServer.EnableSsl = true;
 

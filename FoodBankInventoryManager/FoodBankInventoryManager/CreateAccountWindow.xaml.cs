@@ -86,7 +86,7 @@ namespace FoodBankInventoryManager
                 mail.Subject = "Account Created for " + myAccount.LastName + ", " + myAccount.LastName;
                 mail.Body = "You have successfully created an account! Below is a summary of your account information: \n" +
                     "Name: " + String.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
-                    "Access Level: " + "Standard\n " + //Determine access level based on access level value
+                    "Access Level: " + cBoxAccessLevel.Items[myAccount.AccessLevel].ToString() + //Determines access level based on access level value
                     "Time of Account Creation: " + DateTime.Now;
                 //Useful to know for later when sending exported spreadsheet for quarterly inventory reports
                 //Attachment attachment = new Attachment("filename"); 

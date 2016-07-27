@@ -116,9 +116,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.3*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.3*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Grid.ColumnSpan="1" HorizontalAlignment ="Center" Grid.RowSpan="2" Margin="0, 25, 0, 0">
@@ -144,16 +144,31 @@
             </Menu>
         </DockPanel>
 
-        <Label Grid.Column="1" 
+        <Label Grid.Column="0" 
                Grid.Row="2"
-               Content="Enter Administrator Password" 
+               Content="Email:" 
                FontSize="20"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
                FontWeight="Bold"
                FontFamily="Rockwell">
         </Label>
-
+        <TextBox x:Name="txtEmail"
+                 Grid.Column="1"
+                 Grid.Row="2"
+                 Margin="15"
+                 FontSize="30"
+                 FontFamily="Rockwell">
+        </TextBox>
+        <Label Grid.Column="0" 
+               Grid.Row="3"
+               Content="Password:" 
+               FontSize="20"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               FontWeight="Bold"
+               FontFamily="Rockwell">
+        </Label>
         <PasswordBox x:Name="pwBoxAdmin"
                      Grid.Column="1"
                      Grid.Row="3"
@@ -164,7 +179,7 @@
 
         <Button Grid.Column="1" 
                 Grid.Row="4"
-                Margin="125, 0, 125, 25"
+                Margin="115, 0, 115, 25"
                 Click="btnLoginAdmin_Click"
                 Style="{DynamicResource ButtonStyle}">
                 Login
@@ -184,7 +199,7 @@
                 Grid.Column="1"
                 Grid.Row="6"     
                 Click="btnLoginGuest_Click"
-                Margin="80, 25, 80, 0"
+                Margin="60, 5, 60, 5"
                 Padding="0"
                 Style="{DynamicResource ButtonStyle}">
             <TextBlock FontSize="22">

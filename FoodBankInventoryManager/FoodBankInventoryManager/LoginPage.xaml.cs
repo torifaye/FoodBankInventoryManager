@@ -21,6 +21,8 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class LoginPage : Page
     {
+        private const string PASSWORD = "12345";
+
         public static bool isAdministrator;
         private L2S_FoodBankDBDataContext dbContext;
 
@@ -41,27 +43,27 @@ namespace FoodBankInventoryManager
         {
             if (e.Key == Key.Enter)
             {
-                //isCorrectPasswordandAdvance(pwBoxAdmin.Password);
+                isCorrectPasswordandAdvance(pwBoxAdmin.Password);
             }
         }
 
         private void btnLoginAdmin_Click(object sender, RoutedEventArgs e)
         {
-            //isCorrectPasswordandAdvance(pwBoxAdmin.Password);
+            isCorrectPasswordandAdvance(pwBoxAdmin.Password);
         }
-        //private void isCorrectPasswordandAdvance(string password)
-        //{
-        //    if (password == PASSWORD)
-        //    {
-        //        HomePage h = new HomePage(true);
-        //        isAdministrator = true;
-        //        this.NavigationService.Navigate(h);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
-        //    }
-        //}
+        private void isCorrectPasswordandAdvance(string password)
+        {
+            if (password == PASSWORD)
+            {
+                HomePage h = new HomePage(true);
+                isAdministrator = true;
+                this.NavigationService.Navigate(h);
+            }
+            else
+            {
+                MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
+            }
+        }
 
         private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
         {

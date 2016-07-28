@@ -19,9 +19,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 #region Message for Programmers
-//Everthing is neatly wrapped in here, if you add something make sure to wrap it!
-//Seriously though, it looks messy if you don't.
-//                                          -Mark Angulo
+/*Everthing is neatly wrapped in regions here, so if you add something make sure to wrap it!
+  Seriously though, it looks messy if you don't.
+                                          -Mark Angulo                         */
 #endregion
 namespace FoodBankInventoryManager
 {

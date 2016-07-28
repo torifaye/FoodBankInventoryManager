@@ -182,7 +182,7 @@
                 Grid.Row="4"
                 Margin="115, 0, 115, 25"
                 Click="btnLogin_Click"
-                Style="{DynamicResource ButtonStyle}">
+                Style="{DynamicResource ButtonStyle}" RenderTransformOrigin="0.5,0.502">
                 Login
         </Button>
 

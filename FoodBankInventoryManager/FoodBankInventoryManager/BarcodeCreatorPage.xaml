@@ -138,7 +138,7 @@
                     FontSize="14" TextDecorations="Underline"
                     FontFamily="Rockwell"
                     >View Current Values</TextBlock>
-            <ListBox x:Name="lstPreview" HorizontalAlignment="Center" Width="225" ItemsSource="{Binding Items}" Height="408" FontFamily="Rockwell" FontSize="12pt" Background="#FFABADB3" Margin="13,0,13.2,0" >
+            <ListBox x:Name="lstPreview" HorizontalAlignment="Center" Width="225" ItemsSource="{Binding Items}" Height="337" FontFamily="Rockwell" FontSize="12pt" Background="#FFABADB3" Margin="13,0,13.2,0" >
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <EventSetter Event="Control.MouseDoubleClick" Handler="ListBox_MouseLeftButtonDown" />

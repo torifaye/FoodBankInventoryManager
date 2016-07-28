@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace FoodBankInventoryManager
 {
@@ -31,7 +32,7 @@ namespace FoodBankInventoryManager
         public DepositPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             itemNamesThisSession = new List<string>();
             quantitiesThisSession = new List<int>();
             datesThisSession = new List<DateTime>();

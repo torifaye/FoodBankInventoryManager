@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace FoodBankInventoryManager
 {
@@ -21,11 +22,12 @@ namespace FoodBankInventoryManager
     public partial class LoginPage : Page
     {
         public static bool isAdministrator;
-        private const string PASSWORD = "12345";
+        private L2S_FoodBankDBDataContext dbContext;
 
         public LoginPage()
         {
             InitializeComponent();
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
         private void btnLoginGuest_Click(object sender, RoutedEventArgs e)
@@ -39,27 +41,27 @@ namespace FoodBankInventoryManager
         {
             if (e.Key == Key.Enter)
             {
-                isCorrectPasswordandAdvance(pwBoxAdmin.Password);
+                //isCorrectPasswordandAdvance(pwBoxAdmin.Password);
             }
         }
 
         private void btnLoginAdmin_Click(object sender, RoutedEventArgs e)
         {
-            isCorrectPasswordandAdvance(pwBoxAdmin.Password);
+            //isCorrectPasswordandAdvance(pwBoxAdmin.Password);
         }
-        private void isCorrectPasswordandAdvance(string password)
-        {
-            if (password == PASSWORD)
-            {
-                HomePage h = new HomePage(true);
-                isAdministrator = true;
-                this.NavigationService.Navigate(h);
-            }
-            else
-            {
-                MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
-            }
-        }
+        //private void isCorrectPasswordandAdvance(string password)
+        //{
+        //    if (password == PASSWORD)
+        //    {
+        //        HomePage h = new HomePage(true);
+        //        isAdministrator = true;
+        //        this.NavigationService.Navigate(h);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
+        //    }
+        //}
 
         private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
         {
@@ -71,6 +73,24 @@ namespace FoodBankInventoryManager
         {
             PasswordManagementWindow p = new PasswordManagementWindow();
             this.NavigationService.Navigate(p);
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Create a LINQ query that searches the database for all of the emails
+            //TODO: Create a LINQ query that finds the password associated with the email, assuming the email is valid
+            //TODO: Research if LINQ queries are secure and if it would be better to make a stored procedure instead
+            if (Validate(txtEmail.Text)
+                && Validate(pwBoxAdmin.Password)
+                )
+            {
+
+            }
+        }
+
+        private bool Validate(string content)
+        {
+            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
         }
     }
 }

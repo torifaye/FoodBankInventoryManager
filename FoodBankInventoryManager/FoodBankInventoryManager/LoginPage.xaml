@@ -177,10 +177,11 @@
                      FontFamily="Rockwell" 
                      KeyDown="pwBoxAdmin_KeyDown"/>
 
-        <Button Grid.Column="1" 
+        <Button x:Name="btnLogin"
+                Grid.Column="1" 
                 Grid.Row="4"
                 Margin="115, 0, 115, 25"
-                Click="btnLoginAdmin_Click"
+                Click="btnLogin_Click"
                 Style="{DynamicResource ButtonStyle}">
                 Login
         </Button>

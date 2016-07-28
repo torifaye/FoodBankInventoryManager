@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Configuration;
 
 namespace FoodBankInventoryManager
 {
@@ -25,7 +26,7 @@ namespace FoodBankInventoryManager
         {
             InitializeComponent();
             nonEmptyFields = new SortedDictionary<string, bool>();
-            dbContext = new L2S_FoodBankDBDataContext();
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             myAccount = new User();
             emailIsInvalid = false;
             readyToSubmit = false;

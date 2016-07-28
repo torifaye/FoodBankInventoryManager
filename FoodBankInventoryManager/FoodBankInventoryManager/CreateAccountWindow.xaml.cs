@@ -14,19 +14,21 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class CreateAccountWindow : Window
     {
-        private bool[] emptyFields;
         private L2S_FoodBankDBDataContext dbContext;
         private User myAccount;
         private int comboBoxChoice;
         private bool emailIsInvalid;
+        private SortedDictionary<String, bool> nonEmptyFields;
+        private bool readyToSubmit;
 
         public CreateAccountWindow()
         {
             InitializeComponent();
-            emptyFields = new bool[7];
+            nonEmptyFields = new SortedDictionary<string, bool>();
             dbContext = new L2S_FoodBankDBDataContext();
             myAccount = new User();
             emailIsInvalid = false;
+            readyToSubmit = false;
         }
 
         private void cBoxAccessLevel_Loaded(object sender, RoutedEventArgs e)
@@ -45,16 +47,23 @@ namespace FoodBankInventoryManager
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: If the user forgets to feel out a field, don't allow database insert
             //and then alert them
-            myAccount.FirstName = txtFirstName.Text;
-            myAccount.LastName = txtLastName.Text;
+            if (Validate("First Name", txtFirstName.Text))
+            {
+                myAccount.FirstName = txtFirstName.Text; 
+            }
+            if (Validate("Last Name", txtLastName.Text))
+            {
+                myAccount.LastName = txtLastName.Text; 
+            }
             /*
              * Makes sure that the text in both fields match and that the text in both
              * fields is in a valid format before setting the account's email as the
              * user's input
              */
-            if (txtEmail.Text == txtConfirmEmail.Text 
+            if (Validate("Email", txtEmail.Text)
+                && Validate("Confirm Email", txtConfirmEmail.Text)
+                && txtEmail.Text == txtConfirmEmail.Text 
                 && isValidEmailFormat(txtEmail.Text) 
                 && isValidEmailFormat(txtConfirmEmail.Text))
             {
@@ -66,17 +75,43 @@ namespace FoodBankInventoryManager
              * for C#
              */
             string mySalt = BCrypt.GenerateSalt();
-            string myHash = BCrypt.HashPassword(pwBoxPassword.Password, mySalt);
-            if (BCrypt.CheckPassword(pwBoxConfirmPassword.Password, myHash))
+            string myHash = "";
+            if (Validate("Password", pwBoxPassword.Password))
+            {
+                myHash = BCrypt.HashPassword(pwBoxPassword.Password, mySalt); 
+            }
+            if (Validate("Confirm Password", pwBoxConfirmPassword.Password)
+                && BCrypt.CheckPassword(pwBoxConfirmPassword.Password, myHash))
             {
                 myAccount.Password = myHash;
             }
             if (cBoxAccessLevel.SelectedIndex != -1)
             {
+                nonEmptyFields.Add("Access Level", true);
                 myAccount.AccessLevel = cBoxAccessLevel.SelectedIndex;
             }
-            dbContext.Users.InsertOnSubmit(myAccount);
-            dbContext.SubmitChanges();
+            foreach (KeyValuePair<String, bool> entry in nonEmptyFields)
+            {
+                string strEmptyReporter = "";
+                if (!entry.Value)
+                {
+                    strEmptyReporter += entry.Key + ", ";
+                }
+                if (strEmptyReporter != "")
+                {
+                    strEmptyReporter = strEmptyReporter.Substring(0, strEmptyReporter.Length - 2);
+                    MessageBox.Show(this, "The following fields have not been filled out yet: " + strEmptyReporter);
+                }
+                else
+                {
+                    readyToSubmit = true;
+                }
+            }
+            if (readyToSubmit)
+            {
+                dbContext.Users.InsertOnSubmit(myAccount);
+                dbContext.SubmitChanges(); 
+            }
 
             //TODO: Figure out if Reach Out Lakota uses outlook or gmail
             try
@@ -168,6 +203,11 @@ namespace FoodBankInventoryManager
                 emailIsInvalid = true;
             }
             return match.Groups[1].Value + domainName;
+        }
+        private bool Validate(string fieldName, string content)
+        {
+            nonEmptyFields.Add(fieldName, !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content)));
+            return nonEmptyFields[fieldName];
         }
     }
 }

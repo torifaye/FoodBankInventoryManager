@@ -77,14 +77,21 @@ namespace FoodBankInventoryManager
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Create a LINQ query that searches the database for all of the emails
-            //TODO: Create a LINQ query that finds the password associated with the email, assuming the email is valid
-            //TODO: Research if LINQ queries are secure and if it would be better to make a stored procedure instead
             if (Validate(txtEmail.Text)
                 && Validate(pwBoxAdmin.Password)
                 )
             {
-
+                var emails = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Email).ToArray<string>();
+                if (emails.Length != 0)
+                {
+                    var password = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Password).ToArray<string>();
+                    if (BCrypt.CheckPassword(pwBoxAdmin.Password, password[0]))
+                    {
+                        User userToBeLoggedIn = (from users in dbContext.GetTable<User>() where users.Email == txtEmail.Text && users.Password == pwBoxAdmin.Password select users).FirstOrDefault<User>();
+                        HomePage h = new HomePage(userToBeLoggedIn);
+                        this.NavigationService.Navigate(h);
+                    }
+                }
             }
         }
 

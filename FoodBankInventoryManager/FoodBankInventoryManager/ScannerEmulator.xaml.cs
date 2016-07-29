@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net.Mail;
+using System.Configuration;
 
 namespace FoodBankInventoryManager
 {
@@ -39,7 +40,7 @@ namespace FoodBankInventoryManager
             binId = "";
             shelfId = "";
             dateEntered = DateTime.Now;
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             invEntry = new InventoryEntry();
             food = new Food();
             bin = new Bin();

@@ -31,15 +31,15 @@ namespace FoodBankInventoryManager
         {
             if (LoginPage.isAdministrator==true)
             {
-                HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
-                LoginPage.isAdministrator = true;
-                this.NavigationService.Navigate(h);
+                //HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
+                //LoginPage.isAdministrator = true;
+                //this.NavigationService.Navigate(h);
             }
             else
             {
-                HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
-                LoginPage.isAdministrator = false;
-                this.NavigationService.Navigate(h);
+                //HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
+                //LoginPage.isAdministrator = false;
+                //this.NavigationService.Navigate(h);
             }
         }
 

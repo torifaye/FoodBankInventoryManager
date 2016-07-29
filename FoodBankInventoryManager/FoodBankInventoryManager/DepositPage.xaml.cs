@@ -81,8 +81,8 @@ namespace FoodBankInventoryManager
 
         private void bttnHome_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(true);
-            this.NavigationService.Navigate(h);
+            //HomePage h = new HomePage(true);
+            //this.NavigationService.Navigate(h);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -29,20 +29,20 @@ namespace FoodBankInventoryManager
 
             myCurrentUser = currentUser;
 
-            if (isAdmin)
-            {
-                btnAdd_Items.IsEnabled = true;
-                btnRemove_Items.IsEnabled = true;
-                btnCreateBarcode.IsEnabled = true;
-                btnCreateBarcode.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnAdd_Items.IsEnabled = false;
-                btnRemove_Items.IsEnabled = false;
-                btnCreateBarcode.IsEnabled = false;
-                btnCreateBarcode.Visibility = Visibility.Hidden;
-            }
+            //if (isAdmin)
+            //{
+            //    btnAdd_Items.IsEnabled = true;
+            //    btnRemove_Items.IsEnabled = true;
+            //    btnCreateBarcode.IsEnabled = true;
+            //    btnCreateBarcode.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    btnAdd_Items.IsEnabled = false;
+            //    btnRemove_Items.IsEnabled = false;
+            //    btnCreateBarcode.IsEnabled = false;
+            //    btnCreateBarcode.Visibility = Visibility.Hidden;
+            //}
         }
 
         private void btnRemove_Items_Click(object sender, RoutedEventArgs e)
@@ -55,27 +55,27 @@ namespace FoodBankInventoryManager
         {
             if (helpLabels.Visibility == Visibility.Hidden)
             {
-                if (admin)
-                {
-                    helpAdd_Items.Visibility = Visibility.Visible;
-                    helpRemove_Items.Visibility = Visibility.Visible;
-                    //helpBarcode.Visibility = Visibility.Visible;
-                }
-                helpStats.Visibility = Visibility.Visible;
-                helpMap.Visibility = Visibility.Visible;
-                helpLabels.Visibility = Visibility.Visible;
+                //if (admin)
+                //{
+                //    helpAdd_Items.Visibility = Visibility.Visible;
+                //    helpRemove_Items.Visibility = Visibility.Visible;
+                //    //helpBarcode.Visibility = Visibility.Visible;
+                //}
+                //helpStats.Visibility = Visibility.Visible;
+                //helpMap.Visibility = Visibility.Visible;
+                //helpLabels.Visibility = Visibility.Visible;
             }
             else
             {
-                if (admin)
-                {
-                    helpAdd_Items.Visibility = Visibility.Hidden;
-                    helpRemove_Items.Visibility = Visibility.Hidden;
-                    //helpBarcode.Visibility = Visibility.Hidden;
-                }
-                helpStats.Visibility = Visibility.Hidden;
-                helpMap.Visibility = Visibility.Hidden;
-                helpLabels.Visibility = Visibility.Hidden;
+                //if (admin)
+                //{
+                //    helpAdd_Items.Visibility = Visibility.Hidden;
+                //    helpRemove_Items.Visibility = Visibility.Hidden;
+                //    //helpBarcode.Visibility = Visibility.Hidden;
+                //}
+                //helpStats.Visibility = Visibility.Hidden;
+                //helpMap.Visibility = Visibility.Hidden;
+                //helpLabels.Visibility = Visibility.Hidden;
             }
         }
 

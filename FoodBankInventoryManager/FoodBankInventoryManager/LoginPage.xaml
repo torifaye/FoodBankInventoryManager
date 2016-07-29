@@ -138,8 +138,10 @@
                    Height="20">
             <Menu DockPanel.Dock="Top" Background="White">
                 <MenuItem Header="Account Management" FontWeight="Bold">
-                    <MenuItem Header="_Create new account..."/>
-                    <MenuItem Header="_Change password..."/>
+                    <MenuItem Header="_Create new account..."
+                              Click="MenuItem_Click"/>
+                    <MenuItem Header="_Change password..."
+                              Click="MenuItem_Click_1"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

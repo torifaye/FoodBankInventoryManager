@@ -21,8 +21,6 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class LoginPage : Page
     {
-        private const string PASSWORD = "12345";
-
         public static bool isAdministrator;
         private L2S_FoodBankDBDataContext dbContext;
 
@@ -34,53 +32,39 @@ namespace FoodBankInventoryManager
 
         private void btnLoginGuest_Click(object sender, RoutedEventArgs e)
         {
-            HomePage h = new HomePage(false);
-            isAdministrator = false;
-            this.NavigationService.Navigate(h);
+            //HomePage h = new HomePage(false);
+            //isAdministrator = false;
+            //this.NavigationService.Navigate(h);
         }
 
         private void pwBoxAdmin_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                isCorrectPasswordandAdvance(pwBoxAdmin.Password);
             }
         }
 
         private void btnLoginAdmin_Click(object sender, RoutedEventArgs e)
         {
-            isCorrectPasswordandAdvance(pwBoxAdmin.Password);
-        }
-        private void isCorrectPasswordandAdvance(string password)
-        {
-            if (password == PASSWORD)
-            {
-                HomePage h = new HomePage(true);
-                isAdministrator = true;
-                this.NavigationService.Navigate(h);
-            }
-            else
-            {
-                MessageBox.Show("Password does not match. Please try again.", "Food Bank Manager");
-            }
         }
 
         private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
         {
-            CreateAccountWindow c = new CreateAccountWindow();
-            this.NavigationService.Navigate(c);
         }
 
         private void mItemPassword_Click(object sender, RoutedEventArgs e)
         {
-            PasswordManagementWindow p = new PasswordManagementWindow();
-            this.NavigationService.Navigate(p);
+            
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (Validate(txtEmail.Text)
-                && Validate(pwBoxAdmin.Password)
+            loginUser(txtEmail.Text, pwBoxAdmin.Password);
+        }
+        private void loginUser(string email, string aPassword)
+        {
+            if (Validate(email)
+                && Validate(aPassword)
                 )
             {
                 var emails = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Email).ToArray<string>();
@@ -89,17 +73,28 @@ namespace FoodBankInventoryManager
                     var password = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Password).ToArray<string>();
                     if (BCrypt.CheckPassword(pwBoxAdmin.Password, password[0]))
                     {
-                        User userToBeLoggedIn = (from users in dbContext.GetTable<User>() where users.Email == txtEmail.Text && users.Password == pwBoxAdmin.Password select users).FirstOrDefault<User>();
+                        User userToBeLoggedIn = (from users in dbContext.GetTable<User>() where users.Email == txtEmail.Text && users.Password == pwBoxAdmin.Password select users).ToArray<User>()[0];
                         HomePage h = new HomePage(userToBeLoggedIn);
                         this.NavigationService.Navigate(h);
                     }
                 }
             }
         }
-
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAccountWindow c = new CreateAccountWindow();
+            this.NavigationService.Navigate(c);
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            PasswordManagementWindow p = new PasswordManagementWindow();
+            this.NavigationService.Navigate(p);
         }
     }
 }

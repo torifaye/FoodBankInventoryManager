@@ -18,50 +18,137 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+#region Message for Programmers
+/*Everthing is neatly wrapped in regions here, so if you add something make sure to wrap it!
+  Seriously though, it looks messy if you don't.
+                                          -Mark Angulo                         */
+#endregion
 namespace FoodBankInventoryManager
 {
+ 
     /// <summary>
     /// Interaction logic for BarcodeCreatorPage.xaml
     /// </summary>
     public partial class BarcodeCreatorPage : Page
     {
+        #region Instance Variables and Constants
+
         private Barcode b;
-        private Bitmap dImg;
+
+        private Bitmap dImg = null;
         private List<Bitmap> barcodes;
-        private List<string> barcodeValues;
+
+        private List<String> barcodeValues;
         private string barcodeData = "";
+
+        private const int BARCODE_WIDTH = 500;
+        private const int BARCODE_HEIGHT = 200;
+
+        #endregion
 
         public BarcodeCreatorPage()
         {
             b = new Barcode();
             barcodes = new List<Bitmap>();
-            barcodeValues = new List<string>();
+            barcodeValues = new List<String>();
             InitializeComponent();
         }
 
+        #region Convenience Methods
+
+        /// <summary>
+        /// Calls btnGenerateBarcode_Click and btnAddtoPrint_Click
+        /// </summary>
+        private void btnQuickAdd_Click(object sender, RoutedEventArgs e)
+        {
+            btnGenerateBarcode_Click(sender, e);
+            btnAddtoPrint_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Clears current generated barcode and textbox
+        /// </summary>
+        private void clearBarcode_Click(object sender, RoutedEventArgs e)
+        {
+            imgBarcode.Source = null;
+            txtBarcodedata.Clear();
+        }
+
+        /// <summary>
+        /// Method for removing Items from the print preview
+        /// </summary>
+        private void ListBox_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
+                String strItem = item.Content.ToString();
+                if (item != null)
+                {
+                    // ListBox item clicked - do some cool things here
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete \"" + strItem + "\"?", "Food Bank Manager", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+
+                        lstPreview.Items.Remove(strItem);
+                        barcodes.RemoveAt(barcodeValues.IndexOf(strItem));
+                        barcodeValues.Remove(strItem);
+                        txtNumBarcodes.Text = barcodes.Count.ToString();
+                        txtBarcodedata.Text = "";
+                        imgBarcode.Source = null;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager");
+                return;
+            }
+
+        }
+
+        #endregion
+
+        #region Barcode Creation
+
+        /// <summary>
+        /// Generates a Code 39 barcode
+        /// </summary>
         private void btnGenerateBarcode_Click(object sender, RoutedEventArgs e)
         {
             barcodeData = txtBarcodedata.Text;
 
-            int W = 200;
-            int H = 100;
+            
+            int W = BARCODE_WIDTH;
+            int H = BARCODE_HEIGHT;
             b.Alignment = AlignmentPositions.CENTER;
             TYPE type = TYPE.CODE39;
             b.IncludeLabel = true;
+            b.LabelPosition = LabelPositions.BOTTOMCENTER;
             b.RotateFlipType = RotateFlipType.RotateNoneFlipNone;
             b.LabelPosition = LabelPositions.BOTTOMCENTER;
 
             string tempbarcode = txtBarcodedata.Text.Trim().ToUpper();
 
-            while (tempbarcode.Length < 13)
+            while (tempbarcode.Length < 24)
             {
                 tempbarcode += " ";
-            }
+            }     
 
             try
             {
+                if (tempbarcode.Length > 24)
+                {
+                    throw new Exception();
+                }
 
-                dImg = (Bitmap)b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
+                System.Drawing.Image g = b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
+                dImg = (Bitmap)g;
                 MemoryStream ms = new MemoryStream();
                 dImg.Save(ms, ImageFormat.Jpeg);
                 BitmapImage bImg = new BitmapImage();
@@ -69,85 +156,24 @@ namespace FoodBankInventoryManager
                 bImg.StreamSource = new MemoryStream(ms.ToArray());
                 bImg.EndInit();
                 //img is an Image control.
+                imgBarcode.Height = bImg.Height + 180;
+                imgBarcode.Width = bImg.Width + 180;            
                 imgBarcode.Source = bImg;
+
 
             }
             catch (Exception)
             {
-                MessageBox.Show("An error has occured, please enter a barcode string [1-13] characters.");
+                MessageBox.Show("An error has occured, please enter a barcode string [1-24] characters.");
+                imgBarcode.Source = null;
                 txtBarcodedata.Text = "";
 
             }
         }
-        private void btnPrintBarcode_Click(object sender, RoutedEventArgs e)
-        {
-            PrintDocument printDocument1 = new PrintDocument();
-            printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-            printDocument1.Print();
-        }
 
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            try
-            {
-                if (barcodes.Count > 0)
-                {
-                    int c = 0;
-                    int r = 0;
-
-                    for (int i = 0; i < barcodes.Count; i++)
-                    {
-
-                        if (r < 10)
-                        {
-                            e.Graphics.DrawImage(barcodes[i], c, (barcodes[i].Height * r));
-                        }
-                        else
-                        {
-                            c += 250;
-                            r = 0;
-                            e.Graphics.DrawImage(barcodes[i], c, 0);
-                        }
-
-                        r++;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No Barcode is currently generated, please fill-out the barcode data box and click \"Generate Barcode \"", "Food Bank Manager");
-            }
-        }
-
-        private void btnAddtoPrint_Click(object sender, RoutedEventArgs e)
-        {
-            if (barcodes.Count < 30)
-            {
-                barcodes.Add(dImg);
-                barcodeValues.Add(barcodeData);
-            }
-
-            if (barcodes.Count >= 30)
-            {
-                MessageBox.Show("Max barcode per sheet limit reached (30)", "Food Bank Manager");
-            }
-
-            txtNumBarcodes.Text = barcodes.Count.ToString();
-            txtBarcodedata.Text = "";
-        }
-
-        private void clearBarcode_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void bttnHome_Click(object sender, RoutedEventArgs e)
-        {
-            HomePage h = new HomePage(true);
-            this.NavigationService.Navigate(h);
-        }
-
+        /// <summary>
+        /// calls btnGenerateBarcode_Click when enter key is pressed
+        /// </summary>
         private void txtBarcodedata_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -155,31 +181,6 @@ namespace FoodBankInventoryManager
                 btnGenerateBarcode_Click(sender, e);
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string result = "Barcodes\n";
-
-            if (barcodeValues.Count > 0)
-            {
-                for (int i = 0; i < barcodeValues.Count; i++)
-                {
-                    result += (i + 1) + ") " + barcodeValues[i] + "\n";
-
-                }
-
-                MessageBox.Show(result, "Food Bank Manager"); 
-            }
-            else
-            {
-                MessageBox.Show("No Barcodes in Preview", "Food Bank Manager");
-            }
-        }
-
-
-
-
-
 
         #region Barcode Interface
         /// <summary>
@@ -1548,6 +1549,106 @@ namespace FoodBankInventoryManager
         }//class
         #endregion
 
+
+        #endregion
+
+        #region Printing/Print Preview Methods
+
+        /// <summary>
+        /// Calls the printDocument1_PrintPage method and prints out all the barcodes in the print preview
+        /// </summary>
+        private void btnPrintBarcode_Click(object sender, RoutedEventArgs e)
+        {
+            if (barcodes.Count == 0)
+            {
+                MessageBox.Show("No Barcodes in print preview, please add barcodes before printing.", "Food Bank Manager");
+                return;
+            }
+
+
+            PrintDocument printDocument1 = new PrintDocument();
+            printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+            printDocument1.Print();
+        }
        
+        /// <summary>
+        /// Formats the page to be printed using barcode list
+        /// </summary>
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            try
+            {
+                if (barcodes.Count > 0)
+                {
+                    int c = 0;
+                    int r = 0;
+
+                    for (int i = 0; i < barcodes.Count; i++)
+                    {
+
+                        if (r < 10)
+                        {
+                            e.Graphics.DrawImage(barcodes[i], c, ((BARCODE_HEIGHT - 120) * r));
+                        }
+                        else
+                        {
+                            c += 200;
+                            r = 0;
+                            e.Graphics.DrawImage(barcodes[i], c, 0);
+                        }
+
+                        r++;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No Barcode is currently generated, please fill-out the barcode data box and click \"Generate Barcode\"", "Food Bank Manager");
+            }
+        }
+
+        /// <summary>
+        /// Adds non-duplicate barcodes to the print preview
+        /// </summary>
+        private void btnAddtoPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (dImg == null || imgBarcode.Source == null)
+            {
+                MessageBox.Show("Please generate a barcode before adding it to the preview.", "Food Bank Manager");
+                return;
+            }
+
+            foreach (String item in barcodeValues)
+            {
+                if (item == barcodeData)
+                {
+                    MessageBox.Show("This barcode is already in the print preview.", "Food Bank Manager", MessageBoxButton.OK);
+                    return;
+                }
+            }
+
+            if (barcodes.Count < 30)
+            {
+                barcodes.Add(dImg);
+                barcodeValues.Add(barcodeData);
+            }
+
+            if (barcodes.Count >= 30)
+            {
+                MessageBox.Show("Max barcode per sheet limit reached (30).", "Food Bank Manager");
+                txtNumBarcodes.Text = barcodes.Count.ToString();
+                return;
+            }
+
+            txtNumBarcodes.Text = barcodes.Count.ToString();
+            txtBarcodedata.Text = "";
+            imgBarcode.Source = null;
+
+            lstPreview.Items.Add(barcodeData);
+
+        }
+        #endregion
+
     }
 }
+

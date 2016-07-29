@@ -67,9 +67,9 @@ namespace FoodBankInventoryManager
                                 where items.DateEntered > dateOpened
                                 select new InventoryInfo
                                 {
-                                    FoodCode = items.FoodId,
-                                    DateEntered = items.DateEntered,
-                                    Quantity = items.BinQty
+                                    //FoodCode = items.FoodId,
+                                    //DateEntered = items.DateEntered,
+                                    //Quantity = items.BinQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             //grdItems.ItemsSource = dbContext.GetTable<InvBin>();

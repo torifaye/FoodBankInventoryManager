@@ -39,8 +39,7 @@
                  Margin="10.5,8,0,8"
                  FontFamily="Rockwell"
                  FontSize="14"
-                 Width="127"
-                 AcceptsTab="True">
+                 Width="127">
         </TextBox>
         <TextBlock Text="Last Name:"
                    Grid.Row="1"
@@ -59,8 +58,7 @@
                  Margin="10.5,8,0,8"
                  FontFamily="Rockwell"
                  FontSize="14"
-                 Width="127"
-                 AcceptsTab="True">
+                 Width="127">
         </TextBox>
         <TextBlock Text="Email:"
                    Grid.Row="2"
@@ -75,12 +73,11 @@
                  Grid.Row="2"
                  Grid.Column="1"
                  HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Margin="10.5,8,0,8"
+                 VerticalAlignment="Bottom"
+                 Margin="10.5,0,0,8"
                  FontFamily="Rockwell"
                  FontSize="14"
-                 Width="127"
-                 AcceptsTab="True">
+                 Width="127">
         </TextBox>
         <TextBlock Text="Confirm Email:"
                    Grid.Row="3"
@@ -99,8 +96,7 @@
                  Margin="10.5,8,0,8"
                  FontFamily="Rockwell"
                  FontSize="14"
-                 Width="127"
-                 AcceptsTab="True">
+                 Width="127">
         </TextBox>
         <TextBlock Text="Password:"
                    Grid.Row="4"

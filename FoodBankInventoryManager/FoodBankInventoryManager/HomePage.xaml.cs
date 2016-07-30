@@ -118,6 +118,22 @@ namespace FoodBankInventoryManager
         {
 
         }
+
+        private void mItemPassword_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordManagementWindow p = new PasswordManagementWindow(myCurrentUser);
+            p.ShowInTaskbar = false;
+            p.Owner = Application.Current.MainWindow;
+            p.Show();
+            Application.Current.MainWindow.Show();
+        }
+
+        private void mItemLogout_Click(object sender, RoutedEventArgs e)
+        {
+            myCurrentUser = null;
+            LoginPage l = new LoginPage();
+            this.NavigationService.Navigate(l);
+        }
     }
 }
 

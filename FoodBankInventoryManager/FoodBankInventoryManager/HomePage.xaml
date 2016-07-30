@@ -25,7 +25,22 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        
+        <DockPanel Grid.Column="0" 
+                   Grid.Row="0" 
+                   Grid.ColumnSpan="3"
+                   VerticalAlignment="Top"
+                   Height="20">
+            <Menu DockPanel.Dock="Top" Background="White">
+                <MenuItem Header="Account Management" FontWeight="Bold">
+                    <MenuItem x:Name="mItemPassword"
+                              Header="_Change password..."
+                              Click="mItemPassword_Click"/>
+                    <MenuItem x:Name="mItemLogout"
+                              Header="Logout..."
+                              Click="mItemLogout_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
         <Button x:Name="btnAdd_Items" 
                 Grid.Column="1" 
                 Grid.Row="2" 

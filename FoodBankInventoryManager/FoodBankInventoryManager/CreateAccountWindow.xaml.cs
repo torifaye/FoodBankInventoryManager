@@ -19,17 +19,17 @@ namespace FoodBankInventoryManager
         private User myAccount;
         private int comboBoxChoice;
         private bool emailIsInvalid;
-        private SortedDictionary<String, bool> nonEmptyFields;
+        private Dictionary<String, bool> nonEmptyFields;
         private bool readyToSubmit;
 
         public CreateAccountWindow()
         {
             InitializeComponent();
-            nonEmptyFields = new SortedDictionary<string, bool>();
+            nonEmptyFields = new Dictionary<string, bool>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             myAccount = new User();
             emailIsInvalid = false;
-            readyToSubmit = false;
+            readyToSubmit = true;
         }
 
         private void cBoxAccessLevel_Loaded(object sender, RoutedEventArgs e)
@@ -48,7 +48,6 @@ namespace FoodBankInventoryManager
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            //and then alert them
             if (Validate("First Name", txtFirstName.Text))
             {
                 myAccount.FirstName = txtFirstName.Text; 
@@ -88,24 +87,31 @@ namespace FoodBankInventoryManager
             }
             if (cBoxAccessLevel.SelectedIndex != -1)
             {
+                /*TODO: Instead of having repeated code here, possibly send the object that
+                 * you're checking as an argument and check if it's a textbox, combobox, or 
+                 * passwordbox
+                 */ 
+                if (nonEmptyFields.ContainsKey("Access Level"))
+                {
+                    nonEmptyFields.Remove("Access Level");
+                }
                 nonEmptyFields.Add("Access Level", true);
                 myAccount.AccessLevel = cBoxAccessLevel.SelectedIndex;
             }
+            else
+            {
+                nonEmptyFields.Add("Access Level", false);
+            }
+            string strEmptyReporter = "";
             foreach (KeyValuePair<String, bool> entry in nonEmptyFields)
             {
-                string strEmptyReporter = "";
                 if (!entry.Value)
                 {
+                    readyToSubmit = false;
                     strEmptyReporter += entry.Key + ", ";
                 }
-                if (strEmptyReporter != "")
+                if (!String.IsNullOrEmpty(strEmptyReporter))
                 {
-                    strEmptyReporter = strEmptyReporter.Substring(0, strEmptyReporter.Length - 2);
-                    MessageBox.Show(this, "The following fields have not been filled out yet: " + strEmptyReporter);
-                }
-                else
-                {
-                    readyToSubmit = true;
                 }
             }
             if (readyToSubmit)
@@ -113,40 +119,53 @@ namespace FoodBankInventoryManager
                 dbContext.Users.InsertOnSubmit(myAccount);
                 dbContext.SubmitChanges(); 
             }
+            else
+            {
+                strEmptyReporter = strEmptyReporter.Substring(0, strEmptyReporter.Length - 2);
+                MessageBox.Show(this, "The following fields have not been filled out yet: " + strEmptyReporter);
+            }
 
             //TODO: Figure out if Reach Out Lakota uses outlook or gmail
-            try
+            /*TODO: Eventually use google's api for securing an oauth token in order 
+             * to login into email in most updated secure way (only an "issue" with gmail, outlook
+             * doesn't care)
+             */ 
+            if (readyToSubmit)
             {
-                MailMessage mail = new MailMessage();
-                //Gmail
-                SmtpClient gmailServer = new SmtpClient("smtp.gmail.com");
-                //Outlook
-                SmtpClient outlookServer = new SmtpClient("smtp-mail.outlook.com");
-                mail.From = new MailAddress("ROLFoodBankInventoryManager@gmail.com");
-                mail.To.Add(myAccount.Email);
-                mail.Subject = "Account Created for " + myAccount.LastName + ", " + myAccount.LastName;
-                mail.Body = "You have successfully created an account! Below is a summary of your account information: \n" +
-                    "Name: " + String.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
-                    "Access Level: " + cBoxAccessLevel.Items[myAccount.AccessLevel].ToString() + //Determines access level based on access level value
-                    "Time of Account Creation: " + DateTime.Now;
-                //Useful to know for later when sending exported spreadsheet for quarterly inventory reports
-                //Attachment attachment = new Attachment("filename"); 
+                try
+                {
+                    MailMessage mail = new MailMessage();
+                    //Gmail
+                    SmtpClient gmailServer = new SmtpClient("smtp.gmail.com");
+                    //Outlook
+                    SmtpClient outlookServer = new SmtpClient("smtp-mail.outlook.com");
+                    mail.From = new MailAddress("ROLFoodBankInventoryManager@gmail.com");
+                    mail.To.Add(myAccount.Email);
+                    mail.Subject = "Account Created for " + myAccount.LastName + ", " + myAccount.FirstName;
+                    mail.Body = "You have successfully created an account! Below is a summary of your account information: \n" +
+                        "Name: " + String.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
+                        "Access Level: " + cBoxAccessLevel.Items[myAccount.AccessLevel].ToString() + "\n" +//Determines access level based on access level value
+                        "Time of Account Creation: " + DateTime.Now;
+                    //Useful to know for later when sending exported spreadsheet for quarterly inventory reports
+                    //Attachment attachment = new Attachment("filename"); 
 
-                //For outlook, this could also be 25
-                gmailServer.Port = 587;
-                outlookServer.Port = 587;
+                    //For outlook, this could also be 25
+                    gmailServer.Port = 587;
+                    outlookServer.Port = 587;
 
-                //Account information for gmail account that emails will be sent from
-                gmailServer.Credentials = new NetworkCredential("ROLFoodBankInventoryManager@gmail.com", "5LWP5MhOetfhFVlZv1bg");
-                //Ensures that the client uses Secure Socket Layer (SSL) to encrypt the connection
-                gmailServer.EnableSsl = true;
+                    //Account information for gmail account that emails will be sent from
+                    gmailServer.Credentials = new NetworkCredential("ROLFoodBankInventoryManager@gmail.com", "5LWP5MhOetfhFVlZv1bg");
+                    //Ensures that the client uses Secure Socket Layer (SSL) to encrypt the connection
+                    gmailServer.EnableSsl = true;
 
-                gmailServer.Send(mail);
-                MessageBox.Show("Mail successfully sent to " + myAccount.Email);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
+                    gmailServer.Send(mail);
+                    MessageBox.Show("Mail successfully sent to " + myAccount.Email);
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                } 
             }
         }
 
@@ -207,7 +226,11 @@ namespace FoodBankInventoryManager
         }
         private bool Validate(string fieldName, string content)
         {
-            nonEmptyFields.Add(fieldName, !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content)));
+            if (nonEmptyFields.ContainsKey(fieldName))
+            {
+                nonEmptyFields.Remove(fieldName);
+            }
+            nonEmptyFields.Add(fieldName, !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content))); 
             return nonEmptyFields[fieldName];
         }
     }

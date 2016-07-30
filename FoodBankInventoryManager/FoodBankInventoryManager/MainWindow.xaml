@@ -1,4 +1,4 @@
-﻿<NavigationWindow x:Class="FoodBankInventoryManager.MainWindow"
+﻿<Window x:Class="FoodBankInventoryManager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,6 @@
         Title="Food Bank Manager"
                   Loaded="NavigationWindow_Loaded"
                   Height="650" Width="725" 
-                  Source="LoginPage.xaml"
                   MinHeight="650" 
                   MaxHeight="700" MaxWidth="800" 
                   IsTabStop="False" 
@@ -16,4 +15,6 @@
                   Icon="Resources/Picture1.png" 
                   ResizeMode="NoResize" 
                   WindowStartupLocation="CenterScreen">
-</NavigationWindow>
+    <Frame Source="LoginPage.xaml"
+           NavigationUIVisibility="Hidden"></Frame>
+</Window>

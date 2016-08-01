@@ -8,7 +8,7 @@
       d:DesignHeight="650" d:DesignWidth="725"
       Title="Add To Inventory"
       Loaded="Page_Loaded">
-     
+
     <Grid Background="White">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -89,22 +89,52 @@
                                FontWeight="Bold"
                                Height="Auto"></Label>
                     </StackPanel>-->
+            
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
+
+                <Image x:Name="image" 
+            		Source="Resources/reach-out-lakota.png" 
+                       HorizontalAlignment="Center" 
+                       Width="500" 
+                       Margin="0, 0, 10, 0"/>
+
+                <TextBlock FontSize="24" 
+                           TextAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontWeight="Bold" 
+                           FontFamily="Rockwell" 
+                           Margin="0, -50, 10, 0">
+                    <Run Text="Inventory"/><LineBreak/><Run Text="Deposit"/></TextBlock>
+            </StackPanel>
+
+
             <Button x:Name="btnScan"
-                                Margin="10,50,10,5"
-                                Grid.Row="1"
-                                Content="Open Scanner"
-                                FontFamily="Rockwell"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Height="70"
-                                VerticalAlignment="Top"
-                                Click="btnScan_Click"/>
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Content="Open Barcode Scanner"
+                    FontFamily="Rockwell"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Height="70"
+                    Margin="5, 0, 10, 0"
+                    Click="btnScan_Click"
+                    Style="{DynamicResource ButtonStyle}"></Button>
 
 
+            <Button Content="Finish Adding"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    FontFamily="Rockwell" 
+                    FontSize="12" 
+                    FontWeight="Bold"
+                    Margin="5, 0, 10, 0"
+                    Height="70"
+                    Style="{DynamicResource ButtonStyle}"></Button>
         </Grid>
-       
 
-            <!--<Border BorderBrush="Black" 
+
+        <!--<Border BorderBrush="Black" 
                     BorderThickness="1"></Border>
             <Grid Grid.Column="1"
                   Background="LightGray">
@@ -204,7 +234,7 @@
         </Grid>-->
         <Grid x:Name="inputBox" 
               Visibility="Collapsed">
-            
+
 
             <!--<Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>-->
         </Grid>

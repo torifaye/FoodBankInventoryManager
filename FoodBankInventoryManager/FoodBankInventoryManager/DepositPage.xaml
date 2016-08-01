@@ -89,10 +89,19 @@
                                FontWeight="Bold"
                                Height="Auto"></Label>
                     </StackPanel>-->
-            
-                    
-            
-                </Grid>
+            <Button x:Name="btnScan"
+                                Margin="10,50,10,5"
+                                Grid.Row="1"
+                                Content="Open Scanner"
+                                FontFamily="Rockwell"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Height="70"
+                                VerticalAlignment="Top"
+                                Click="btnScan_Click"/>
+
+
+        </Grid>
        
 
             <!--<Border BorderBrush="Black" 
@@ -120,16 +129,7 @@
                                FontFamily="Rockwell"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
-                        <Button x:Name="btnScan"
-                                Margin="10,50,10,5"
-                                Grid.Row="1"
-                                Content="Open Scanner"
-                                FontFamily="Rockwell"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Height="70"
-                                VerticalAlignment="Top"
-                                Click="btnScan_Click"/>
+                       
                     </Grid>
                 </Border>
                 <Border BorderBrush="Black" Grid.Row="1">

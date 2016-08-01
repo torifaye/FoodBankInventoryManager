@@ -66,8 +66,8 @@ namespace FoodBankInventoryManager
         /// <summary>
         /// Attempts to login the user with the provided credentials
         /// </summary>
-        /// <param name="email">The email the user provides</param>
-        /// <param name="aPassword">The password the user provides</param>
+        /// <param name = "email" > The email the user provides</param>
+        /// <param name = "aPassword" > The password the user provides</param>
         /// <returns>Whether or not the user is successfully able to sign in with the provided credentials</returns>
         private bool loginUser(string email, string aPassword)
         {

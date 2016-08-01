@@ -23,6 +23,11 @@ namespace FoodBankInventoryManager
         private int myAccessLevel;
         private User myCurrentUser;
 
+        public HomePage()
+        {
+            InitializeComponent();
+        }
+
         public HomePage(User currentUser)
         {
             InitializeComponent();

@@ -23,17 +23,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!--<Label Grid.Row="0"
-               Grid.Column="1"
-               Margin="0, 25, 0, 0"
-               FontFamily="Rockwell"
-               FontSize="24"
-               FontWeight="Bold"
-               HorizontalAlignment="Center"> Enter the barcode text
-        </Label>-->
-
-        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="3" 
+                    HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Top">
                 <ComboBox x:Name="cbItemEnter"
                           Height="30"
                           Margin="0,30,0,20"
@@ -43,22 +38,26 @@
                           VerticalAlignment="Center"
                           SelectedIndex="0">
                     <ComboBoxItem Content="Food"/>
-                    <ComboBoxItem Content="Other"/>
+                    <ComboBoxItem Content="Bin"/>
+                    <ComboBoxItem Content="Shelf"/>
                 </ComboBox>
                 <TextBox x:Name="txtBarcodedata"  
-                 Grid.Row="0"
-                 VerticalAlignment="Center"
-                 Margin="0,30,0,20"
-                 Height="30"
-                 FontSize="24"
-                 MaxLines="1" 
-                 MinLines="1" 
-                 KeyDown="txtBarcodedata_KeyDown"
-                 IsHitTestVisible="True"
-                 Foreground="Black"
-                 Width="368"
-                 TextAlignment="Center" SpellCheck.IsEnabled="True" ToolTip="Enter Barcode Here" Grid.ColumnSpan="3"
-                 />
+                         Grid.Row="0"
+                        VerticalAlignment="Center"
+                        Margin="0,30,0,20"
+                        Height="30"
+                        FontSize="24"
+                        MaxLines="1" 
+                        MinLines="1" 
+                        KeyDown="txtBarcodedata_KeyDown"
+                        IsHitTestVisible="True"
+                        Foreground="Black"
+                        Width="368"
+                        TextAlignment="Center" 
+                        SpellCheck.IsEnabled="True" 
+                        ToolTip="Enter Barcode Here" 
+                        Grid.ColumnSpan="3"
+                         PreviewTextInput="txtBarcodedata_PreviewTextInput"/>
             </StackPanel>
 
 
@@ -92,7 +91,7 @@
                     VerticalAlignment="Bottom"
                     Padding="5, 2, 5, 2"
                     Margin="5,0,0,0"
-                    Style="{DynamicResource ButtonStyle}" Click="btnQuickAdd_Click">
+                    Style="{DynamicResource ButtonStyle}">
                     <TextBlock TextWrapping="Wrap" FontSize="24">Quick Add</TextBlock>
                 </Button>
 

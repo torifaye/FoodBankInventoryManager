@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 #region Message for Programmers
 /*Everthing is neatly wrapped in regions here, so if you add something make sure to wrap it!
@@ -40,19 +41,23 @@ namespace FoodBankInventoryManager
         private List<Bitmap> barcodes;
 
         private List<String> barcodeValues;
-        private string barcodeData = "";
+        private string barcodeData;
 
 
         private const int BARCODE_WIDTH = 500;
         private const int BARCODE_HEIGHT = 200;
 
+        private L2S_FoodBankDBDataContext dbContext;
+
         #endregion
 
         public BarcodeCreatorPage()
         {
+            barcodeData = "";
             b = new Barcode();
             barcodes = new List<Bitmap>();
             barcodeValues = new List<String>();
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             InitializeComponent();
         }
 
@@ -75,7 +80,10 @@ namespace FoodBankInventoryManager
             imgBarcode.Source = null;
             txtBarcodedata.Clear();
         }
-
+        private bool Validate(string content)
+        {
+            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+        }
         /// <summary>
         /// Method for removing Items from the print preview
         /// </summary>
@@ -123,12 +131,41 @@ namespace FoodBankInventoryManager
         /// </summary>
         private void btnGenerateBarcode_Click(object sender, RoutedEventArgs e)
         {
-            barcodeData = txtBarcodedata.Text;
-
-            FoodSubmitWindow f = new FoodSubmitWindow(txtBarcodedata.Text);
-            f.ShowInTaskbar = false;
-            f.Owner = Application.Current.MainWindow;
-            f.ShowDialog();
+            if (Validate(txtBarcodedata.Text))
+            {
+                barcodeData = txtBarcodedata.Text; 
+            }
+            //-1 = No selection 0 = Food, 1 = Other
+            int selectedIndex = cbItemEnter.SelectedIndex;
+            //If user chooses to make a barcode for food, it will present a window to enter in the 
+            //additional information
+            switch (selectedIndex)
+            {
+                case -1: MessageBox.Show("Please choose what kind of item you're creating a barcode for.");
+                    break;
+                case 0:
+                    FoodSubmitWindow f = new FoodSubmitWindow(barcodeData);
+                    f.ShowInTaskbar = false;
+                    f.Owner = Application.Current.MainWindow;
+                    f.ShowDialog();
+                    break;
+                case 1:
+                    Bin bin = new Bin();
+                    barcodeData = "B" + barcodeData;
+                    bin.BinId = barcodeData;
+                    dbContext.Bins.InsertOnSubmit(bin);
+                    dbContext.SubmitChanges();
+                    break;
+                case 2:
+                    Shelf shelf = new Shelf();
+                    barcodeData = "S" + barcodeData;
+                    shelf.ShelfId = barcodeData;
+                    dbContext.Shelfs.InsertOnSubmit(shelf);
+                    dbContext.SubmitChanges();
+                    break;
+                default:
+                    break;
+            }
 
             int W = BARCODE_WIDTH;
             int H = BARCODE_HEIGHT;
@@ -139,7 +176,8 @@ namespace FoodBankInventoryManager
             b.RotateFlipType = RotateFlipType.RotateNoneFlipNone;
             b.LabelPosition = LabelPositions.BOTTOMCENTER;
 
-            string tempbarcode = txtBarcodedata.Text.Trim().ToUpper();
+            //string tempbarcode = txtBarcodedata.Text.Trim().ToUpper();
+            string tempbarcode = barcodeData.Trim().ToUpper();
 
             while (tempbarcode.Length < 24)
             {
@@ -1655,6 +1693,18 @@ namespace FoodBankInventoryManager
         }
         #endregion
 
+        private void txtBarcodedata_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (cbItemEnter.SelectedIndex == 1 || cbItemEnter.SelectedIndex == 2)
+            {
+                e.Handled = !isTextAllowed(e.Text); 
+            }
+        }
+        private static bool isTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
     }
 }
 

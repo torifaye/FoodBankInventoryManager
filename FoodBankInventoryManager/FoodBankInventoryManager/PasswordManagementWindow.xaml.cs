@@ -50,11 +50,14 @@ namespace FoodBankInventoryManager
                 }
                 if (Validate(pwBoxConfirm.Password) && BCrypt.CheckPassword(pwBoxConfirm.Password, myHash))
                 {
-                    myCurrentUser.Password = myHash;
-                    MessageBox.Show("Password successfully changed!");
-                    string sqlCommand = "UPDATE [dbo].[User] SET [User].[Password] = " + myHash + " WHERE [UserId] = " + myCurrentUser.UserId;
-                    dbContext.ExecuteCommand(sqlCommand);
+                    //For some reason you have to query for the user instead of being able to use
+                    //the one passed to you (i.e. myCurrentUser)
+                    User user = (from users in dbContext.GetTable<User>()
+                                 where users.Email == myCurrentUser.Email
+                                 select users).First<User>();
+                    user.Password = myHash;
                     dbContext.SubmitChanges();
+                    MessageBox.Show("Password successfully changed!");
                     this.Close();
                 }
             }

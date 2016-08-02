@@ -37,26 +37,28 @@
                     Grid.RowSpan="3">
 
                 <DataGrid x:Name="grdItems"
-                                  ItemsSource="{Binding Path=FoodBankDB}"
+                                  ItemsSource="{Binding Path=FoodBankDB.InventoryEntry}"
                                   Grid.Row="0"
                                   Grid.Column="0"
-                                  AutoGenerateColumns="False"
+                                  AutoGenerateColumns="True"
                                   VerticalAlignment="Top"
                                                     >
 
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Item Name"
-                                            Binding="{Binding Path=FoodCode}"    
-                                            Width="3*"/>
+                                            Binding="{Binding Path=FoodId}"    
+                                            Width="1.5*"/>
 
 
-                        <DataGridTextColumn Header="Date Entered"
-                                            Binding="{Binding Path=DateEntered}"
-                                            Width="1.45*"/>
+                        <DataGridTextColumn Header="Bin #"
+                                            Binding="{Binding Path=ShelfId}"
+                                            Width=".5*"/>
 
-                        <DataGridTextColumn Header="Quantity"
-                                            Binding="{Binding Path=Quantity}"/>
+                        <DataGridTextColumn Header="Shelf #"
+                                            Width=".5*"/>
+                        <DataGridTextColumn Header="Bin Qty"
+                                            Width=".35*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -122,7 +124,8 @@
                     Style="{DynamicResource ButtonStyle}"></Button>
 
 
-            <Button Content="Finish Adding"
+            <Button x:Name="btnCancel"
+                    Content="Finish Adding"
                     Grid.Row="2"
                     Grid.Column="1"
                     FontFamily="Rockwell" 
@@ -130,7 +133,8 @@
                     FontWeight="Bold"
                     Margin="5, 0, 10, 0"
                     Height="70"
-                    Style="{DynamicResource ButtonStyle}"></Button>
+                    Style="{DynamicResource ButtonStyle}"
+                    Click="btnCancel_Click"></Button>
         </Grid>
 
 

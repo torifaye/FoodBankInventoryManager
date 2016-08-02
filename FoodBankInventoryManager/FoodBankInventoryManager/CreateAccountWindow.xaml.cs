@@ -110,9 +110,6 @@ namespace FoodBankInventoryManager
                     readyToSubmit = false;
                     strEmptyReporter += entry.Key + ", ";
                 }
-                if (!String.IsNullOrEmpty(strEmptyReporter))
-                {
-                }
             }
             if (readyToSubmit)
             {

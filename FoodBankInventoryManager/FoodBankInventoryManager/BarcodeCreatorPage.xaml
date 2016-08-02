@@ -43,7 +43,7 @@
                           VerticalAlignment="Center"
                           SelectedIndex="0">
                     <ComboBoxItem Content="Food"/>
-                    <ComboBoxItem Content="Bin"/>
+                    <ComboBoxItem Content="Other"/>
                 </ComboBox>
                 <TextBox x:Name="txtBarcodedata"  
                  Grid.Row="0"

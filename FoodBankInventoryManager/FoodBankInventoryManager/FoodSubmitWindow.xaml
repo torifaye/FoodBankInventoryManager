@@ -1,16 +1,13 @@
-﻿<Window x:Class="FoodBankInventoryManager.BinMaitenance"
+﻿<Window x:Class="FoodBankInventoryManager.FoodSubmitWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
-        Title="Bin Maitenance" Height="300" Width="250">
+        Title="Food Info" Height="300" Width="300" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="1.2*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -18,87 +15,67 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="198*"/>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   FontSize="14"
+                   FontFamily="Rockwell"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="0,26,5,26"
+                   Text="Food Name:" Height="16" Width="78"/>
+        <TextBlock x:Name="txtFoodName"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="14"
+                   FontFamily="Rockwell"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="5,26,0,26" Height="20"/>
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
-                   FontSize="20"
+                   FontSize="14"
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Margin="0, 0, 15, 0"
-                   Text="Bin:">
-        </TextBlock>
-
+                   Text="Min. Quantity:"/>
+        <TextBox x:Name="txtMinQty"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 FontSize="14"
+                 FontFamily="Rockwell"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Width="40" Height="20"
+                 PreviewTextInput="txtQty_PreviewTextInput"/>
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
-                   FontSize="20"
+                   FontSize="14"
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Margin="0, 0, 15, 0"
-                   Text="Shelf:">
-        </TextBlock>
-
-        <TextBox x:Name="txtShelf"
+                   Text="Avg. Quantity:"/>
+        <TextBox x:Name="txtAvgQty"
                  Grid.Row="2"
                  Grid.Column="1"
+                 FontSize="14"
                  FontFamily="Rockwell"
-                 FontSize="20"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 Height="Auto"
-                 />
-
-        <TextBlock Grid.Row="3"
-                   Grid.Column="0"
-                   FontSize="20"
-                   FontFamily="Rockwell"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0, 0, 15, 0"
-                   Text="Food:">
-        </TextBlock>
-        <TextBox x:Name="txtFood"
-                 Grid.Row="3"
-                 Grid.Column="1"
-                 FontFamily="Rockwell"
-                 FontSize="20"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 Height="Auto"
-                 />
-        <TextBlock Grid.Row="4"
-                   Grid.Column="0"
-                   FontSize="16"
-                   FontFamily="Rockwell"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0, 0, 15, 0"
-                   Text="Item Qty:">
-        </TextBlock>
-        <TextBox x:Name="txtQty"
-                 Grid.Row="4"
-                 Grid.Column="1"
-                 FontFamily="Rockwell"
-                 FontSize="20"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 Height="Auto"
-                 />
+                 Width="40" Height="20"
+                 PreviewTextInput="txtQty_PreviewTextInput"/>
 
         <Button x:Name="btnSubmit"
-                Grid.Row="6"
+                Grid.Row="3"
                 Grid.ColumnSpan="2"
                 Content="Submit"
                 FontFamily="Rockwell"
                 FontSize="14"
-                Width="Auto"
-                Height="Auto" 
-                Margin="69,0,69,10.5"
+                Width="75"
+                Height="30"
                 Click="btnSubmit_Click"/>
-
     </Grid>
 </Window>

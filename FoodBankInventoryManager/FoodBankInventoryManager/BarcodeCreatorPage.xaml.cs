@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 #region Message for Programmers
 /*Everthing is neatly wrapped in regions here, so if you add something make sure to wrap it!
@@ -40,6 +41,7 @@ namespace FoodBankInventoryManager
 
         private List<String> barcodeValues;
         private string barcodeData = "";
+
 
         private const int BARCODE_WIDTH = 500;
         private const int BARCODE_HEIGHT = 200;
@@ -123,7 +125,11 @@ namespace FoodBankInventoryManager
         {
             barcodeData = txtBarcodedata.Text;
 
-            
+            FoodSubmitWindow f = new FoodSubmitWindow(txtBarcodedata.Text);
+            f.ShowInTaskbar = false;
+            f.Owner = Application.Current.MainWindow;
+            f.ShowDialog();
+
             int W = BARCODE_WIDTH;
             int H = BARCODE_HEIGHT;
             b.Alignment = AlignmentPositions.CENTER;

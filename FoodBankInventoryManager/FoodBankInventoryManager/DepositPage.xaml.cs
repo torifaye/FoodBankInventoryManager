@@ -28,6 +28,7 @@ namespace FoodBankInventoryManager
 
         public DepositPage()
         {
+            dateOpened = DateTime.Now;
             InitializeComponent();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }

@@ -53,7 +53,7 @@ namespace FoodBankInventoryManager
             CreateAccountWindow c = new CreateAccountWindow();
             c.ShowInTaskbar = false;
             c.Owner = Application.Current.MainWindow;
-            c.Show();
+            c.ShowDialog();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

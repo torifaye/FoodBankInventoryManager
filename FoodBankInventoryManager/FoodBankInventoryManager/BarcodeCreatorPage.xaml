@@ -33,7 +33,19 @@
         </Label>-->
 
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-            <TextBox x:Name="txtBarcodedata"  
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <ComboBox x:Name="cbItemEnter"
+                          Height="30"
+                          Margin="0,30,0,20"
+                          FontFamily="Rockwell"
+                          FontSize="14"
+                          VerticalContentAlignment="Center"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="Food"/>
+                    <ComboBoxItem Content="Bin"/>
+                </ComboBox>
+                <TextBox x:Name="txtBarcodedata"  
                  Grid.Row="0"
                  VerticalAlignment="Center"
                  Margin="0,30,0,20"
@@ -44,8 +56,11 @@
                  KeyDown="txtBarcodedata_KeyDown"
                  IsHitTestVisible="True"
                  Foreground="Black"
+                 Width="368"
                  TextAlignment="Center" SpellCheck.IsEnabled="True" ToolTip="Enter Barcode Here" Grid.ColumnSpan="3"
                  />
+            </StackPanel>
+
 
             <StackPanel Grid.Row="0"
                     Grid.Column="0"

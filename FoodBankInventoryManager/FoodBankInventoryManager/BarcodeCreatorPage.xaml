@@ -47,6 +47,7 @@
                         Margin="0,30,0,20"
                         Height="30"
                         FontSize="24"
+                         FontFamily="Rockwell"
                         MaxLines="1" 
                         MinLines="1" 
                         KeyDown="txtBarcodedata_KeyDown"
@@ -79,7 +80,7 @@
                     Style="{DynamicResource ButtonStyle}">
                     <TextBlock TextWrapping="Wrap" FontSize="24">Create Barcode</TextBlock>
                 </Button>
-                <Label
+                <!--<Label
                FontSize="20"              
                VerticalAlignment="Center"
                FontWeight="Bold"
@@ -93,7 +94,7 @@
                     Margin="5,0,0,0"
                     Style="{DynamicResource ButtonStyle}">
                     <TextBlock TextWrapping="Wrap" FontSize="24">Quick Add</TextBlock>
-                </Button>
+                </Button>-->
 
             </StackPanel>
         </StackPanel>

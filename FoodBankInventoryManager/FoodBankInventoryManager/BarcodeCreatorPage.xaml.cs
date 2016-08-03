@@ -63,14 +63,14 @@ namespace FoodBankInventoryManager
 
         #region Convenience Methods
 
-        /// <summary>
-        /// Calls btnGenerateBarcode_Click and btnAddtoPrint_Click
-        /// </summary>
-        private void btnQuickAdd_Click(object sender, RoutedEventArgs e)
-        {
-            btnGenerateBarcode_Click(sender, e);
-            btnAddtoPrint_Click(sender, e);
-        }
+        ///// <summary>
+        ///// Calls btnGenerateBarcode_Click and btnAddtoPrint_Click
+        ///// </summary>
+        //private void btnQuickAdd_Click(object sender, RoutedEventArgs e)
+        //{
+        //    btnGenerateBarcode_Click(sender, e);
+        //    //btnAddtoPrint_Click(sender, e);
+        //}
 
         /// <summary>
         /// Clears current generated barcode and textbox
@@ -131,6 +131,7 @@ namespace FoodBankInventoryManager
         /// </summary>
         private void btnGenerateBarcode_Click(object sender, RoutedEventArgs e)
         {
+            imgBarcode.Source = null;
             if (Validate(txtBarcodedata.Text))
             {
                 barcodeData = txtBarcodedata.Text; 
@@ -139,32 +140,36 @@ namespace FoodBankInventoryManager
             int selectedIndex = cbItemEnter.SelectedIndex;
             //If user chooses to make a barcode for food, it will present a window to enter in the 
             //additional information
-            switch (selectedIndex)
+            if (Validate(txtBarcodedata.Text))
             {
-                case -1: MessageBox.Show("Please choose what kind of item you're creating a barcode for.");
-                    break;
-                case 0:
-                    FoodSubmitWindow f = new FoodSubmitWindow(barcodeData);
-                    f.ShowInTaskbar = false;
-                    f.Owner = Application.Current.MainWindow;
-                    f.ShowDialog();
-                    break;
-                case 1:
-                    Bin bin = new Bin();
-                    barcodeData = "B" + barcodeData;
-                    bin.BinId = barcodeData;
-                    dbContext.Bins.InsertOnSubmit(bin);
-                    dbContext.SubmitChanges();
-                    break;
-                case 2:
-                    Shelf shelf = new Shelf();
-                    barcodeData = "S" + barcodeData;
-                    shelf.ShelfId = barcodeData;
-                    dbContext.Shelfs.InsertOnSubmit(shelf);
-                    dbContext.SubmitChanges();
-                    break;
-                default:
-                    break;
+                switch (selectedIndex)
+                {
+                    case -1:
+                        MessageBox.Show("Please choose what kind of item you're creating a barcode for.");
+                        break;
+                    case 0:
+                        FoodSubmitWindow f = new FoodSubmitWindow(barcodeData);
+                        f.ShowInTaskbar = false;
+                        f.Owner = Application.Current.MainWindow;
+                        f.ShowDialog();
+                        break;
+                    case 1:
+                        Bin bin = new Bin();
+                        barcodeData = "B" + barcodeData;
+                        bin.BinId = barcodeData;
+                        dbContext.Bins.InsertOnSubmit(bin);
+                        dbContext.SubmitChanges();
+                        break;
+                    case 2:
+                        Shelf shelf = new Shelf();
+                        barcodeData = "S" + barcodeData;
+                        shelf.ShelfId = barcodeData;
+                        dbContext.Shelfs.InsertOnSubmit(shelf);
+                        dbContext.SubmitChanges();
+                        break;
+                    default:
+                        break;
+                } 
             }
 
             int W = BARCODE_WIDTH;
@@ -194,7 +199,7 @@ namespace FoodBankInventoryManager
                 System.Drawing.Image g = b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
                 dImg = (Bitmap)g;
                 MemoryStream ms = new MemoryStream();
-                dImg.Save(ms, ImageFormat.Jpeg);
+                dImg.Save(ms, ImageFormat.Png);
                 BitmapImage bImg = new BitmapImage();
                 bImg.BeginInit();
                 bImg.StreamSource = new MemoryStream(ms.ToArray());
@@ -203,6 +208,34 @@ namespace FoodBankInventoryManager
                 imgBarcode.Height = bImg.Height + 180;
                 imgBarcode.Width = bImg.Width + 180;            
                 imgBarcode.Source = bImg;
+
+                if (dImg != null && imgBarcode.Source != null)
+                {
+                    foreach (String item in barcodeValues)
+                    {
+                        if (item == barcodeData)
+                        {
+                            MessageBox.Show("This barcode is already in the print preview.", "Food Bank Manager", MessageBoxButton.OK);
+                            return;
+                        }
+                    }
+                    if (barcodes.Count < 30)
+                    {
+                        barcodes.Add(dImg);
+                        barcodeValues.Add(barcodeData);
+                    }
+
+                    if (barcodes.Count >= 30)
+                    {
+                        MessageBox.Show("Max barcode per sheet limit reached (30).", "Food Bank Manager");
+                        txtNumBarcodes.Text = barcodes.Count.ToString();
+                        return;
+                    }
+
+                    txtNumBarcodes.Text = barcodes.Count.ToString();
+                    txtBarcodedata.Text = "";
+                    lstPreview.Items.Add(barcodeData);
+                }
 
 
             }
@@ -213,6 +246,7 @@ namespace FoodBankInventoryManager
                 txtBarcodedata.Text = "";
 
             }
+            barcodeData = "";
         }
 
         /// <summary>
@@ -1651,46 +1685,46 @@ namespace FoodBankInventoryManager
             }
         }
 
-        /// <summary>
-        /// Adds non-duplicate barcodes to the print preview
-        /// </summary>
-        private void btnAddtoPrint_Click(object sender, RoutedEventArgs e)
-        {
-            if (dImg == null || imgBarcode.Source == null)
-            {
-                MessageBox.Show("Please generate a barcode before adding it to the preview.", "Food Bank Manager");
-                return;
-            }
+        ///// <summary>
+        ///// Adds non-duplicate barcodes to the print preview
+        ///// </summary>
+        //private void btnAddtoPrint_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (dImg == null || imgBarcode.Source == null)
+        //    {
+        //        MessageBox.Show("Please generate a barcode before adding it to the preview.", "Food Bank Manager");
+        //        return;
+        //    }
 
-            foreach (String item in barcodeValues)
-            {
-                if (item == barcodeData)
-                {
-                    MessageBox.Show("This barcode is already in the print preview.", "Food Bank Manager", MessageBoxButton.OK);
-                    return;
-                }
-            }
+        //    foreach (String item in barcodeValues)
+        //    {
+        //        if (item == barcodeData)
+        //        {
+        //            MessageBox.Show("This barcode is already in the print preview.", "Food Bank Manager", MessageBoxButton.OK);
+        //            return;
+        //        }
+        //    }
 
-            if (barcodes.Count < 30)
-            {
-                barcodes.Add(dImg);
-                barcodeValues.Add(barcodeData);
-            }
+        //    if (barcodes.Count < 30)
+        //    {
+        //        barcodes.Add(dImg);
+        //        barcodeValues.Add(barcodeData);
+        //    }
 
-            if (barcodes.Count >= 30)
-            {
-                MessageBox.Show("Max barcode per sheet limit reached (30).", "Food Bank Manager");
-                txtNumBarcodes.Text = barcodes.Count.ToString();
-                return;
-            }
+        //    if (barcodes.Count >= 30)
+        //    {
+        //        MessageBox.Show("Max barcode per sheet limit reached (30).", "Food Bank Manager");
+        //        txtNumBarcodes.Text = barcodes.Count.ToString();
+        //        return;
+        //    }
 
-            txtNumBarcodes.Text = barcodes.Count.ToString();
-            txtBarcodedata.Text = "";
-            imgBarcode.Source = null;
+        //    txtNumBarcodes.Text = barcodes.Count.ToString();
+        //    txtBarcodedata.Text = "";
+        //    imgBarcode.Source = null;
 
-            lstPreview.Items.Add(barcodeData);
+        //    lstPreview.Items.Add(barcodeData);
 
-        }
+        //}
         #endregion
 
         private void txtBarcodedata_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -1705,6 +1739,15 @@ namespace FoodBankInventoryManager
             Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
         }
+
+        //private void cbItemEnter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (Validate(txtBarcodedata.Text) && imgBarcode.Source != null)
+        //    {
+        //        txtBarcodedata.Text = null;
+        //        imgBarcode.Source = null;
+        //    }
+        //}
     }
 }
 

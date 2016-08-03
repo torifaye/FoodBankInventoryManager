@@ -63,8 +63,8 @@ namespace FoodBankInventoryManager
                 MessageBox.Show("The email address or password you provided is incorrect");
             }
 
-            HomePage h = new HomePage();
-            this.NavigationService.Navigate(h);
+            //HomePage h = new HomePage();
+            //this.NavigationService.Navigate(h);
         }
         /// <summary>
         /// Attempts to login the user with the provided credentials

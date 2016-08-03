@@ -140,7 +140,7 @@
                  FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
-                 IsReadOnly="True"/>
+                 />
         <TextBlock IsHitTestVisible="False" 
                    Grid.Row="0"
                    Text="Food Code" 
@@ -172,7 +172,7 @@
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 IsReadOnly="True"/>
+                 />
         <TextBlock IsHitTestVisible="False" 
                    Text="Bin Code"
                    Grid.Row="1"
@@ -204,7 +204,7 @@
                  Width="120"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 IsReadOnly="True"/>
+                 />
         <TextBlock IsHitTestVisible="False" 
                    Text="Shelf Code"
                    Grid.Row="2"
@@ -260,14 +260,14 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TextBox x:Name="txtTempStorage"
+        <!--<TextBox x:Name="txtTempStorage"
                  Grid.Row="4"
                  FontSize="14"
                  FontFamily="Rockwell"
                  VerticalAlignment="Center"
                  Visibility="Hidden"
                  TextChanged="txtTempStorage_TextChanged"
-                 />
+                 />-->
         <!--<Button x:Name="btnRandomizeAll"
                 Grid.Row="4" Grid.Column="0"
                 Content="Randomize All"

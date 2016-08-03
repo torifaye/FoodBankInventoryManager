@@ -35,6 +35,7 @@ namespace FoodBankInventoryManager
         {
             binRegex = new Regex("^[B][0-9]*$");
             shelfRegex = new Regex("^[S][0-9]*$");
+            foodRegex = new Regex("^[a-zA-Z ]*$");
             rand = new Random();
             dateEntered = DateTime.Now;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
@@ -52,7 +53,7 @@ namespace FoodBankInventoryManager
         {
             //An instance object to be added to the database
             //Sets a value for all of the columns in the invBin table
-            invEntry.FoodId = txtFood.Text;
+            invEntry.FoodName = txtFood.Text;
             invEntry.BinId = txtBin.Text;
             invEntry.ShelfId = txtShelf.Text;
             invEntry.DateEntered = DateTime.Now;
@@ -66,34 +67,37 @@ namespace FoodBankInventoryManager
             Close();
         }
 
-        private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (binRegex.IsMatch(txtTempStorage.Text))
-            {
-                txtBin.Text = txtTempStorage.Text;
-            }
-            else if(shelfRegex.IsMatch(txtTempStorage.Text))
-            {
-                txtShelf.Text = txtTempStorage.Text;
-            }
-            else if(foodRegex.IsMatch(txtTempStorage.Text))
-            {
-                txtFood.Text = txtTempStorage.Text;
-            }
-            txtTempStorage.Text = "";
-        }
+        //private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (binRegex.IsMatch(txtTempStorage.Text))
+        //    {
+        //        System.Threading.Thread.Sleep(10000);
+        //        txtBin.Text = txtTempStorage.Text;
+        //    }
+        //    else if(shelfRegex.IsMatch(txtTempStorage.Text))
+        //    {
+        //        System.Threading.Thread.Sleep(10000);
+        //        txtShelf.Text = txtTempStorage.Text;
+        //    }
+        //    else if(foodRegex.IsMatch(txtTempStorage.Text))
+        //    {
+        //        System.Threading.Thread.Sleep(10000);
+        //        txtFood.Text = txtTempStorage.Text;
+        //    }
+        //    txtTempStorage.Text = "";
+        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            txtTempStorage.Visibility = Visibility.Visible;
-            txtTempStorage.Width = 100;
-            txtTempStorage.HorizontalAlignment = HorizontalAlignment.Left;
-            txtTempStorage.Margin = new Thickness(75, 0, 0, 0);
-            btnAddToInv.HorizontalAlignment = HorizontalAlignment.Right;
-            btnAddToInv.Margin = new Thickness(0, 0, 75, 0);
-#endif
-            txtTempStorage.Focus();
+//#if DEBUG
+//            txtTempStorage.Visibility = Visibility.Visible;
+//            txtTempStorage.Width = 100;
+//            txtTempStorage.HorizontalAlignment = HorizontalAlignment.Left;
+//            txtTempStorage.Margin = new Thickness(75, 0, 0, 0);
+//            btnAddToInv.HorizontalAlignment = HorizontalAlignment.Right;
+//            btnAddToInv.Margin = new Thickness(0, 0, 75, 0);
+//#endif
+//            txtTempStorage.Focus();
         }
     }
 }

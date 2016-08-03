@@ -122,6 +122,19 @@ namespace FoodBankInventoryManager
 
         }
 
+        private void txtBarcodedata_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (cbItemEnter.SelectedIndex == 1 || cbItemEnter.SelectedIndex == 2)
+            {
+                e.Handled = !isTextAllowed(e.Text);
+            }
+        }
+        private static bool isTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
+
         #endregion
 
         #region Barcode Creation
@@ -1726,28 +1739,6 @@ namespace FoodBankInventoryManager
 
         //}
         #endregion
-
-        private void txtBarcodedata_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (cbItemEnter.SelectedIndex == 1 || cbItemEnter.SelectedIndex == 2)
-            {
-                e.Handled = !isTextAllowed(e.Text); 
-            }
-        }
-        private static bool isTextAllowed(string text)
-        {
-            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
-            return !regex.IsMatch(text);
-        }
-
-        //private void cbItemEnter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (Validate(txtBarcodedata.Text) && imgBarcode.Source != null)
-        //    {
-        //        txtBarcodedata.Text = null;
-        //        imgBarcode.Source = null;
-        //    }
-        //}
     }
 }
 

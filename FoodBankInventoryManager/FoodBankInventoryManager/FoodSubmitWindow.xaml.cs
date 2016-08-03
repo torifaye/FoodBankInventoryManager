@@ -44,7 +44,6 @@ namespace FoodBankInventoryManager
                 toBeAdded.FoodName = myFoodName;
                 toBeAdded.AverageQty = Convert.ToInt32(txtAvgQty.Text);
                 toBeAdded.MinimumQty = Convert.ToInt32(txtMinQty.Text);
-
                 dbContext.Foods.InsertOnSubmit(toBeAdded);
                 dbContext.SubmitChanges();
             }

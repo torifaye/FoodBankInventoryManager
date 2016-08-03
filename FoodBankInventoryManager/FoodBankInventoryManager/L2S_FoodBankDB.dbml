@@ -23,12 +23,6 @@
       <Association Name="User_InventoryEntry" Member="InventoryEntries" ThisKey="UserId" OtherKey="UserId" Type="InventoryEntry" />
     </Type>
   </Table>
-  <Table Name="dbo.Food" Member="Foods">
-    <Type Name="Food">
-      <Column Name="FoodName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Food_InventoryEntry" Member="InventoryEntries" ThisKey="FoodName" OtherKey="FoodName" Type="InventoryEntry" />
-    </Type>
-  </Table>
   <Table Name="dbo.InventoryEntry" Member="InventoryEntries">
     <Type Name="InventoryEntry">
       <Column Name="EntryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -39,9 +33,19 @@
       <Column Name="BinQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DateEntered" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Bin_InventoryEntry" Member="Bin" ThisKey="BinId" OtherKey="BinId" Type="Bin" IsForeignKey="true" />
-      <Association Name="Food_InventoryEntry" Member="Food" ThisKey="FoodName" OtherKey="FoodName" Type="Food" IsForeignKey="true" />
       <Association Name="Shelf_InventoryEntry" Member="Shelf" ThisKey="ShelfId" OtherKey="ShelfId" Type="Shelf" IsForeignKey="true" />
       <Association Name="User_InventoryEntry" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+      <Association Name="Food_InventoryEntry" Member="Food" ThisKey="FoodName" OtherKey="FoodName" Type="Food" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Food" Member="Foods">
+    <Type Name="Food">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FoodName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AverageQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FoodId" Type="System.String" DbType="VarChar(31)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Food_InventoryEntry" Member="InventoryEntries" ThisKey="FoodName" OtherKey="FoodName" Type="InventoryEntry" />
     </Type>
   </Table>
 </Database>

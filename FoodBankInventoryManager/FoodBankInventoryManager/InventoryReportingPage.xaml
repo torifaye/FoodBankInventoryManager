@@ -139,24 +139,31 @@
                        FontWeight="Bold">Items</TextBlock>
             <DataGrid x:Name="grdItems"
                       FontFamily="Rockwell"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      MouseDoubleClick="grdItems_MouseDoubleClick"
+                      SelectedItem="{Binding SelectedEntry}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name"
-                                            Width="*" 
-                                            IsReadOnly="True"/>
+                                        Width="*" 
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Name}"/>
                     <DataGridTextColumn Header="Date Entered" 
                                         Width="*"
-                                        IsReadOnly="True">
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Date}">
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Bin No."
                                         Width="*"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Bin}"/>
                     <DataGridTextColumn Header="Shelf No."
                                         Width="*"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=Shelf}"/>
                     <DataGridTextColumn Header="Quantity"
                                         Width="*"
                                         IsReadOnly="True"
+                                        Binding="{Binding Path=Quantity}"
                                         >
                     </DataGridTextColumn>
                 </DataGrid.Columns>

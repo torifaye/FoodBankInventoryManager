@@ -86,7 +86,6 @@
     <Compile Include="FoodSubmitWindow.xaml.cs">
       <DependentUpon>FoodSubmitWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InventoryInfo.cs" />
     <Compile Include="L2S_FoodBankDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,8 +100,8 @@
     <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StatisticsPage.xaml.cs">
-      <DependentUpon>StatisticsPage.xaml</DependentUpon>
+    <Compile Include="InventoryReportingPage.xaml.cs">
+      <DependentUpon>InventoryReportingPage.xaml</DependentUpon>
     </Compile>
     <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
@@ -165,7 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StatisticsPage.xaml">
+    <Page Include="InventoryReportingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

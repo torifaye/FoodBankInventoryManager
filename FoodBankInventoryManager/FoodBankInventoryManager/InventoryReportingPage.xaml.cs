@@ -12,51 +12,64 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace FoodBankInventoryManager
 {
     /// <summary>
     /// Interaction logic for StatisticsPage.xaml
     /// </summary>
-    public partial class StatisticsPage : Page
+    public partial class InventoryReportingPage : Page
     {
         private L2S_FoodBankDBDataContext dbContext;
-        public StatisticsPage()
+        public InventoryReportingPage()
         {
             InitializeComponent();
-            dbContext = new L2S_FoodBankDBDataContext(@"Data Source=DESKTOP-ABVBM4U\SQLEXPRESS;Initial Catalog=FoodBankDB;Integrated Security=True");
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (LoginPage.isAdministrator==true)
-            {
-                //HomePage h = new HomePage(true); //NEEDS TO BE FIXED LATER
-                //LoginPage.isAdministrator = true;
-                //this.NavigationService.Navigate(h);
-            }
-            else
-            {
-                //HomePage h = new HomePage(false); //NEEDS TO BE FIXED LATER
-                //LoginPage.isAdministrator = false;
-                //this.NavigationService.Navigate(h);
-            }
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
-                                where items.FoodId != null
+                                where items != null
                                 select new InventoryInfo
                                 {
                                     FoodId = items.FoodId,
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
                                     BinQuantity = items.BinQty,
-                                    User = items.User
+                                    DateEntered = items.DateEntered
                                 };
             grdItems.ItemsSource = inventoryInfo;
             txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+    class InventoryInfo
+    {
+        public string FoodId
+        {
+            get; set;
+        }
+        public string BinId
+        {
+            get; set;
+        }
+        public string ShelfId
+        {
+            get; set;
+        }
+        public DateTime DateEntered
+        {
+            get; set;
+        }
+        public int BinQuantity
+        {
+            get; set;
         }
     }
 }

@@ -25,10 +25,12 @@ namespace FoodBankInventoryManager
     {
         private L2S_FoodBankDBDataContext dbContext;
         private DateTime dateOpened;
+        private User myCurrentUser;
 
-        public DepositPage()
+        public DepositPage(User aUser)
         {
             dateOpened = DateTime.Now;
+            myCurrentUser = aUser;
             InitializeComponent();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
@@ -42,13 +44,13 @@ namespace FoodBankInventoryManager
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
             inputBox.Visibility = Visibility.Visible;
-            ScannerEmulator se = new ScannerEmulator();
+            ScannerEmulator se = new ScannerEmulator(myCurrentUser);
             se.ShowDialog();
             var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
                                 where items.DateEntered > dateOpened
-                                select new InventoryInfo
+                                select new DepositEntry
                                 {
-                                    FoodId = items.FoodId,
+                                    FoodName = items.FoodName,
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
                                     BinQuantity = items.BinQty
@@ -62,5 +64,24 @@ namespace FoodBankInventoryManager
             this.NavigationService.Navigate(h);
         }
 
+    }
+    public class DepositEntry
+    {
+        public string FoodName
+        {
+            get; set;
+        }
+        public string BinId
+        {
+            get; set;
+        }
+        public string ShelfId
+        {
+            get; set;
+        }
+        public int BinQuantity
+        {
+            get; set;
+        }
     }
 }

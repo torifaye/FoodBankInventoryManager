@@ -11,7 +11,8 @@
         Height="260"
         Width="420" 
         MinHeight="260" 
-        MinWidth="420">
+        MinWidth="420"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -138,7 +139,8 @@
                  FontSize="14"
                  FontFamily="Rockwell"
                  Width="120"
-                 VerticalAlignment="Center"/>
+                 VerticalAlignment="Center"
+                 IsReadOnly="True"/>
         <TextBlock IsHitTestVisible="False" 
                    Grid.Row="0"
                    Text="Food Code" 
@@ -169,7 +171,8 @@
                  FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"/>
+                 HorizontalAlignment="Center"
+                 IsReadOnly="True"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Bin Code"
                    Grid.Row="1"
@@ -200,7 +203,8 @@
                  FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"/>
+                 HorizontalAlignment="Center"
+                 IsReadOnly="True"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Shelf Code"
                    Grid.Row="2"
@@ -256,7 +260,15 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Button x:Name="btnRandomizeAll"
+        <TextBox x:Name="txtTempStorage"
+                 Grid.Row="4"
+                 FontSize="14"
+                 FontFamily="Rockwell"
+                 VerticalAlignment="Center"
+                 Visibility="Hidden"
+                 TextChanged="txtTempStorage_TextChanged"
+                 />
+        <!--<Button x:Name="btnRandomizeAll"
                 Grid.Row="4" Grid.Column="0"
                 Content="Randomize All"
                 Click="btnRandomizeAll_Click"
@@ -265,17 +277,16 @@
                 Margin="75,0,0,0"
                 FontFamily="Rockwell"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center"/>-->
         <Button x:Name="btnAddToInv"
                 Grid.Row="4"
-                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Content="Add To Inventory"
                 Click="btnAddToInv_Click"
                 Height="22"
                 Width="120"
-                Margin="0,0,75,0"
                 FontFamily="Rockwell"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Right"/>
+                HorizontalAlignment="Center"/>
     </Grid>
 </Window>

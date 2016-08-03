@@ -92,14 +92,14 @@ namespace FoodBankInventoryManager
 
         private void btnAdd_Items_Click(object sender, RoutedEventArgs e)
         {
-            DepositPage d = new DepositPage();
+            DepositPage d = new DepositPage(myCurrentUser);
             this.NavigationService.Navigate(d);
         }
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
-            StatisticsPage s = new StatisticsPage();
-            this.NavigationService.Navigate(s);
+            InventoryReportingPage i = new InventoryReportingPage();
+            this.NavigationService.Navigate(i);
         }
 
         private void bttnHome_Click(object sender, RoutedEventArgs e)

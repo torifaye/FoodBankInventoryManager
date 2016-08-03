@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net.Mail;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace FoodBankInventoryManager
 {
@@ -23,72 +24,25 @@ namespace FoodBankInventoryManager
     {
         private Random rand;
         private L2S_FoodBankDBDataContext dbContext;
-        private string foodCode;
-        private string binId;
-        private string shelfId;
-        private int quantity;
         private DateTime dateEntered;
         private InventoryEntry invEntry;
-        private Food food;
-        private Bin bin;
-        private Shelf shelf;
+        private User myCurrentUser;
+        private Regex binRegex;
+        private Regex shelfRegex;
+        private Regex foodRegex;
 
-        public ScannerEmulator()
+        public ScannerEmulator(User aUser)
         {
+            binRegex = new Regex("^[B][0-9]*$");
+            shelfRegex = new Regex("^[S][0-9]*$");
             rand = new Random();
-            foodCode = "";
-            binId = "";
-            shelfId = "";
             dateEntered = DateTime.Now;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             invEntry = new InventoryEntry();
-            food = new Food();
-            bin = new Bin();
-            shelf = new Shelf();
+            myCurrentUser = aUser;
             InitializeComponent();
         }
 
-        private void btnFood_Click(object sender, RoutedEventArgs e)
-        {
-            //Gathers all of the food codes currently in the database
-            string[] foodCodes = (from items in dbContext.GetTable<InventoryEntry>() select items.FoodId).ToArray<string>();
-            //a selection of possible chars that a random string can contain
-            string possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
-            //if the table isn't empty, selects a random existing food code, otherwise just generates a new food code
-            foodCode = "";
-            //generates a random 10 character code
-            for (int i = 0; i < 10; i++)
-            {
-                foodCode += possibleChars[rand.Next(possibleChars.Length)];
-            }
-            txtFood.Text = foodCode;
-        }
-
-        private void btnBin_Click(object sender, RoutedEventArgs e)
-        {
-            //if the table isn't empty, selects a random existing bin code, otherwise just generates a new bin code
-            binId = rand.Next(9999).ToString();
-            txtBin.Text = binId.ToString();
-        }
-
-        private void btnShelf_Click(object sender, RoutedEventArgs e)
-        {
-            shelfId = rand.Next(51).ToString();
-            txtShelf.Text = shelfId.ToString();
-        }
-        /// <summary>
-        /// Randomizes codes for all fields
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRandomizeAll_Click(object sender, RoutedEventArgs e)
-        {
-            btnFood_Click(sender, e);
-            btnBin_Click(sender, e);
-            btnShelf_Click(sender, e);
-            quantity = rand.Next(50);
-            txtQuantity.Text = quantity.ToString();
-        }
         /// <summary>
         /// Adds the generated codes to the database
         /// </summary>
@@ -96,38 +50,50 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void btnAddToInv_Click(object sender, RoutedEventArgs e)
         {
-            foodCode = txtFood.Text;
-            binId = txtBin.Text;
-            shelfId = txtShelf.Text;
-            quantity = Convert.ToInt32(txtQuantity.Text);
             //An instance object to be added to the database
-            //Sets a volue for all of the columns in the invBin table
-            food.FoodId = foodCode;
-            invEntry.FoodId = foodCode;
-            bin.BinId = binId;
-            invEntry.BinId = binId;
-            shelf.ShelfId = shelfId;
-            invEntry.ShelfId = shelfId;
-            invEntry.DateEntered = DateTime.Now; 
-            invEntry.BinQty = quantity;
-            //Sets the changes ready to insert when changes are submitted
-            if ((from items in dbContext.GetTable<Food>() where items.FoodId == food.FoodId select items.FoodId).ToArray<string>().Length == 0)
-            {
-                dbContext.Foods.InsertOnSubmit(food); 
-            }
-            if ((from items in dbContext.GetTable<Bin>() where items.BinId == bin.BinId select items.BinId).ToArray<string>().Length == 0)
-            {
-                dbContext.Bins.InsertOnSubmit(bin);
-            }
-            if ((from items in dbContext.GetTable<Shelf>() where items.ShelfId == shelf.ShelfId select items.ShelfId).ToArray<string>().Length == 0)
-            {
-                dbContext.Shelfs.InsertOnSubmit(shelf);
-            }
+            //Sets a value for all of the columns in the invBin table
+            invEntry.FoodId = txtFood.Text;
+            invEntry.BinId = txtBin.Text;
+            invEntry.ShelfId = txtShelf.Text;
+            invEntry.DateEntered = DateTime.Now;
+            invEntry.User = myCurrentUser;
+            invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
+            ////Sets the changes ready to insert when changes are submitted
             dbContext.InventoryEntries.InsertOnSubmit(invEntry);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window
             Close();
+        }
+
+        private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (binRegex.IsMatch(txtTempStorage.Text))
+            {
+                txtBin.Text = txtTempStorage.Text;
+            }
+            else if(shelfRegex.IsMatch(txtTempStorage.Text))
+            {
+                txtShelf.Text = txtTempStorage.Text;
+            }
+            else if(foodRegex.IsMatch(txtTempStorage.Text))
+            {
+                txtFood.Text = txtTempStorage.Text;
+            }
+            txtTempStorage.Text = "";
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+#if DEBUG
+            txtTempStorage.Visibility = Visibility.Visible;
+            txtTempStorage.Width = 100;
+            txtTempStorage.HorizontalAlignment = HorizontalAlignment.Left;
+            txtTempStorage.Margin = new Thickness(75, 0, 0, 0);
+            btnAddToInv.HorizontalAlignment = HorizontalAlignment.Right;
+            btnAddToInv.Margin = new Thickness(0, 0, 75, 0);
+#endif
+            txtTempStorage.Focus();
         }
     }
 }

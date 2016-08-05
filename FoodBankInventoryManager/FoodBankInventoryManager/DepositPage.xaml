@@ -37,28 +37,29 @@
                     Grid.RowSpan="3">
 
                 <DataGrid x:Name="grdItems"
-                                  ItemsSource="{Binding Path=FoodBankDB.InventoryEntry}"
                                   Grid.Row="0"
                                   Grid.Column="0"
-                                  AutoGenerateColumns="True"
+                                  AutoGenerateColumns="False"
                                   VerticalAlignment="Top"
                                                     >
 
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Item Name"
-                                            Binding="{Binding Path=FoodId}"    
+                                            Binding="{Binding Path=FoodName}"    
                                             Width="1.5*"/>
 
 
                         <DataGridTextColumn Header="Bin #"
-                                            Binding="{Binding Path=ShelfId}"
+                                            Binding="{Binding Path=BinId}"
                                             Width=".5*"/>
 
                         <DataGridTextColumn Header="Shelf #"
-                                            Width=".5*"/>
+                                            Width=".5*"
+                                            Binding="{Binding Path=ShelfId}"/>
                         <DataGridTextColumn Header="Bin Qty"
-                                            Width=".35*"/>
+                                            Width=".35*"
+                                            Binding="{Binding Path=BinQuantity}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

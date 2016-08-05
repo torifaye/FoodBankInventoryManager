@@ -86,7 +86,7 @@ namespace FoodBankInventoryManager
 
         private void btnCreateBarcode_Click(object sender, RoutedEventArgs e)
         {
-            BarcodeCreatorPage b = new BarcodeCreatorPage();
+            BarcodeCreatorPage b = new BarcodeCreatorPage(myCurrentUser);
             this.NavigationService.Navigate(b);
         }
 
@@ -98,20 +98,15 @@ namespace FoodBankInventoryManager
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
-            InventoryReportingPage i = new InventoryReportingPage();
+            InventoryReportingPage i = new InventoryReportingPage(myCurrentUser);
             this.NavigationService.Navigate(i);
-        }
-
-        private void bttnHome_Click(object sender, RoutedEventArgs e)
-        {
-            LoginPage l = new LoginPage();
-            this.NavigationService.Navigate(l);
         }
 
         private void btnBinMaitenance_Click(object sender, RoutedEventArgs e)
         {
-            BinMaitenance b = new BinMaitenance();
-            this.NavigationService.Navigate(b);
+            BinMaitenance b = new BinMaitenance(myCurrentUser);
+            b.Owner = Application.Current.MainWindow;
+            b.ShowDialog();
         }
 
         private void btnAuditTrail_Click(object sender, RoutedEventArgs e)

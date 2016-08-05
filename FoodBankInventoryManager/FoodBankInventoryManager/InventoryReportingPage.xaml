@@ -139,33 +139,31 @@
                        FontWeight="Bold">Items</TextBlock>
             <DataGrid x:Name="grdItems"
                       FontFamily="Rockwell"
+                      FontSize="12"
                       AutoGenerateColumns="False"
-                      MouseDoubleClick="grdItems_MouseDoubleClick"
-                      SelectedItem="{Binding SelectedEntry}">
+                      MouseDoubleClick="grdItems_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name"
                                         Width="*" 
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=Name}"/>
+                                        Binding="{Binding Path=FoodName}"/>
                     <DataGridTextColumn Header="Date Entered" 
                                         Width="*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=Date}">
-                    </DataGridTextColumn>
+                                        Binding="{Binding Path=DateEntered}"/>
+
                     <DataGridTextColumn Header="Bin No."
                                         Width="*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=Bin}"/>
+                                        Binding="{Binding Path=BinId}"/>
                     <DataGridTextColumn Header="Shelf No."
                                         Width="*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=Shelf}"/>
+                                        Binding="{Binding Path=ShelfId}"/>
                     <DataGridTextColumn Header="Quantity"
                                         Width="*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=Quantity}"
-                                        >
-                    </DataGridTextColumn>
+                                        Binding="{Binding Path=BinQuantity}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

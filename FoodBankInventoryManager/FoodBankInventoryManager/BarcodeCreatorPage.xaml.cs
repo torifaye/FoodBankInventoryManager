@@ -43,18 +43,19 @@ namespace FoodBankInventoryManager
         private List<String> barcodeValues;
         private string barcodeData;
 
-
         private const int BARCODE_WIDTH = 500;
         private const int BARCODE_HEIGHT = 200;
 
         private L2S_FoodBankDBDataContext dbContext;
+        private User myCurrentUser;
 
         #endregion
 
-        public BarcodeCreatorPage()
+        public BarcodeCreatorPage(User aUser)
         {
             barcodeData = "";
             b = new Barcode();
+            myCurrentUser = aUser;
             barcodes = new List<Bitmap>();
             barcodeValues = new List<String>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
@@ -1739,6 +1740,12 @@ namespace FoodBankInventoryManager
 
         //}
         #endregion
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(myCurrentUser);
+            NavigationService.Navigate(h);
+        }
     }
 }
 

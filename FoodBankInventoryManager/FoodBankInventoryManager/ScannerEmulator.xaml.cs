@@ -57,7 +57,7 @@ namespace FoodBankInventoryManager
             invEntry.BinId = txtBin.Text;
             invEntry.ShelfId = txtShelf.Text;
             invEntry.DateEntered = DateTime.Now;
-            invEntry.User = myCurrentUser;
+            invEntry.UserId = myCurrentUser.UserId;
             invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
             ////Sets the changes ready to insert when changes are submitted
             dbContext.InventoryEntries.InsertOnSubmit(invEntry);

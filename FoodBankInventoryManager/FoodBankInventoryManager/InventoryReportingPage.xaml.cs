@@ -23,23 +23,24 @@ namespace FoodBankInventoryManager
     public partial class InventoryReportingPage : Page
     {
         private L2S_FoodBankDBDataContext dbContext;
-        public InventoryReportingPage()
+        private User myCurrentUser;
+        public InventoryReportingPage(User aUser)
         {
             InitializeComponent();
+            myCurrentUser = aUser;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
-                                where items != null
                                 select new InventoryInfo
                                 {
                                     FoodName = items.FoodName,
+                                    DateEntered = items.DateEntered,
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
-                                    BinQuantity = items.BinQty,
-                                    DateEntered = items.DateEntered
+                                    BinQuantity = items.BinQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();
@@ -47,34 +48,34 @@ namespace FoodBankInventoryManager
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-
+            HomePage h = new HomePage(myCurrentUser);
+            NavigationService.Navigate(h);
         }
 
         private void grdItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                DataGridRow item = ItemsControl.ContainerFromElement(sender as DataGrid, e.OriginalSource as DependencyObject) as DataGridRow;
-                if (item != null)
+                //DataGridRow item = ItemsControl.ContainerFromElement(sender as DataGrid, e.OriginalSource as DependencyObject) as DataGridRow;
+                if (sender != null)
                 {
-                    // ListBox item clicked - do some cool things here
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
-
-                    if (result == MessageBoxResult.Yes)
+                    DataGrid grid = sender as DataGrid;
+                    if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
                     {
-                        InventoryInfo entry = (InventoryInfo)grdItems.SelectedItem;
-                        InventoryEntry itemToRemove = (from items in dbContext.GetTable<InventoryEntry>()
-                                                       where items.DateEntered == entry.DateEntered
-                                                       select items).First<InventoryEntry>();
-                        dbContext.InventoryEntries.DeleteOnSubmit(itemToRemove);
-                        dbContext.SubmitChanges();
-                        grdItems.Items.Remove(item);
-                        //lstPreview.Items.Remove(strItem);
-                        //barcodes.RemoveAt(barcodeValues.IndexOf(strItem));
-                        //barcodeValues.Remove(strItem);
-                        //txtNumBarcodes.Text = barcodes.Count.ToString();
-                        //txtBarcodedata.Text = "";
-                        //imgBarcode.Source = null;
+                        DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
+
+                        // ListBox item clicked - do some cool things here
+                        MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            //InventoryEntry itemToRemove = (from items in dbContext.GetTable<InventoryEntry>()
+                            //                               where items.DateEntered == entry.DateEntered
+                            //                               select items).First<InventoryEntry>();
+                            //dbContext.InventoryEntries.DeleteOnSubmit(itemToRemove);
+                            //dbContext.SubmitChanges();
+                            grdItems.Items.Remove(dgr);
+                        }
                     }
                     else
                     {
@@ -95,15 +96,15 @@ namespace FoodBankInventoryManager
         {
             get; set;
         }
+        public DateTime DateEntered
+        {
+            get; set;
+        }
         public string BinId
         {
             get; set;
         }
         public string ShelfId
-        {
-            get; set;
-        }
-        public DateTime DateEntered
         {
             get; set;
         }

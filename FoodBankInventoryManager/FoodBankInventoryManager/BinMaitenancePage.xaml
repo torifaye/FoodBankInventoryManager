@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
-        Title="Bin Maitenance" Height="300" Width="250">
+        Title="Bin Maitenance" Height="300" Width="250"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -31,7 +32,16 @@
                    Margin="0, 0, 15, 0"
                    Text="Bin:">
         </TextBlock>
-
+        <ComboBox x:Name="cbBinSearch"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  FontFamily="Rockwell"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Width="100"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"/>
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
                    FontSize="20"
@@ -50,6 +60,7 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Height="Auto"
+                 Width="100"
                  />
 
         <TextBlock Grid.Row="3"
@@ -69,6 +80,7 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Height="Auto"
+                 Width="100"
                  />
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
@@ -87,6 +99,7 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Height="Auto"
+                 Width="100"
                  />
 
         <Button x:Name="btnSubmit"

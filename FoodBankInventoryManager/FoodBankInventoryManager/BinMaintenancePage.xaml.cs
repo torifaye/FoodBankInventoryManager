@@ -62,7 +62,25 @@ namespace FoodBankInventoryManager
                         }
                         if (isChanged)
                         {
-                            //dbContext.InventoryEntries.InsertOnSubmit(currentInvEntry);
+                            AuditTrail auditRecord = new AuditTrail();
+                            auditRecord.FoodName = currentInvEntry.FoodName;
+                            auditRecord.Binid = currentInvEntry.BinId;
+                            auditRecord.ShelfId = currentInvEntry.ShelfId;
+                            auditRecord.BinQty = currentInvEntry.BinQty;
+                            auditRecord.Date_Action_Occured = DateTime.Now;
+                            auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
+                            auditRecord.ApplicationName = APPLICATION_NAME;
+                            auditRecord.Action = "UPDATE";
+                            switch (myCurrentUser.AccessLevel)
+                            {
+                                case 0: auditRecord.AccessLevel = "Administrator";
+                                    break;
+                                case 1: auditRecord.AccessLevel = "Standard User";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            dbContext.AuditTrails.InsertOnSubmit(auditRecord);
                             dbContext.SubmitChanges();
                         }
                     }

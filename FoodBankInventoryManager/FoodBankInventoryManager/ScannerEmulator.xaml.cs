@@ -55,15 +55,35 @@ namespace FoodBankInventoryManager
         {
             //An instance object to be added to the database
             //Sets a value for all of the columns in the invBin table
-            invEntry.FoodName = txtFood.Text;
-            invEntry.BinId = txtBin.Text;
-            invEntry.ShelfId = txtShelf.Text;
+            invEntry.FoodName = cbFood.SelectedValue.ToString();
+            invEntry.BinId = cbBin.SelectedValue.ToString();
+            invEntry.ShelfId = cbShelf.SelectedValue.ToString();
             invEntry.DateEntered = DateTime.Now;
             invEntry.UserId = myCurrentUser.UserId;
             invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
             invEntry.ApplicationName = APPLICATION_NAME;
+
+            AuditTrail auditRecord = new AuditTrail();
+            auditRecord.FoodName = invEntry.FoodName;
+            auditRecord.Binid = invEntry.BinId;
+            auditRecord.ShelfId = invEntry.ShelfId;
+            auditRecord.BinQty = invEntry.BinQty;
+            auditRecord.Date_Action_Occured = DateTime.Now;
+            auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
+            auditRecord.ApplicationName = APPLICATION_NAME;
+            auditRecord.Action = "INSERTION";
+            switch (myCurrentUser.AccessLevel)
+            {
+                case 0: auditRecord.AccessLevel = "Administrator";
+                    break;
+                case 1: auditRecord.AccessLevel = "Standard User";
+                    break;
+                default:
+                    break;
+            }
             ////Sets the changes ready to insert when changes are submitted
             dbContext.InventoryEntries.InsertOnSubmit(invEntry);
+            dbContext.AuditTrails.InsertOnSubmit(auditRecord);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window
@@ -92,6 +112,13 @@ namespace FoodBankInventoryManager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            cbFood.ItemsSource = (from foods in dbContext.GetTable<Food>()
+                                  select foods.FoodName).ToList<String>();
+            cbBin.ItemsSource = (from bins in dbContext.GetTable<Bin>()
+                                 select bins.BinId).ToList<String>();
+            cbShelf.ItemsSource = (from shelves in dbContext.GetTable<Shelf>()
+                                   select shelves.ShelfId).ToList<String>();
 //#if DEBUG
 //            txtTempStorage.Visibility = Visibility.Visible;
 //            txtTempStorage.Width = 100;

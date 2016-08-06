@@ -141,6 +141,7 @@
                       FontFamily="Rockwell"
                       FontSize="12"
                       AutoGenerateColumns="False"
+                      CanUserAddRows="False"
                       MouseDoubleClick="grdItems_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name"

@@ -25,6 +25,8 @@ namespace FoodBankInventoryManager
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;
         List<InventoryInfo> currentInventory;
+
+        private const string APPLICATION_NAME = "INVENTORY TRACKER";
         public InventoryReportingPage(User aUser)
         {
             InitializeComponent();
@@ -76,7 +78,26 @@ namespace FoodBankInventoryManager
                                                             && items.BinId == selectedItem.BinId
                                                             && items.BinQty == selectedItem.BinQuantity
                                                             select items).First<InventoryEntry>();
+                            AuditTrail auditRecord = new AuditTrail();
+                            auditRecord.Action = "DELETION";
+                            auditRecord.ApplicationName = APPLICATION_NAME;
+                            auditRecord.Binid = entryToDelete.BinId;
+                            auditRecord.BinQty = entryToDelete.BinQty;
+                            auditRecord.Date_Action_Occured = DateTime.Now;
+                            auditRecord.FoodName = entryToDelete.FoodName;
+                            auditRecord.ShelfId = entryToDelete.ShelfId;
+                            auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
+                            switch (myCurrentUser.AccessLevel)
+                            {
+                                case 0: auditRecord.AccessLevel = "Administrator";
+                                    break;
+                                case 1: auditRecord.AccessLevel = "Standard User";
+                                    break;
+                                default:
+                                    break;
+                            }
                             dbContext.InventoryEntries.DeleteOnSubmit(entryToDelete);
+                            dbContext.AuditTrails.InsertOnSubmit(auditRecord);
                             dbContext.SubmitChanges();
                         }
                         currentInventory.Remove((InventoryInfo)selectedItem);

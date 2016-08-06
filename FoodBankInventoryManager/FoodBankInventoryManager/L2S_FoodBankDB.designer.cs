@@ -45,6 +45,9 @@ namespace FoodBankInventoryManager
     partial void InsertInventoryEntry(InventoryEntry instance);
     partial void UpdateInventoryEntry(InventoryEntry instance);
     partial void DeleteInventoryEntry(InventoryEntry instance);
+    partial void InsertAuditTrail(AuditTrail instance);
+    partial void UpdateAuditTrail(AuditTrail instance);
+    partial void DeleteAuditTrail(AuditTrail instance);
     #endregion
 		
 		public L2S_FoodBankDBDataContext() : 
@@ -114,6 +117,14 @@ namespace FoodBankInventoryManager
 			get
 			{
 				return this.GetTable<InventoryEntry>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AuditTrail> AuditTrails
+		{
+			get
+			{
+				return this.GetTable<AuditTrail>();
 			}
 		}
 	}
@@ -1063,6 +1074,284 @@ namespace FoodBankInventoryManager
 						this._UserId = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AuditTrail")]
+	public partial class AuditTrail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AutidEntryId;
+		
+		private string _FoodName;
+		
+		private string _Binid;
+		
+		private string _ShelfId;
+		
+		private int _BinQty;
+		
+		private System.DateTime _Date_Action_Occured;
+		
+		private string _UserName;
+		
+		private string _AccessLevel;
+		
+		private string _ApplicationName;
+		
+		private string _Action;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAutidEntryIdChanging(int value);
+    partial void OnAutidEntryIdChanged();
+    partial void OnFoodNameChanging(string value);
+    partial void OnFoodNameChanged();
+    partial void OnBinidChanging(string value);
+    partial void OnBinidChanged();
+    partial void OnShelfIdChanging(string value);
+    partial void OnShelfIdChanged();
+    partial void OnBinQtyChanging(int value);
+    partial void OnBinQtyChanged();
+    partial void OnDate_Action_OccuredChanging(System.DateTime value);
+    partial void OnDate_Action_OccuredChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnAccessLevelChanging(string value);
+    partial void OnAccessLevelChanged();
+    partial void OnApplicationNameChanging(string value);
+    partial void OnApplicationNameChanged();
+    partial void OnActionChanging(string value);
+    partial void OnActionChanged();
+    #endregion
+		
+		public AuditTrail()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutidEntryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AutidEntryId
+		{
+			get
+			{
+				return this._AutidEntryId;
+			}
+			set
+			{
+				if ((this._AutidEntryId != value))
+				{
+					this.OnAutidEntryIdChanging(value);
+					this.SendPropertyChanging();
+					this._AutidEntryId = value;
+					this.SendPropertyChanged("AutidEntryId");
+					this.OnAutidEntryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string FoodName
+		{
+			get
+			{
+				return this._FoodName;
+			}
+			set
+			{
+				if ((this._FoodName != value))
+				{
+					this.OnFoodNameChanging(value);
+					this.SendPropertyChanging();
+					this._FoodName = value;
+					this.SendPropertyChanged("FoodName");
+					this.OnFoodNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Binid", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Binid
+		{
+			get
+			{
+				return this._Binid;
+			}
+			set
+			{
+				if ((this._Binid != value))
+				{
+					this.OnBinidChanging(value);
+					this.SendPropertyChanging();
+					this._Binid = value;
+					this.SendPropertyChanged("Binid");
+					this.OnBinidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShelfId", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ShelfId
+		{
+			get
+			{
+				return this._ShelfId;
+			}
+			set
+			{
+				if ((this._ShelfId != value))
+				{
+					this.OnShelfIdChanging(value);
+					this.SendPropertyChanging();
+					this._ShelfId = value;
+					this.SendPropertyChanged("ShelfId");
+					this.OnShelfIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinQty", DbType="Int NOT NULL")]
+		public int BinQty
+		{
+			get
+			{
+				return this._BinQty;
+			}
+			set
+			{
+				if ((this._BinQty != value))
+				{
+					this.OnBinQtyChanging(value);
+					this.SendPropertyChanging();
+					this._BinQty = value;
+					this.SendPropertyChanged("BinQty");
+					this.OnBinQtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Action_Occured", DbType="DateTime NOT NULL")]
+		public System.DateTime Date_Action_Occured
+		{
+			get
+			{
+				return this._Date_Action_Occured;
+			}
+			set
+			{
+				if ((this._Date_Action_Occured != value))
+				{
+					this.OnDate_Action_OccuredChanging(value);
+					this.SendPropertyChanging();
+					this._Date_Action_Occured = value;
+					this.SendPropertyChanged("Date_Action_Occured");
+					this.OnDate_Action_OccuredChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccessLevel", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string AccessLevel
+		{
+			get
+			{
+				return this._AccessLevel;
+			}
+			set
+			{
+				if ((this._AccessLevel != value))
+				{
+					this.OnAccessLevelChanging(value);
+					this.SendPropertyChanging();
+					this._AccessLevel = value;
+					this.SendPropertyChanged("AccessLevel");
+					this.OnAccessLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ApplicationName
+		{
+			get
+			{
+				return this._ApplicationName;
+			}
+			set
+			{
+				if ((this._ApplicationName != value))
+				{
+					this.OnApplicationNameChanging(value);
+					this.SendPropertyChanging();
+					this._ApplicationName = value;
+					this.SendPropertyChanged("ApplicationName");
+					this.OnApplicationNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Action", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Action
+		{
+			get
+			{
+				return this._Action;
+			}
+			set
+			{
+				if ((this._Action != value))
+				{
+					this.OnActionChanging(value);
+					this.SendPropertyChanging();
+					this._Action = value;
+					this.SendPropertyChanged("Action");
+					this.OnActionChanged();
 				}
 			}
 		}

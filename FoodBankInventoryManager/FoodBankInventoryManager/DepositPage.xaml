@@ -37,23 +37,20 @@
                     Grid.RowSpan="3">
 
                 <DataGrid x:Name="grdItems"
-                                  Grid.Row="0"
-                                  Grid.Column="0"
-                                  AutoGenerateColumns="False"
-                                  VerticalAlignment="Top"
-                                                    >
-
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          FontFamily="Rockwell"
+                          CanUserAddRows="False"
+                          VerticalAlignment="Top">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Item Name"
                                             Binding="{Binding Path=FoodName}"    
                                             Width="1.5*"/>
-
-
                         <DataGridTextColumn Header="Bin #"
                                             Binding="{Binding Path=BinId}"
                                             Width=".5*"/>
-
                         <DataGridTextColumn Header="Shelf #"
                                             Width=".5*"
                                             Binding="{Binding Path=ShelfId}"/>

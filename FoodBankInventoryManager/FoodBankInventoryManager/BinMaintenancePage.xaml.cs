@@ -86,7 +86,6 @@ namespace FoodBankInventoryManager
                     }
                     int currentIndex = cbBinSearch.SelectedIndex;
                     object nextItem = cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count];
-                    MessageBox.Show(cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count].ToString());
                     cbBinSearch.SelectedItem = nextItem;
                     binList.Remove(item.ToString());
                     cbBinSearch.ItemsSource = binList;

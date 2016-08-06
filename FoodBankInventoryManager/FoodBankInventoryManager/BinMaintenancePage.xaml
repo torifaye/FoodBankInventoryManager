@@ -1,4 +1,4 @@
-﻿<Window x:Class="FoodBankInventoryManager.BinMaitenance"
+﻿<Window x:Class="FoodBankInventoryManager.BinMaintenance"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -41,7 +41,8 @@
                   HorizontalAlignment="Center"
                   Width="100"
                   IsEditable="True"
-                  IsTextSearchEnabled="True"/>
+                  IsTextSearchEnabled="True"
+                  SelectionChanged="cbBinSearch_SelectionChanged"/>
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
                    FontSize="20"
@@ -111,7 +112,8 @@
                 Width="Auto"
                 Height="Auto" 
                 Margin="69,0,69,10.5"
-                Click="btnSubmit_Click"/>
+                Click="btnSubmit_Click"
+                IsEnabled="True"/>
 
     </Grid>
 </Window>

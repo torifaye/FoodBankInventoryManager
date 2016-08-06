@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Configuration;
+namespace FoodBankInventoryManager
+{
+    /// <summary>
+    /// Interaction logic for BinMaitenance.xaml
+    /// </summary>
+    public partial class BinMaintenance : Window
+    {
+        private User myCurrentUser;
+        private L2S_FoodBankDBDataContext dbContext;
+        private List<String> binList;
+        private InventoryEntry currentInvEntry;
+
+        private const string APPLICATION_NAME = "BIN_MAINTENANCE";
+        private bool isChanged;        
+
+        public BinMaintenance(User aUser)
+        {
+            InitializeComponent();
+            myCurrentUser = aUser;
+            binList = new List<string>();
+            isChanged = false;
+            dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object item = cbBinSearch.SelectedItem;
+                if (item != null)
+                {
+                    if (currentInvEntry != null)
+                    {
+                        if (currentInvEntry.FoodName != txtFood.Text)
+                        {
+                            isChanged = true;
+                            currentInvEntry.FoodName = txtFood.Text;
+                        }
+                        if (currentInvEntry.ShelfId != txtShelf.Text)
+                        {
+                            isChanged = true;
+                            currentInvEntry.ShelfId = txtShelf.Text;
+                        }
+                        if (currentInvEntry.BinQty != Convert.ToInt32(txtQty.Text))
+                        {
+                            isChanged = true;
+                            currentInvEntry.BinQty = Convert.ToInt32(txtQty.Text);
+                        }
+                        if (isChanged)
+                        {
+                            //dbContext.InventoryEntries.InsertOnSubmit(currentInvEntry);
+                            dbContext.SubmitChanges();
+                        }
+                    }
+                    int currentIndex = cbBinSearch.SelectedIndex;
+                    object nextItem = cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count];
+                    MessageBox.Show(cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count].ToString());
+                    cbBinSearch.SelectedItem = nextItem;
+                    binList.Remove(item.ToString());
+                    cbBinSearch.ItemsSource = binList;
+                    cbBinSearch.Items.Refresh();
+
+                }
+            }
+            catch (NullReferenceException)
+            {
+                txtFood.Text = "";
+                txtShelf.Text = "";
+                txtQty.Text = "";
+                MessageBox.Show("There are no more items in the list to check.");
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            binList = (from bins in dbContext.GetTable<Bin>() select bins.BinId).ToList();
+            cbBinSearch.ItemsSource = binList;
+        }
+
+        private void cbBinSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (binList.Contains(cbBinSearch.SelectedValue.ToString()))
+            {
+                String binId = cbBinSearch.SelectedItem.ToString();
+                currentInvEntry = (from items in dbContext.GetTable<InventoryEntry>()
+                                   where binId == items.BinId
+                                   select items).First<InventoryEntry>();
+                String foodName = currentInvEntry.FoodName;
+                String shelfId = currentInvEntry.ShelfId;
+                int binQuantity = currentInvEntry.BinQty;
+                txtFood.Text = foodName;
+                txtShelf.Text = shelfId;
+                txtQty.Text = binQuantity.ToString();
+                btnSubmit.IsEnabled = true; 
+            }
+        }
+    }
+}

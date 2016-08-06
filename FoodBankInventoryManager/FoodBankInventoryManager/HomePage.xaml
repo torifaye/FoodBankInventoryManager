@@ -117,12 +117,12 @@
             </TextBlock>
         </Button>
 
-        <Button x:Name="btnBinMaitenance"
+        <Button x:Name="btnBinMaintenance"
                 Grid.Row="3"
                 Grid.Column="2"
                 Margin="15,10,0,0"
                 Cursor="Hand"
-                Click="btnBinMaitenance_Click"
+                Click="btnBinMaintenance_Click"
                 Style="{DynamicResource ButtonStyle}">
 
             <Button.ToolTip>

@@ -74,8 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BCrypt.cs" />
-    <Compile Include="BinMaitenancePage.xaml.cs">
-      <DependentUpon>BinMaitenancePage.xaml</DependentUpon>
+    <Compile Include="BinMaintenancePage.xaml.cs">
+      <DependentUpon>BinMaintenancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateAccountWindow.xaml.cs">
       <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
@@ -107,7 +107,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BinMaitenancePage.xaml">
+    <Page Include="BinMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

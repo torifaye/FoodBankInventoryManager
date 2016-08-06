@@ -102,9 +102,9 @@ namespace FoodBankInventoryManager
             this.NavigationService.Navigate(i);
         }
 
-        private void btnBinMaitenance_Click(object sender, RoutedEventArgs e)
+        private void btnBinMaintenance_Click(object sender, RoutedEventArgs e)
         {
-            BinMaitenance b = new BinMaitenance(myCurrentUser);
+            BinMaintenance b = new BinMaintenance(myCurrentUser);
             b.Owner = Application.Current.MainWindow;
             b.ShowDialog();
         }

@@ -31,6 +31,8 @@ namespace FoodBankInventoryManager
         private Regex shelfRegex;
         private Regex foodRegex;
 
+        private const string APPLICATION_NAME = "SCANNER";
+
         public ScannerEmulator(User aUser)
         {
             binRegex = new Regex("^[B][0-9]*$");
@@ -59,6 +61,7 @@ namespace FoodBankInventoryManager
             invEntry.DateEntered = DateTime.Now;
             invEntry.UserId = myCurrentUser.UserId;
             invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
+            invEntry.ApplicationName = APPLICATION_NAME;
             ////Sets the changes ready to insert when changes are submitted
             dbContext.InventoryEntries.InsertOnSubmit(invEntry);
             //Submits the changes to the database

@@ -20,44 +20,44 @@
         <elementListCompartment Id="8df70041-52a7-4eac-b380-0305f2b311c3" absoluteBounds="7.64, 5.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="eb06a73b-cd3b-49c7-8aec-906f5375c908" absoluteBounds="3.625, 3.5, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/InventoryEntry" />
-      <nestedChildShapes>
-        <elementListCompartment Id="ccddf748-99a1-4897-995b-83398162adfe" absoluteBounds="3.64, 3.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(3 : 5.20274983723958); (3.625 : 5.20274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Bin/Bin_InventoryEntry" />
-      <nodes>
-        <classShapeMoniker Id="68c6aaaa-5abc-4c61-a223-3356343acb2c" />
-        <classShapeMoniker Id="eb06a73b-cd3b-49c7-8aec-906f5375c908" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(3.3124975 : 2.62669108072917); (3.3124975 : 4.09375); (3.625 : 4.09375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Shelf/Shelf_InventoryEntry" />
-      <nodes>
-        <classShapeMoniker Id="31ae7161-4e44-4822-938f-9dfa2f861ce8" />
-        <classShapeMoniker Id="eb06a73b-cd3b-49c7-8aec-906f5375c908" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(7.625 : 5.32774983723958); (5.625 : 5.32774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/User/User_InventoryEntry" />
-      <nodes>
-        <classShapeMoniker Id="485c350d-5fe3-479d-964b-a13941110c4a" />
-        <classShapeMoniker Id="eb06a73b-cd3b-49c7-8aec-906f5375c908" />
-      </nodes>
-    </associationConnector>
     <classShape Id="93e01d48-e5fe-450b-99d8-9031411441b3" absoluteBounds="5, 1.25, 2, 1.7708968098958331">
       <DataClassMoniker Name="/L2S_FoodBankDBDataContext/Food" />
       <nestedChildShapes>
         <elementListCompartment Id="3aca1c5a-0fc0-44e8-be07-df4a9058dde2" absoluteBounds="5.015, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.3125 : 3.02089680989583); (5.3125 : 3.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" absoluteBounds="4.25, 4.375, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/InventoryEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="682cac2d-495d-469f-80cc-e6ef1f463952" absoluteBounds="4.265, 4.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3 : 5.25084554036458); (3.38541666666667 : 5.25084554036458 : JumpStart); (3.55208333333333 : 5.25084554036458 : JumpEnd); (4.25 : 5.25084554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Bin/Bin_InventoryEntry" />
+      <nodes>
+        <classShapeMoniker Id="68c6aaaa-5abc-4c61-a223-3356343acb2c" />
+        <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.625 : 3.02089680989583); (5.625 : 4.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Food/Food_InventoryEntry" />
       <nodes>
         <classShapeMoniker Id="93e01d48-e5fe-450b-99d8-9031411441b3" />
-        <classShapeMoniker Id="eb06a73b-cd3b-49c7-8aec-906f5375c908" />
+        <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.46875 : 2.62669108072917); (3.46875 : 6.26849609375); (4.25 : 6.26849609375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Shelf/Shelf_InventoryEntry" />
+      <nodes>
+        <classShapeMoniker Id="31ae7161-4e44-4822-938f-9dfa2f861ce8" />
+        <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.625 : 5.86140055338542); (6.25 : 5.86140055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/User/User_InventoryEntry" />
+      <nodes>
+        <classShapeMoniker Id="485c350d-5fe3-479d-964b-a13941110c4a" />
+        <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

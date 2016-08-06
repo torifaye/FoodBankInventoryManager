@@ -24,16 +24,18 @@ namespace FoodBankInventoryManager
     {
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;
+        List<InventoryInfo> currentInventory;
         public InventoryReportingPage(User aUser)
         {
             InitializeComponent();
             myCurrentUser = aUser;
+            currentInventory = new List<InventoryInfo>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var inventoryInfo = from items in dbContext.GetTable<InventoryEntry>()
+            currentInventory = (from items in dbContext.GetTable<InventoryEntry>()
                                 select new InventoryInfo
                                 {
                                     FoodName = items.FoodName,
@@ -41,9 +43,9 @@ namespace FoodBankInventoryManager
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
                                     BinQuantity = items.BinQty
-                                };
-            grdItems.ItemsSource = inventoryInfo;
-            txtItemCount.Text = inventoryInfo.ToArray<InventoryInfo>().Length.ToString();
+                                }).ToList();
+            grdItems.ItemsSource = currentInventory;
+            txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -56,27 +58,30 @@ namespace FoodBankInventoryManager
         {
             try
             {
-                //DataGridRow item = ItemsControl.ContainerFromElement(sender as DataGrid, e.OriginalSource as DependencyObject) as DataGridRow;
                 if (sender != null)
                 {
-                    DataGrid grid = sender as DataGrid;
-                    if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
+                    //TODO: Handle the user selecting multiple items
+                    InventoryInfo selectedItem = ((InventoryInfo)grdItems.SelectedValue);
+
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.Yes)
                     {
-                        DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
-
-                        // ListBox item clicked - do some cool things here
-                        MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
-
-                        if (result == MessageBoxResult.Yes)
+                        if (!String.IsNullOrEmpty(selectedItem.FoodName))
                         {
-                            //InventoryEntry itemToRemove = (from items in dbContext.GetTable<InventoryEntry>()
-                            //                               where items.DateEntered == entry.DateEntered
-                            //                               select items).First<InventoryEntry>();
-                            //dbContext.InventoryEntries.DeleteOnSubmit(itemToRemove);
-                            //dbContext.SubmitChanges();
-                            grdItems.Items.Remove(dgr);
+                            InventoryEntry entryToDelete = (from items in dbContext.GetTable<InventoryEntry>()
+                                                            where items.DateEntered == selectedItem.DateEntered
+                                                            && items.FoodName == selectedItem.FoodName
+                                                            && items.ShelfId == selectedItem.ShelfId
+                                                            && items.BinId == selectedItem.BinId
+                                                            && items.BinQty == selectedItem.BinQuantity
+                                                            select items).First<InventoryEntry>();
+                            dbContext.InventoryEntries.DeleteOnSubmit(entryToDelete);
+                            dbContext.SubmitChanges();
                         }
-                    }
+                        currentInventory.Remove((InventoryInfo)selectedItem);
+                        grdItems.Items.Refresh();
+                    }   
                     else
                     {
                         return;

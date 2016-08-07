@@ -38,11 +38,13 @@ namespace FoodBankInventoryManager
             binRegex = new Regex("^[B][0-9]*$");
             shelfRegex = new Regex("^[S][0-9]*$");
             foodRegex = new Regex("^[a-zA-Z ]*$");
+
             rand = new Random();
             dateEntered = DateTime.Now;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             invEntry = new InventoryEntry();
             myCurrentUser = aUser;
+
             InitializeComponent();
         }
 

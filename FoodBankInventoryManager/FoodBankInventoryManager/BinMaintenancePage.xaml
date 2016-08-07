@@ -52,18 +52,17 @@
                    Margin="0, 0, 15, 0"
                    Text="Shelf:">
         </TextBlock>
-
-        <TextBox x:Name="txtShelf"
-                 Grid.Row="2"
-                 Grid.Column="1"
-                 FontFamily="Rockwell"
-                 FontSize="20"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 Height="Auto"
-                 Width="100"
-                 />
-
+        
+        <ComboBox x:Name="cbShelfSearch"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  FontFamily="Rockwell"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Width="100"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"/>
         <TextBlock Grid.Row="3"
                    Grid.Column="0"
                    FontSize="20"
@@ -73,16 +72,16 @@
                    Margin="0, 0, 15, 0"
                    Text="Food:">
         </TextBlock>
-        <TextBox x:Name="txtFood"
-                 Grid.Row="3"
-                 Grid.Column="1"
-                 FontFamily="Rockwell"
-                 FontSize="20"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 Height="Auto"
-                 Width="100"
-                 />
+        <ComboBox x:Name="cbFoodSearch"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  FontFamily="Rockwell"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Width="100"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"/>
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
                    FontSize="16"

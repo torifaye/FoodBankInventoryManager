@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Food Bank Manager"
                   Loaded="NavigationWindow_Loaded"
-                  Height="650" Width="725" 
+                  Height="650" Width="825" 
                   MinHeight="650" 
                   MaxHeight="700" MaxWidth="800" 
                   IsTabStop="False" 

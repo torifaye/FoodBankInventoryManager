@@ -45,15 +45,15 @@ namespace FoodBankInventoryManager
                 {
                     if (currentInvEntry != null)
                     {
-                        if (currentInvEntry.FoodName != txtFood.Text)
+                        if (currentInvEntry.FoodName != cbFoodSearch.SelectedValue.ToString())
                         {
                             isChanged = true;
-                            currentInvEntry.FoodName = txtFood.Text;
+                            currentInvEntry.FoodName = cbFoodSearch.SelectedValue.ToString();
                         }
-                        if (currentInvEntry.ShelfId != txtShelf.Text)
+                        if (currentInvEntry.ShelfId != cbShelfSearch.SelectedValue.ToString())
                         {
                             isChanged = true;
-                            currentInvEntry.ShelfId = txtShelf.Text;
+                            currentInvEntry.ShelfId = cbShelfSearch.SelectedValue.ToString();
                         }
                         if (currentInvEntry.BinQty != Convert.ToInt32(txtQty.Text))
                         {
@@ -95,8 +95,8 @@ namespace FoodBankInventoryManager
             }
             catch (NullReferenceException)
             {
-                txtFood.Text = "";
-                txtShelf.Text = "";
+                cbFoodSearch.SelectedValue = "";
+                cbShelfSearch.SelectedValue = "";
                 txtQty.Text = "";
                 MessageBox.Show("There are no more items in the list to check.");
                 Close();
@@ -107,6 +107,10 @@ namespace FoodBankInventoryManager
         {
             binList = (from bins in dbContext.GetTable<InventoryEntry>() select bins.BinId).ToList();
             cbBinSearch.ItemsSource = binList;
+
+            cbShelfSearch.ItemsSource = (from shelves in dbContext.GetTable<Shelf>() select shelves.ShelfId).ToList<String>();
+
+            cbFoodSearch.ItemsSource = (from foods in dbContext.GetTable<Food>() select foods.FoodName).ToList<String>();
         }
 
         private void cbBinSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -120,8 +124,8 @@ namespace FoodBankInventoryManager
                 String foodName = currentInvEntry.FoodName;
                 String shelfId = currentInvEntry.ShelfId;
                 int binQuantity = currentInvEntry.BinQty;
-                txtFood.Text = foodName;
-                txtShelf.Text = shelfId;
+                cbFoodSearch.SelectedValue = foodName;
+                cbShelfSearch.SelectedValue = shelfId;
                 txtQty.Text = binQuantity.ToString();
                 btnSubmit.IsEnabled = true; 
             }

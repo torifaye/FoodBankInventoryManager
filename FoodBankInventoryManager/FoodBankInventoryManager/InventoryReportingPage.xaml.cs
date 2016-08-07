@@ -25,6 +25,7 @@ namespace FoodBankInventoryManager
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;
         List<InventoryInfo> currentInventory;
+        List<MinWatchInfo> watchList;
 
         private const string APPLICATION_NAME = "INVENTORY TRACKER";
         public InventoryReportingPage(User aUser)
@@ -32,6 +33,7 @@ namespace FoodBankInventoryManager
             InitializeComponent();
             myCurrentUser = aUser;
             currentInventory = new List<InventoryInfo>();
+            watchList = new List<MinWatchInfo>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
@@ -53,13 +55,11 @@ namespace FoodBankInventoryManager
                                         select items).ToList();
             List<Food> allFoods = (from foods in dbContext.GetTable<Food>()
                                    select foods).ToList();
-            List<MinWatchInfo> watchList = (from items in dbContext.GetTable<Food>()
+            watchList = (from items in dbContext.GetTable<Food>()
                                             where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
                                                                        where entries.FoodName == items.FoodName
                                                                        select entries.BinQty).ToList<int>().Sum())
-                                                  < items.MinimumQty * ((from entries in dbContext.GetTable<InventoryEntry>()
-                                                                         where entries.FoodName == items.FoodName
-                                                                         select entries.BinQty).First())
+                                                  < items.MinimumQty
                                             select new MinWatchInfo
                                             {
                                                 FoodName = items.FoodName,
@@ -129,6 +129,8 @@ namespace FoodBankInventoryManager
                             }
                             currentInventory.Remove((InventoryInfo)selectedItem);
                             grdItems.Items.Refresh();
+                            //TODO: Get the minwatch list to update when a user removes an item immediately
+                            gridMinWatch.Items.Refresh();
                         }
                         else
                         {

@@ -13,21 +13,29 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Black" BorderThickness=".5">
+            
+        
         <DataGrid x:Name="gridAudit"
-                          Grid.Row="1"
-                          Grid.Column="1"
+                          Grid.Row="0"
+                          Grid.Column="0"
                           AutoGenerateColumns="False"
                           FontFamily="Rockwell"
                           CanUserAddRows="False"
                           VerticalAlignment="Top"
+                          Grid.RowSpan="2"
+                  BorderBrush="Black"
+                  BorderThickness=".5"
+                  Margin="20"
                           FontSize="12">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID"
@@ -59,7 +67,44 @@
                                             Binding="{Binding Path=Action}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnExit"
+        </Border>
+
+        <Button Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="btnExit_Click">
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
+                <Image x:Name="image"
+            		Source="Resources/reach-out-lakota.png" 
+                       HorizontalAlignment="Center" 
+                       Width="400"
+                       Stretch="UniformToFill"
+                       Margin="0, 0, 10, 0"/>
+
+                <TextBlock FontSize="24" 
+                           TextAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontWeight="Bold" 
+                           FontFamily="Rockwell" 
+                           Margin="0, -40, 10, 0">
+                    Audit Page
+                </TextBlock>
+            </StackPanel>
+
+            <Button.ToolTip>
+                <ToolTip Style="{DynamicResource Tooltip}">
+                    Transfer audit report to Microsoft Excel
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+
+        <Button Grid.Row="1" 
+                Grid.Column="1"
+                Margin="20, 95, 20, 95"
+                Style="{DynamicResource ButtonStyle}">
+            <TextBlock TextAlignment="Center">
+                Transfer to <LineBreak/> Microsoft Excel
+            </TextBlock>
+        </Button>
+
+        <!--<Button x:Name="btnExit"
                 Grid.Row="2"
                 Grid.Column="2"
                 FontFamily="Rockwell"
@@ -69,6 +114,6 @@
                 Margin="0, 0, 20, 10"
                 VerticalContentAlignment="Center"
                 Content="Go Back"
-                Click="btnExit_Click"/>
+                Click="btnExit_Click"/>-->
     </Grid>
 </Page>

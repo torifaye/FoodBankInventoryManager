@@ -36,7 +36,7 @@
                   BorderBrush="Black"
                   BorderThickness=".5"
                   Margin="20"
-                          FontSize="12">
+                          FontSize="12" SelectionChanged="gridAudit_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID"
                                             Binding="{Binding Path=EntryId}"    

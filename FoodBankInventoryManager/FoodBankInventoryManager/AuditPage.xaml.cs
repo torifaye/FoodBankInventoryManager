@@ -56,6 +56,7 @@ namespace FoodBankInventoryManager
             HomePage h = new HomePage(myCurrentUser);
             NavigationService.Navigate(h);
         }
+
     }
     public class AuditInfo
     {

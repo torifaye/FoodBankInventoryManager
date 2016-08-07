@@ -81,7 +81,7 @@ namespace FoodBankInventoryManager
                                                                 && items.BinId == selectedItem.BinId
                                                                 && items.BinQty == selectedItem.BinQuantity
                                                                 select items).First<InventoryEntry>();
-                                AuditTrail auditRecord = new AuditTrail();
+                                AuditEntry auditRecord = new AuditEntry();
                                 auditRecord.Action = "DELETION";
                                 auditRecord.ApplicationName = APPLICATION_NAME;
                                 auditRecord.Binid = entryToDelete.BinId;
@@ -102,7 +102,7 @@ namespace FoodBankInventoryManager
                                         break;
                                 }
                                 dbContext.InventoryEntries.DeleteOnSubmit(entryToDelete);
-                                dbContext.AuditTrails.InsertOnSubmit(auditRecord);
+                                dbContext.AuditEntries.InsertOnSubmit(auditRecord);
                                 dbContext.SubmitChanges();
                             }
                             currentInventory.Remove((InventoryInfo)selectedItem);

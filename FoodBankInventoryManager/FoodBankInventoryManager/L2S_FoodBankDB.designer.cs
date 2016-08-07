@@ -45,9 +45,9 @@ namespace FoodBankInventoryManager
     partial void InsertInventoryEntry(InventoryEntry instance);
     partial void UpdateInventoryEntry(InventoryEntry instance);
     partial void DeleteInventoryEntry(InventoryEntry instance);
-    partial void InsertAuditTrail(AuditTrail instance);
-    partial void UpdateAuditTrail(AuditTrail instance);
-    partial void DeleteAuditTrail(AuditTrail instance);
+    partial void InsertAuditEntry(AuditEntry instance);
+    partial void UpdateAuditEntry(AuditEntry instance);
+    partial void DeleteAuditEntry(AuditEntry instance);
     #endregion
 		
 		public L2S_FoodBankDBDataContext() : 
@@ -120,11 +120,11 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		public System.Data.Linq.Table<AuditTrail> AuditTrails
+		public System.Data.Linq.Table<AuditEntry> AuditEntries
 		{
 			get
 			{
-				return this.GetTable<AuditTrail>();
+				return this.GetTable<AuditEntry>();
 			}
 		}
 	}
@@ -1099,13 +1099,13 @@ namespace FoodBankInventoryManager
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AuditTrail")]
-	public partial class AuditTrail : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AuditEntry")]
+	public partial class AuditEntry : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _AutidEntryId;
+		private int _AuditEntryId;
 		
 		private string _FoodName;
 		
@@ -1129,8 +1129,8 @@ namespace FoodBankInventoryManager
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnAutidEntryIdChanging(int value);
-    partial void OnAutidEntryIdChanged();
+    partial void OnAuditEntryIdChanging(int value);
+    partial void OnAuditEntryIdChanged();
     partial void OnFoodNameChanging(string value);
     partial void OnFoodNameChanged();
     partial void OnBinidChanging(string value);
@@ -1151,27 +1151,27 @@ namespace FoodBankInventoryManager
     partial void OnActionChanged();
     #endregion
 		
-		public AuditTrail()
+		public AuditEntry()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutidEntryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int AutidEntryId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditEntryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AuditEntryId
 		{
 			get
 			{
-				return this._AutidEntryId;
+				return this._AuditEntryId;
 			}
 			set
 			{
-				if ((this._AutidEntryId != value))
+				if ((this._AuditEntryId != value))
 				{
-					this.OnAutidEntryIdChanging(value);
+					this.OnAuditEntryIdChanging(value);
 					this.SendPropertyChanging();
-					this._AutidEntryId = value;
-					this.SendPropertyChanged("AutidEntryId");
-					this.OnAutidEntryIdChanged();
+					this._AuditEntryId = value;
+					this.SendPropertyChanged("AuditEntryId");
+					this.OnAuditEntryIdChanged();
 				}
 			}
 		}

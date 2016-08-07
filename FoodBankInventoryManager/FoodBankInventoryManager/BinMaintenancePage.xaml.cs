@@ -62,7 +62,7 @@ namespace FoodBankInventoryManager
                         }
                         if (isChanged)
                         {
-                            AuditTrail auditRecord = new AuditTrail();
+                            AuditEntry auditRecord = new AuditEntry();
                             auditRecord.FoodName = currentInvEntry.FoodName;
                             auditRecord.Binid = currentInvEntry.BinId;
                             auditRecord.ShelfId = currentInvEntry.ShelfId;
@@ -80,15 +80,15 @@ namespace FoodBankInventoryManager
                                 default:
                                     break;
                             }
-                            dbContext.AuditTrails.InsertOnSubmit(auditRecord);
+                            dbContext.AuditEntries.InsertOnSubmit(auditRecord);
                             dbContext.SubmitChanges();
                         }
                     }
                     int currentIndex = cbBinSearch.SelectedIndex;
+                    //TODO: Somehow make this only go to the next inventory entry with actual stuff at it's location
                     object nextItem = cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count];
                     cbBinSearch.SelectedItem = nextItem;
                     binList.Remove(item.ToString());
-                    cbBinSearch.ItemsSource = binList;
                     cbBinSearch.Items.Refresh();
 
                 }
@@ -99,12 +99,13 @@ namespace FoodBankInventoryManager
                 txtShelf.Text = "";
                 txtQty.Text = "";
                 MessageBox.Show("There are no more items in the list to check.");
+                Close();
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            binList = (from bins in dbContext.GetTable<Bin>() select bins.BinId).ToList();
+            binList = (from bins in dbContext.GetTable<InventoryEntry>() select bins.BinId).ToList();
             cbBinSearch.ItemsSource = binList;
         }
 
@@ -115,7 +116,7 @@ namespace FoodBankInventoryManager
                 String binId = cbBinSearch.SelectedItem.ToString();
                 currentInvEntry = (from items in dbContext.GetTable<InventoryEntry>()
                                    where binId == items.BinId
-                                   select items).First<InventoryEntry>();
+                                   select items).First();
                 String foodName = currentInvEntry.FoodName;
                 String shelfId = currentInvEntry.ShelfId;
                 int binQuantity = currentInvEntry.BinQty;

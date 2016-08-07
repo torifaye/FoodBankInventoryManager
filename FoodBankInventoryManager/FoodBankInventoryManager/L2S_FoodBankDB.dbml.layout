@@ -32,14 +32,14 @@
         <elementListCompartment Id="682cac2d-495d-469f-80cc-e6ef1f463952" absoluteBounds="4.265, 4.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 5.25084554036458); (4.25 : 5.25084554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3 : 5.58579752604167); (4.25 : 5.58579752604167)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Bin/Bin_InventoryEntry" />
       <nodes>
         <classShapeMoniker Id="68c6aaaa-5abc-4c61-a223-3356343acb2c" />
         <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.625 : 3.02089680989583); (5.625 : 4.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.625 : 3.02089680989583); (5.625 : 4.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Food/Food_InventoryEntry" />
       <nodes>
         <classShapeMoniker Id="93e01d48-e5fe-450b-99d8-9031411441b3" />
@@ -60,10 +60,10 @@
         <classShapeMoniker Id="32eba1f3-7f48-42a3-a4f6-dbe1c5cfa07e" />
       </nodes>
     </associationConnector>
-    <classShape Id="55f9bc01-b5cf-45c9-9e4f-a6eb754057b1" absoluteBounds="1.875, 1.625, 2, 2.7324039713541666">
-      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/AuditTrail" />
+    <classShape Id="97d5ec8f-6ed6-4aac-a07e-032f43f0e7dc" absoluteBounds="2.125, 2.625, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/AuditEntry" />
       <nestedChildShapes>
-        <elementListCompartment Id="04c2c115-0901-45b7-b39d-f95d7fa8455b" absoluteBounds="1.8900000000000001, 2.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b961837b-692a-410d-9d78-cf4d1c15d0bd" absoluteBounds="2.14, 3.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

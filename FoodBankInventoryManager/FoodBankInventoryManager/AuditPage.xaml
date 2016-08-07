@@ -5,34 +5,48 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="725"
-      Title="AuditPage">
+      d:DesignHeight="550" d:DesignWidth="1225"
+      Title="AuditPage"
+      Loaded="Page_Loaded">
 
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <DataGrid x:Name="gridAudit"
-                          Grid.Row="0"
-                          Grid.Column="0"
+                          Grid.Row="1"
+                          Grid.Column="1"
                           AutoGenerateColumns="False"
                           FontFamily="Rockwell"
                           CanUserAddRows="False"
                           VerticalAlignment="Top"
-                  FontSize="24">
+                          FontSize="12">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID"
-                                            Binding="{Binding Path=AutidEntryId}"    
+                                            Binding="{Binding Path=EntryId}"    
                                             Width=".5*"/>
                 <DataGridTextColumn Header="Food"
                                             Binding="{Binding Path=FoodName}"
                                             Width="1.25*"/>
                 <DataGridTextColumn Header="Bin"
                                             Width=".75*"
-                                            Binding="{Binding Path=Binid}"/>
+                                            Binding="{Binding Path=BinId}"/>
                 <DataGridTextColumn Header="Shelf"
                                             Width=".8*"
                                             Binding="{Binding Path=ShelfId}"/>
+                <DataGridTextColumn Header="Bin Qty"
+                                    Width=".8*"
+                                    Binding="{Binding Path=BinQty}"/>
                 <DataGridTextColumn Header="Date"
                                             Width="1*"
-                                            Binding="{Binding Path=Date_Action_Occurred}"/>
+                                            Binding="{Binding Path=Date_Action_Occured}"/>
                 <DataGridTextColumn Header="User"
                                             Width=".75*"
                                             Binding="{Binding Path=UserName}"/>
@@ -44,5 +58,16 @@
                                             Binding="{Binding Path=Action}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="btnExit"
+                Grid.Row="2"
+                Grid.Column="2"
+                FontFamily="Rockwell"
+                FontSize="14"
+                Height="50"
+                Width="75"
+                Margin="0, -20, 0, 0"
+                VerticalContentAlignment="Center"
+                Content="Go Back"
+                Click="btnExit_Click"/>
     </Grid>
 </Page>

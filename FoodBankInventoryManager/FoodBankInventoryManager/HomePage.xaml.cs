@@ -20,13 +20,7 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class HomePage : Page
     {
-        private int myAccessLevel;
         private User myCurrentUser;
-
-        public HomePage()
-        {
-            InitializeComponent();
-        }
 
         public HomePage(User currentUser)
         {

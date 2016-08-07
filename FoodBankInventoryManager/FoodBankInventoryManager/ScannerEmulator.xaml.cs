@@ -63,7 +63,7 @@ namespace FoodBankInventoryManager
             invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
             invEntry.ApplicationName = APPLICATION_NAME;
 
-            AuditTrail auditRecord = new AuditTrail();
+            AuditEntry auditRecord = new AuditEntry();
             auditRecord.FoodName = invEntry.FoodName;
             auditRecord.Binid = invEntry.BinId;
             auditRecord.ShelfId = invEntry.ShelfId;
@@ -83,7 +83,7 @@ namespace FoodBankInventoryManager
             }
             ////Sets the changes ready to insert when changes are submitted
             dbContext.InventoryEntries.InsertOnSubmit(invEntry);
-            dbContext.AuditTrails.InsertOnSubmit(auditRecord);
+            dbContext.AuditEntries.InsertOnSubmit(auditRecord);
             //Submits the changes to the database
             dbContext.SubmitChanges();
             //Closes the window

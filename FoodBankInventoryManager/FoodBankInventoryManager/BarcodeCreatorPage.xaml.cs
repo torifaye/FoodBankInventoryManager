@@ -64,27 +64,21 @@ namespace FoodBankInventoryManager
 
         #region Convenience Methods
 
-        ///// <summary>
-        ///// Calls btnGenerateBarcode_Click and btnAddtoPrint_Click
-        ///// </summary>
-        //private void btnQuickAdd_Click(object sender, RoutedEventArgs e)
-        //{
-        //    btnGenerateBarcode_Click(sender, e);
-        //    //btnAddtoPrint_Click(sender, e);
-        //}
-
+        
         /// <summary>
         /// Clears current generated barcode and textbox
         /// </summary>
-        private void clearBarcode_Click(object sender, RoutedEventArgs e)
-        {
-            imgBarcode.Source = null;
-            txtBarcodedata.Clear();
-        }
+        //private void clearBarcode_Click(object sender, RoutedEventArgs e)
+        //{
+        //    imgBarcode.Source = null;
+        //    txtBarcodedata.Clear();
+        //}
+
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
         }
+       
         /// <summary>
         /// Method for removing Items from the print preview
         /// </summary>
@@ -130,6 +124,7 @@ namespace FoodBankInventoryManager
                 e.Handled = !isTextAllowed(e.Text);
             }
         }
+
         private static bool isTextAllowed(string text)
         {
             Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -154,36 +149,51 @@ namespace FoodBankInventoryManager
             int selectedIndex = cbItemEnter.SelectedIndex;
             //If user chooses to make a barcode for food, it will present a window to enter in the 
             //additional information
-            if (Validate(txtBarcodedata.Text))
+            try
             {
-                switch (selectedIndex)
+                if (Validate(txtBarcodedata.Text))
                 {
-                    case -1:
-                        MessageBox.Show("Please choose what kind of item you're creating a barcode for.");
-                        break;
-                    case 0:
-                        FoodSubmitWindow f = new FoodSubmitWindow(barcodeData);
-                        f.ShowInTaskbar = false;
-                        f.Owner = Application.Current.MainWindow;
-                        f.ShowDialog();
-                        break;
-                    case 1:
-                        Bin bin = new Bin();
-                        barcodeData = "B" + barcodeData;
-                        bin.BinId = barcodeData;
-                        dbContext.Bins.InsertOnSubmit(bin);
-                        dbContext.SubmitChanges();
-                        break;
-                    case 2:
-                        Shelf shelf = new Shelf();
-                        barcodeData = "S" + barcodeData;
-                        shelf.ShelfId = barcodeData;
-                        dbContext.Shelfs.InsertOnSubmit(shelf);
-                        dbContext.SubmitChanges();
-                        break;
-                    default:
-                        break;
-                } 
+                    switch (selectedIndex)
+                    {
+                        case -1:
+                            MessageBox.Show("Please choose what kind of item you're creating a barcode for.");
+                            break;
+                        case 0:
+                            FoodSubmitWindow f = new FoodSubmitWindow(barcodeData);
+                            f.ShowInTaskbar = false;
+                            f.Owner = Application.Current.MainWindow;
+                            f.ShowDialog();
+                            break;
+                        case 1:
+                            Bin bin = new Bin();
+                            barcodeData = "B" + barcodeData;
+                            bin.BinId = barcodeData;
+                            dbContext.Bins.InsertOnSubmit(bin);
+                            dbContext.SubmitChanges();
+                            break;
+                        case 2:
+                            Shelf shelf = new Shelf();
+                            barcodeData = "S" + barcodeData;
+                            shelf.ShelfId = barcodeData;
+                            dbContext.Shelfs.InsertOnSubmit(shelf);
+                            dbContext.SubmitChanges();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "ExceptionNoFoodToday") //Refer to FoodSubmitWindow.xaml.cs in method btnCancel_Click for use description
+                {
+                    return;
+                }
+                else
+                {
+                    //This exception should never happen
+                    MessageBox.Show("An Unknown Error has occured in the database. Please try again", "Food Bank Manager");
+                }
             }
 
             int W = BARCODE_WIDTH;

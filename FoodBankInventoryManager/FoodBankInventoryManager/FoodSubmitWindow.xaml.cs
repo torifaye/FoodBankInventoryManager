@@ -69,5 +69,20 @@ namespace FoodBankInventoryManager
             Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
         }
+
+        /// <summary>
+        /// Allows user to cancel adding an item to the database
+        /// </summary>
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+           MessageBoxResult answer = MessageBox.Show("Are you sure you want to CANCEL adding the current Food item?", "Food Bank Manager", MessageBoxButton.YesNo);
+
+            if (answer.Equals(MessageBoxResult.Yes))
+            {
+                Close();
+                throw new Exception("ExceptionNoFoodToday");
+            }
+           
+        }
     }
 }

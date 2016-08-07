@@ -76,6 +76,21 @@
                 FontSize="14"
                 Width="75"
                 Height="30"
-                Click="btnSubmit_Click"/>
+                Click="btnSubmit_Click"
+                Style="{DynamicResource ButtonStyle}" />
+
+        <Button x:Name="btnCancel"
+                Grid.Row="3"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Cancel"
+                FontFamily="Rockwell"
+                FontSize="12"
+                Width="50"
+                Height="20"
+                Click="btnCancel_Click"
+                Style="{DynamicResource ButtonStyle}" />
+
     </Grid>
 </Window>

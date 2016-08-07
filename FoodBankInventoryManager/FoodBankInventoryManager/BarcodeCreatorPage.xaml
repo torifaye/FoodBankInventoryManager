@@ -112,7 +112,7 @@
                 <Image x:Name="imgBarcode" Height="220" Width="330"/>
             </Border>
 
-            <Button x:Name="clearBarcode" 
+            <!--<Button x:Name="clearBarcode" 
                  Grid.Row="3"
                  Margin="100, 10, 60, 0"
                  HorizontalAlignment="Center"
@@ -120,7 +120,8 @@
                 <TextBlock TextAlignment="Center">
                Clear Barcode
                 </TextBlock>
-            </Button>
+            </Button>-->
+            
         </StackPanel>
 
         <Button x:Name="btnPrintBarcode" 

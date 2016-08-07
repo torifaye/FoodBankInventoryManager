@@ -8,12 +8,11 @@
         Title="Food Bank Manager"
                   Loaded="NavigationWindow_Loaded"
                   Height="650" Width="825" 
-                  MinHeight="650" 
-                  MaxHeight="700" MaxWidth="800" 
+                  MinHeight="650" MinWidth="725"
+                  MaxHeight="700" MaxWidth="1200" 
                   IsTabStop="False" 
                   FontFamily="Rockwell"
                   Icon="Resources/Picture1.png" 
-                  ResizeMode="NoResize" 
                   WindowStartupLocation="CenterScreen">
     <Frame Source="LoginPage.xaml"
            NavigationUIVisibility="Hidden"></Frame>

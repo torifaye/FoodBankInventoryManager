@@ -129,5 +129,10 @@ namespace FoodBankInventoryManager
 //#endif
 //            txtTempStorage.Focus();
         }
+
+        private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

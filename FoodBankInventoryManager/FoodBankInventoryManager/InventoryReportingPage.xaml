@@ -183,17 +183,23 @@
         <StackPanel Margin="10,10,10,0" Grid.Column="3">
             <TextBlock TextAlignment="Center" FontWeight="Bold"
                        FontFamily="Rockwell">Minimum Watch List</TextBlock>
-            <DataGrid FontFamily="Rockwell">
+            <DataGrid x:Name="gridMinWatch"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      FontFamily="Rockwell">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name" 
                                             Width="*" 
-                                            IsReadOnly="True"/>
+                                            IsReadOnly="True"
+                                        Binding="{Binding Path=FoodName}"/>
                     <DataGridTextColumn Header="Quantity" 
                                         Width="*" 
-                                        IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Below" 
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=CurrentQuantity}"/>
+                    <DataGridTextColumn Header="Below" 
                                             Width="*" 
-                                            IsReadOnly="True"></DataGridTemplateColumn>
+                                            IsReadOnly="True"
+                                            Binding="{Binding Path=MinThreshold}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

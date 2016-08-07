@@ -284,14 +284,17 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <!--<TextBox x:Name="txtTempStorage"
+        <TextBox x:Name="txtTempStorage"
                  Grid.Row="4"
                  FontSize="14"
                  FontFamily="Rockwell"
                  VerticalAlignment="Center"
+                 HorizontalAlignment="Left"
+                 Margin="10"
+                 Width="100"
                  Visibility="Hidden"
                  TextChanged="txtTempStorage_TextChanged"
-                 />-->
+                 />
         <!--<Button x:Name="btnRandomizeAll"
                 Grid.Row="4" Grid.Column="0"
                 Content="Randomize All"

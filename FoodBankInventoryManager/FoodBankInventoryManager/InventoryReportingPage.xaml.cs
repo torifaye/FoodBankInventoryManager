@@ -48,6 +48,28 @@ namespace FoodBankInventoryManager
                                 }).ToList();
             grdItems.ItemsSource = currentInventory;
             txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
+
+            List<InventoryEntry> entireInv = (from items in dbContext.GetTable<InventoryEntry>()
+                                        select items).ToList();
+            List<Food> allFoods = (from foods in dbContext.GetTable<Food>()
+                                   select foods).ToList();
+            List<MinWatchInfo> watchList = (from items in dbContext.GetTable<Food>()
+                                            where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
+                                                                       where entries.FoodName == items.FoodName
+                                                                       select entries.BinQty).ToList<int>().Sum())
+                                                  < items.MinimumQty * ((from entries in dbContext.GetTable<InventoryEntry>()
+                                                                         where entries.FoodName == items.FoodName
+                                                                         select entries.BinQty).First())
+                                            select new MinWatchInfo
+                                            {
+                                                FoodName = items.FoodName,
+                                                CurrentQuantity = items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
+                                                                                       where entries.FoodName == items.FoodName
+                                                                                       select entries.BinQty).ToList().Sum()),
+                                                MinThreshold = items.MinimumQty
+                                            }).ToList();
+            gridMinWatch.ItemsSource = watchList;
+
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -126,7 +148,7 @@ namespace FoodBankInventoryManager
             }
         }
     }
-    class InventoryInfo
+    public class InventoryInfo
     {
         public string FoodName
         {
@@ -145,6 +167,21 @@ namespace FoodBankInventoryManager
             get; set;
         }
         public int BinQuantity
+        {
+            get; set;
+        }
+    }
+    public class MinWatchInfo
+    {
+        public string FoodName
+        {
+            get; set;
+        }
+        public int CurrentQuantity
+        {
+            get; set;
+        }
+        public int MinThreshold
         {
             get; set;
         }

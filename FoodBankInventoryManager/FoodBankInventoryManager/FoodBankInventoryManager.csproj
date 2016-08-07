@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuditPage.xaml.cs">
+      <DependentUpon>AuditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BCrypt.cs" />
     <Compile Include="BinMaintenancePage.xaml.cs">
       <DependentUpon>BinMaintenancePage.xaml</DependentUpon>
@@ -103,6 +106,10 @@
     <Compile Include="InventoryReportingPage.xaml.cs">
       <DependentUpon>InventoryReportingPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="AuditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

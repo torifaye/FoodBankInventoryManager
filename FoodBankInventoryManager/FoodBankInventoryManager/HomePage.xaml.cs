@@ -111,7 +111,8 @@ namespace FoodBankInventoryManager
 
         private void btnAuditTrail_Click(object sender, RoutedEventArgs e)
         {
-
+            AuditPage a = new AuditPage(myCurrentUser);
+            this.NavigationService.Navigate(a);
         }
 
         private void btnAdd_Items_ToolTipOpening(object sender, ToolTipEventArgs e)

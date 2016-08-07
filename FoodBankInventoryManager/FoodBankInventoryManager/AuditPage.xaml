@@ -1,0 +1,48 @@
+﻿<Page x:Class="FoodBankInventoryManager.AuditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FoodBankInventoryManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="725"
+      Title="AuditPage">
+
+    <Grid Background="White">
+        <DataGrid x:Name="gridAudit"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          FontFamily="Rockwell"
+                          CanUserAddRows="False"
+                          VerticalAlignment="Top"
+                  FontSize="24">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
+                                            Binding="{Binding Path=AutidEntryId}"    
+                                            Width=".5*"/>
+                <DataGridTextColumn Header="Food"
+                                            Binding="{Binding Path=FoodName}"
+                                            Width="1.25*"/>
+                <DataGridTextColumn Header="Bin"
+                                            Width=".75*"
+                                            Binding="{Binding Path=Binid}"/>
+                <DataGridTextColumn Header="Shelf"
+                                            Width=".8*"
+                                            Binding="{Binding Path=ShelfId}"/>
+                <DataGridTextColumn Header="Date"
+                                            Width="1*"
+                                            Binding="{Binding Path=Date_Action_Occurred}"/>
+                <DataGridTextColumn Header="User"
+                                            Width=".75*"
+                                            Binding="{Binding Path=UserName}"/>
+                <DataGridTextColumn Header="App"
+                                            Width=".6*"
+                                            Binding="{Binding Path=ApplicationName}"/>
+                <DataGridTextColumn Header="Action"
+                                            Width=".8*"
+                                            Binding="{Binding Path=Action}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -39,9 +39,9 @@ namespace FoodBankInventoryManager
                                                 {
                                                     EntryId = entries.AuditEntryId,
                                                     FoodName = entries.FoodName,
-                                                    BinId = entries.Binid,
+                                                    BinId = entries.BinId,
                                                     ShelfId = entries.ShelfId,
-                                                    BinQty = entries.BinQty,
+                                                    BinQty = entries.ItemQty,
                                                     Date_Action_Occured = entries.Date_Action_Occured,
                                                     UserName = entries.UserName,
                                                     ApplicationName = entries.ApplicationName,

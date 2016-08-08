@@ -164,7 +164,7 @@
                     <DataGridTextColumn Header="Quantity"
                                         Width="*"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=BinQuantity}"/>
+                                        Binding="{Binding Path=Quantity}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

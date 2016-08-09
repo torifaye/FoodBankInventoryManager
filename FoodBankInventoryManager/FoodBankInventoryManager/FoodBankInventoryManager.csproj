@@ -100,6 +100,9 @@
     <Compile Include="MinQuantityWindow.xaml.cs">
       <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModifyBinWindow.xaml.cs">
+      <DependentUpon>ModifyBinWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModifyFoodWindow.xaml.cs">
       <DependentUpon>ModifyFoodWindow.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MinQuantityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModifyBinWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

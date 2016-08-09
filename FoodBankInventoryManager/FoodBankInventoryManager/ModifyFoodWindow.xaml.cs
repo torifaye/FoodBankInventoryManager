@@ -51,13 +51,13 @@ namespace FoodBankInventoryManager
                                              select foods).First();
                         changedFood.FoodName = newFoodName;
 
-                        List<InventoryEntry> changedEntries = (from entries in dbContext.GetTable<InventoryEntry>()
-                                                               where entries.FoodName == newFoodName
-                                                               select entries).ToList();
-                        foreach (InventoryEntry entry in changedEntries)
-                        {
-                            entry.FoodName = newFoodName;
-                        }
+                        //List<InventoryEntry> changedEntries = (from entries in dbContext.GetTable<InventoryEntry>()
+                        //                                       where entries.FoodName == myFoodName
+                        //                                       select entries).ToList();
+                        //foreach (InventoryEntry entry in changedEntries)
+                        //{
+                        //    entry.FoodName = newFoodName;
+                        //}
                         
                         dbContext.SubmitChanges();
                         MessageBox.Show(myFoodName + " successfully changed to " + newFoodName + ".");
@@ -69,22 +69,25 @@ namespace FoodBankInventoryManager
                 }
                 if (Validate(txtMinQty.Text))
                 {
-                    if ((from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First() != Convert.ToInt32(txtMinQty.Text))
+                    if ((from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods).ToList().Count != 0)
                     {
-                        int oldQty = (from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First();
-                        MessageBoxResult result = MessageBox.Show("Are you sure you want to change the minimum quantity of " + myFoodName + "?", "Confirm Change", MessageBoxButton.YesNo);
-                        if (result == MessageBoxResult.Yes)
+                        if ((from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First() != Convert.ToInt32(txtMinQty.Text))
                         {
-                            string newFoodName = txtFoodName.Text;
-                            int newQty = Convert.ToInt32(txtMinQty.Text);
-                            Food changedFood = (from foods in dbContext.GetTable<Food>()
-                                                where foods.FoodName == newFoodName
-                                                select foods).First();
-                            changedFood.MinimumQty = newQty;
+                            int oldQty = (from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First();
+                            MessageBoxResult result = MessageBox.Show("Are you sure you want to change the minimum quantity of " + myFoodName + "?", "Confirm Change", MessageBoxButton.YesNo);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                string newFoodName = txtFoodName.Text;
+                                int newQty = Convert.ToInt32(txtMinQty.Text);
+                                Food changedFood = (from foods in dbContext.GetTable<Food>()
+                                                    where foods.FoodName == newFoodName
+                                                    select foods).First();
+                                changedFood.MinimumQty = newQty;
 
-                            dbContext.SubmitChanges();
-                            MessageBox.Show("Minimum threshold of " + newFoodName + " changed from " + oldQty + " to " + newQty + " successfully!");
-                        }
+                                dbContext.SubmitChanges();
+                                MessageBox.Show("Minimum threshold of " + newFoodName + " changed from " + oldQty + " to " + newQty + " successfully!");
+                            }
+                        } 
                     } 
                 }
             }

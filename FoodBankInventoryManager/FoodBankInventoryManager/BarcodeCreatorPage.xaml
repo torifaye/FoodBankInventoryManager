@@ -125,7 +125,7 @@
         <Button x:Name="btnPrintBarcode" 
                 Grid.Column="1"
                 Grid.Row="4"
-                Margin="277.8,60,24.8,20"
+                Margin="100,40,20,10"
                 Click="btnPrintBarcode_Click"   
                 Style="{DynamicResource ButtonStyle}" Grid.ColumnSpan="2">
             <TextBlock TextAlignment="Center">
@@ -177,8 +177,21 @@
                 Height="50"
                 Width="75"
                 Margin="0, -20, 0, 0"
-                VerticalContentAlignment="Center"
-                Content="Go Back"
+                VerticalContentAlignment="Top"
+                HorizontalAlignment="Left"
                 Click="btnExit_Click"/>-->
+        <Button x:Name="btnExit"
+                    Click="btnExit_Click"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="5,5,0,0"
+                    Padding="10, 2, 10, 2"
+                Width="65"
+                Height="65"
+                    Style="{DynamicResource ButtonStyle}">
+            <TextBlock TextWrapping="Wrap" FontSize="14" TextAlignment="Center">Exit to home</TextBlock>
+        </Button>
     </Grid>
 </Page>

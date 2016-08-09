@@ -45,6 +45,8 @@ namespace FoodBankInventoryManager
 
         private const int BARCODE_WIDTH = 75;
         private const int BARCODE_HEIGHT = 280;
+        private const int MAX_BIN_LENGTH = 3;
+        private const int MAX_SHELF_LENGTH = 4;
 
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;
@@ -64,7 +66,7 @@ namespace FoodBankInventoryManager
 
         #region Convenience Methods
 
-        
+
         /// <summary>
         /// Clears current generated barcode and textbox
         /// </summary>
@@ -73,6 +75,12 @@ namespace FoodBankInventoryManager
         //    imgBarcode.Source = null;
         //    txtBarcodedata.Clear();
         //}
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(myCurrentUser);
+            NavigationService.Navigate(h);
+        }
 
         private bool Validate(string content)
         {
@@ -165,18 +173,36 @@ namespace FoodBankInventoryManager
                             f.ShowDialog();
                             break;
                         case 1:
-                            Bin bin = new Bin();
-                            barcodeData = "B" + barcodeData;
-                            bin.BinId = barcodeData;
-                            dbContext.Bins.InsertOnSubmit(bin);
-                            dbContext.SubmitChanges();
+                            if (barcodeData.Length > MAX_BIN_LENGTH) {
+                                MessageBox.Show("Bin codes are required to be " + MAX_BIN_LENGTH + " characters long", "Food Bank Manager");
+                                return;
+                            }
+
+                            MessageBoxResult Banswer = MessageBox.Show("Are you sure you want to add NEW bin #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
+                            if (Banswer.Equals(MessageBoxResult.Yes))
+                            {
+                                Bin bin = new Bin();
+                                barcodeData = "B" + barcodeData;
+                                bin.BinId = barcodeData;
+                                dbContext.Bins.InsertOnSubmit(bin);
+                                dbContext.SubmitChanges();
+                            }
                             break;
                         case 2:
-                            Shelf shelf = new Shelf();
-                            barcodeData = "S" + barcodeData;
-                            shelf.ShelfId = barcodeData;
-                            dbContext.Shelfs.InsertOnSubmit(shelf);
-                            dbContext.SubmitChanges();
+                            if (barcodeData.Length > MAX_SHELF_LENGTH) {
+                                MessageBox.Show("Shelf codes are required to be " + MAX_SHELF_LENGTH + " characters long", "Food Bank Manager");
+                                return;
+                            }
+
+                            MessageBoxResult Sanswer = MessageBox.Show("Are you sure you want to add NEW shelf #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
+                            if (Sanswer.Equals(MessageBoxResult.Yes))
+                            {
+                                Shelf shelf = new Shelf();
+                                barcodeData = "S" + barcodeData;
+                                shelf.ShelfId = barcodeData;
+                                dbContext.Shelfs.InsertOnSubmit(shelf);
+                                dbContext.SubmitChanges();
+                            }
                             break;
                         default:
                             break;
@@ -187,12 +213,14 @@ namespace FoodBankInventoryManager
             {
                 if (ex.Message == "ExceptionNoFoodToday") //Refer to FoodSubmitWindow.xaml.cs in method btnCancel_Click for use description
                 {
+                    txtBarcodedata.Text = "";
                     return;
                 }
                 else
                 {
                     //This exception should never happen
                     MessageBox.Show("An Unknown Error has occured in the database. Please try again", "Food Bank Manager");
+                    return;
                 }
             }
 
@@ -1751,11 +1779,7 @@ namespace FoodBankInventoryManager
         //}
         #endregion
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            HomePage h = new HomePage(myCurrentUser);
-            NavigationService.Navigate(h);
-        }
+
     }
 }
 

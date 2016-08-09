@@ -5,27 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="725"
+      d:DesignHeight="650" d:DesignWidth="1350"
       Title="Barcode Creator">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height=".625*"/>
+            <RowDefinition Height="2.25*"/>
+            <RowDefinition Height=".5*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" 
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0"
                     Grid.Column="0" 
-                    Grid.ColumnSpan="3" 
+                    Grid.ColumnSpan="1" 
                     HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Top">
@@ -46,6 +44,7 @@
                         VerticalAlignment="Center"
                         Margin="0,30,0,20"
                         Height="30"
+                         Width="500"
                         FontSize="24"
                          FontFamily="Rockwell"
                         MaxLines="1" 
@@ -53,7 +52,6 @@
                         KeyDown="txtBarcodedata_KeyDown"
                         IsHitTestVisible="True"
                         Foreground="Black"
-                        Width="368"
                         TextAlignment="Center" 
                         SpellCheck.IsEnabled="True" 
                         ToolTip="Enter Barcode Here" 
@@ -75,8 +73,8 @@
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Margin="0,0,5,0"
-                    Padding="5, 2, 5, 2"
+                    Margin="0,-5,5,20"
+                    Padding="10, 2, 10, 2"
                     Style="{DynamicResource ButtonStyle}">
                     <TextBlock TextWrapping="Wrap" FontSize="24">Create Barcode</TextBlock>
                 </Button>
@@ -100,16 +98,16 @@
         </StackPanel>
 
 
-        <StackPanel  Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3">
+        <StackPanel  Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
             <Border  x:Name="brdIMG"
                      Grid.Row="1"
                      Grid.Column="1"
-                     Grid.RowSpan="2"
+                     Grid.RowSpan="3"
                  Grid.ColumnSpan="3"
-                     Margin="100, 10, 60, 0"
                      BorderBrush="Black"
-                     BorderThickness="1">
-                <Image x:Name="imgBarcode" Height="220" Width="330"/>
+                     Margin="50,15,50,0"
+                     BorderThickness="1" Height="400">
+                <Image x:Name="imgBarcode" Margin="40,30,60, 0"/>
             </Border>
 
             <!--<Button x:Name="clearBarcode" 
@@ -121,7 +119,7 @@
                Clear Barcode
                 </TextBlock>
             </Button>-->
-            
+
         </StackPanel>
 
         <Button x:Name="btnPrintBarcode" 
@@ -138,8 +136,9 @@
 
         <StackPanel Orientation="Vertical"
                     Grid.Row="1"
-                    Grid.RowSpan="4"
-                    Grid.Column="0" Margin="24,0,268.6,0" Grid.ColumnSpan="2">
+                   Margin="0, 10, 0, 0"
+                    HorizontalAlignment="Center"
+                    Grid.Column="1">
             <TextBlock TextAlignment="Center" 
                        FontSize="16" 
                        FontFamily="Rockwell" 
@@ -148,13 +147,14 @@
                        FontSize="24" 
                        TextAlignment="Center"
                        FontFamily="Rockwell">0</TextBlock>
-            <TextBlock Width="150" TextAlignment="Center"
+            <!--<TextBlock Width="150" TextAlignment="Center"
                     Height="22"
                     Margin="3, 0, 3, 0"
                     FontSize="14" TextDecorations="Underline"
                     FontFamily="Rockwell"
-                    >View Current Values</TextBlock>
-            <ListBox x:Name="lstPreview" HorizontalAlignment="Center" Width="225" ItemsSource="{Binding Items}" Height="337" FontFamily="Rockwell" FontSize="12pt" Background="#FFABADB3" Margin="13,0,13.2,0" >
+                    >View Current Values</TextBlock>-->
+            <ListBox x:Name="lstPreview" HorizontalAlignment="Center" Width="225" ItemsSource="{Binding Items}" Height="337" FontFamily="Rockwell" FontSize="12pt" Background="#FFABADB3" Margin="13,0,13.2,0">
+                
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <EventSetter Event="Control.MouseDoubleClick" Handler="ListBox_MouseLeftButtonDown" />
@@ -169,7 +169,7 @@
 
 
         <!--<Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>-->
-        <Button x:Name="btnExit"
+        <!--<Button x:Name="btnExit"
                 Grid.Row="0"
                 Grid.Column="0"
                 FontFamily="Rockwell"
@@ -179,6 +179,6 @@
                 Margin="0, -20, 0, 0"
                 VerticalContentAlignment="Center"
                 Content="Go Back"
-                Click="btnExit_Click"/>
+                Click="btnExit_Click"/>-->
     </Grid>
 </Page>

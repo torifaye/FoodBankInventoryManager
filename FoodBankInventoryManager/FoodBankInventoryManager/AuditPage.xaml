@@ -22,66 +22,52 @@
 
         </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="Black" BorderThickness=".5">
-
-
+        <Border BorderBrush="Black" BorderThickness=".5" Grid.RowSpan="2" Margin="5">
             <DataGrid x:Name="gridAudit"
-                  Grid.Row="0"
-                  Grid.Column="0"
-                  AutoGenerateColumns="False"
-                  FontFamily="Rockwell"
-                  CanUserAddRows="False"
-                  VerticalAlignment="Top"
-                  Grid.RowSpan="2"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          FontFamily="Rockwell"
+                          CanUserAddRows="False"
+                          VerticalAlignment="Top"
+                          Grid.RowSpan="2"
                   BorderBrush="Black"
                   BorderThickness=".5"
-                  Margin="20"
                   FontSize="12">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID"
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
                                             Binding="{Binding Path=EntryId}"    
                                             Width=".5*"/>
-                    <DataGridTextColumn Header="Food"
+                <DataGridTextColumn Header="Food"
                                             Binding="{Binding Path=FoodName}"
                                             Width="1.25*"/>
-                    <DataGridTextColumn Header="Bin"
+                <DataGridTextColumn Header="Bin"
                                             Width=".75*"
                                             Binding="{Binding Path=BinId}"/>
-                    <DataGridTextColumn Header="Shelf"
+                <DataGridTextColumn Header="Shelf"
                                             Width=".8*"
                                             Binding="{Binding Path=ShelfId}"/>
-                    <DataGridTextColumn Header="Quantity"
-                                    Width=".8*"
+                <DataGridTextColumn Header="Bin Qty"
+                                    Width=".3*"
                                     Binding="{Binding Path=BinQty}"/>
-                    <DataGridTextColumn Header="Date"
+                <DataGridTextColumn Header="Date"
                                             Width="1*"
                                             Binding="{Binding Path=Date_Action_Occured}"/>
-                    <DataGridTextColumn Header="User"
+                <DataGridTextColumn Header="User"
                                             Width=".75*"
                                             Binding="{Binding Path=UserName}"/>
-                    <DataGridTextColumn Header="App"
-                                            Width=".6*"
+                <DataGridTextColumn Header="App"
+                                            Width="1*"
                                             Binding="{Binding Path=ApplicationName}"/>
-                    <DataGridTextColumn Header="Action"
-                                            Width=".8*"
+                <DataGridTextColumn Header="Action"
+                                            Width=".6*"
                                             Binding="{Binding Path=Action}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid.Columns>
+        </DataGrid>
         </Border>
 
-        <Button Grid.Column="1" 
-                Grid.Row="0" 
-                VerticalAlignment="Center" 
-                HorizontalAlignment ="Center" 
-                Background="Transparent" 
-                BorderBrush="Transparent" 
-                Cursor="Hand" 
-                Click="btnExit_Click">
-            <StackPanel Grid.Column="1"
-                        Grid.Row="0"
-                        Orientation="Vertical" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment ="Center">
+        <Button Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="btnExit_Click" Style="{DynamicResource returnHomeButton}">
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
                 <Image x:Name="image"
             		Source="Resources/reach-out-lakota.png" 
                        HorizontalAlignment="Center" 
@@ -101,7 +87,7 @@
 
             <Button.ToolTip>
                 <ToolTip Style="{DynamicResource Tooltip}">
-                    Transfer audit report to Microsoft Excel
+                    Return to homepage
                 </ToolTip>
             </Button.ToolTip>
         </Button>
@@ -109,10 +95,17 @@
         <Button Grid.Row="1" 
                 Grid.Column="1"
                 Margin="20, 95, 20, 95"
+                FontSize="20"
                 Style="{DynamicResource ButtonStyle}">
             <TextBlock TextAlignment="Center">
-                Export to <LineBreak/> Microsoft Excel
+                Transfer to <LineBreak/> Microsoft Excel
             </TextBlock>
+
+            <Button.ToolTip>
+                <ToolTip Style="{DynamicResource Tooltip}">
+                    Transfer data to a Microsoft Excel spreadsheet
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
 
         <!--<Button x:Name="btnExit"

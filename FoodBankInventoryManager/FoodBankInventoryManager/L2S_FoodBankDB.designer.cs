@@ -39,15 +39,15 @@ namespace FoodBankInventoryManager
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertFood(Food instance);
-    partial void UpdateFood(Food instance);
-    partial void DeleteFood(Food instance);
     partial void InsertInventoryEntry(InventoryEntry instance);
     partial void UpdateInventoryEntry(InventoryEntry instance);
     partial void DeleteInventoryEntry(InventoryEntry instance);
     partial void InsertAuditEntry(AuditEntry instance);
     partial void UpdateAuditEntry(AuditEntry instance);
     partial void DeleteAuditEntry(AuditEntry instance);
+    partial void InsertFood(Food instance);
+    partial void UpdateFood(Food instance);
+    partial void DeleteFood(Food instance);
     #endregion
 		
 		public L2S_FoodBankDBDataContext() : 
@@ -104,14 +104,6 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		public System.Data.Linq.Table<Food> Foods
-		{
-			get
-			{
-				return this.GetTable<Food>();
-			}
-		}
-		
 		public System.Data.Linq.Table<InventoryEntry> InventoryEntries
 		{
 			get
@@ -125,6 +117,14 @@ namespace FoodBankInventoryManager
 			get
 			{
 				return this.GetTable<AuditEntry>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Food> Foods
+		{
+			get
+			{
+				return this.GetTable<Food>();
 			}
 		}
 	}
@@ -519,192 +519,6 @@ namespace FoodBankInventoryManager
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Food")]
-	public partial class Food : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _FoodName;
-		
-		private int _AverageQty;
-		
-		private int _MinimumQty;
-		
-		private string _FoodId;
-		
-		private EntitySet<InventoryEntry> _InventoryEntries;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnFoodNameChanging(string value);
-    partial void OnFoodNameChanged();
-    partial void OnAverageQtyChanging(int value);
-    partial void OnAverageQtyChanged();
-    partial void OnMinimumQtyChanging(int value);
-    partial void OnMinimumQtyChanged();
-    partial void OnFoodIdChanging(string value);
-    partial void OnFoodIdChanged();
-    #endregion
-		
-		public Food()
-		{
-			this._InventoryEntries = new EntitySet<InventoryEntry>(new Action<InventoryEntry>(this.attach_InventoryEntries), new Action<InventoryEntry>(this.detach_InventoryEntries));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string FoodName
-		{
-			get
-			{
-				return this._FoodName;
-			}
-			set
-			{
-				if ((this._FoodName != value))
-				{
-					this.OnFoodNameChanging(value);
-					this.SendPropertyChanging();
-					this._FoodName = value;
-					this.SendPropertyChanged("FoodName");
-					this.OnFoodNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AverageQty", DbType="Int NOT NULL")]
-		public int AverageQty
-		{
-			get
-			{
-				return this._AverageQty;
-			}
-			set
-			{
-				if ((this._AverageQty != value))
-				{
-					this.OnAverageQtyChanging(value);
-					this.SendPropertyChanging();
-					this._AverageQty = value;
-					this.SendPropertyChanged("AverageQty");
-					this.OnAverageQtyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MinimumQty", DbType="Int NOT NULL")]
-		public int MinimumQty
-		{
-			get
-			{
-				return this._MinimumQty;
-			}
-			set
-			{
-				if ((this._MinimumQty != value))
-				{
-					this.OnMinimumQtyChanging(value);
-					this.SendPropertyChanging();
-					this._MinimumQty = value;
-					this.SendPropertyChanged("MinimumQty");
-					this.OnMinimumQtyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodId", AutoSync=AutoSync.Always, DbType="VarChar(31)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public string FoodId
-		{
-			get
-			{
-				return this._FoodId;
-			}
-			set
-			{
-				if ((this._FoodId != value))
-				{
-					this.OnFoodIdChanging(value);
-					this.SendPropertyChanging();
-					this._FoodId = value;
-					this.SendPropertyChanged("FoodId");
-					this.OnFoodIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Food_InventoryEntry", Storage="_InventoryEntries", ThisKey="FoodName", OtherKey="FoodName")]
-		public EntitySet<InventoryEntry> InventoryEntries
-		{
-			get
-			{
-				return this._InventoryEntries;
-			}
-			set
-			{
-				this._InventoryEntries.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_InventoryEntries(InventoryEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.Food = this;
-		}
-		
-		private void detach_InventoryEntries(InventoryEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.Food = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InventoryEntry")]
 	public partial class InventoryEntry : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -729,11 +543,11 @@ namespace FoodBankInventoryManager
 		
 		private EntityRef<Bin> _Bin;
 		
-		private EntityRef<Food> _Food;
-		
 		private EntityRef<Shelf> _Shelf;
 		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Food> _Food;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -760,9 +574,9 @@ namespace FoodBankInventoryManager
 		public InventoryEntry()
 		{
 			this._Bin = default(EntityRef<Bin>);
-			this._Food = default(EntityRef<Food>);
 			this._Shelf = default(EntityRef<Shelf>);
 			this._User = default(EntityRef<User>);
+			this._Food = default(EntityRef<Food>);
 			OnCreated();
 		}
 		
@@ -976,40 +790,6 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Food_InventoryEntry", Storage="_Food", ThisKey="FoodName", OtherKey="FoodName", IsForeignKey=true)]
-		public Food Food
-		{
-			get
-			{
-				return this._Food.Entity;
-			}
-			set
-			{
-				Food previousValue = this._Food.Entity;
-				if (((previousValue != value) 
-							|| (this._Food.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Food.Entity = null;
-						previousValue.InventoryEntries.Remove(this);
-					}
-					this._Food.Entity = value;
-					if ((value != null))
-					{
-						value.InventoryEntries.Add(this);
-						this._FoodName = value.FoodName;
-					}
-					else
-					{
-						this._FoodName = default(string);
-					}
-					this.SendPropertyChanged("Food");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shelf_InventoryEntry", Storage="_Shelf", ThisKey="ShelfId", OtherKey="ShelfId", IsForeignKey=true)]
 		public Shelf Shelf
 		{
@@ -1074,6 +854,40 @@ namespace FoodBankInventoryManager
 						this._UserId = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Food_InventoryEntry", Storage="_Food", ThisKey="FoodName", OtherKey="FoodName", IsForeignKey=true)]
+		public Food Food
+		{
+			get
+			{
+				return this._Food.Entity;
+			}
+			set
+			{
+				Food previousValue = this._Food.Entity;
+				if (((previousValue != value) 
+							|| (this._Food.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Food.Entity = null;
+						previousValue.InventoryEntries.Remove(this);
+					}
+					this._Food.Entity = value;
+					if ((value != null))
+					{
+						value.InventoryEntries.Add(this);
+						this._FoodName = value.FoodName;
+					}
+					else
+					{
+						this._FoodName = default(string);
+					}
+					this.SendPropertyChanged("Food");
 				}
 			}
 		}
@@ -1374,6 +1188,168 @@ namespace FoodBankInventoryManager
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Food")]
+	public partial class Food : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _FoodName;
+		
+		private int _MinimumQty;
+		
+		private string _FoodId;
+		
+		private EntitySet<InventoryEntry> _InventoryEntries;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnFoodNameChanging(string value);
+    partial void OnFoodNameChanged();
+    partial void OnMinimumQtyChanging(int value);
+    partial void OnMinimumQtyChanged();
+    partial void OnFoodIdChanging(string value);
+    partial void OnFoodIdChanged();
+    #endregion
+		
+		public Food()
+		{
+			this._InventoryEntries = new EntitySet<InventoryEntry>(new Action<InventoryEntry>(this.attach_InventoryEntries), new Action<InventoryEntry>(this.detach_InventoryEntries));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string FoodName
+		{
+			get
+			{
+				return this._FoodName;
+			}
+			set
+			{
+				if ((this._FoodName != value))
+				{
+					this.OnFoodNameChanging(value);
+					this.SendPropertyChanging();
+					this._FoodName = value;
+					this.SendPropertyChanged("FoodName");
+					this.OnFoodNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MinimumQty", DbType="Int NOT NULL")]
+		public int MinimumQty
+		{
+			get
+			{
+				return this._MinimumQty;
+			}
+			set
+			{
+				if ((this._MinimumQty != value))
+				{
+					this.OnMinimumQtyChanging(value);
+					this.SendPropertyChanging();
+					this._MinimumQty = value;
+					this.SendPropertyChanged("MinimumQty");
+					this.OnMinimumQtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FoodId", AutoSync=AutoSync.Always, DbType="VarChar(31)", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public string FoodId
+		{
+			get
+			{
+				return this._FoodId;
+			}
+			set
+			{
+				if ((this._FoodId != value))
+				{
+					this.OnFoodIdChanging(value);
+					this.SendPropertyChanging();
+					this._FoodId = value;
+					this.SendPropertyChanged("FoodId");
+					this.OnFoodIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Food_InventoryEntry", Storage="_InventoryEntries", ThisKey="FoodName", OtherKey="FoodName")]
+		public EntitySet<InventoryEntry> InventoryEntries
+		{
+			get
+			{
+				return this._InventoryEntries;
+			}
+			set
+			{
+				this._InventoryEntries.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_InventoryEntries(InventoryEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Food = this;
+		}
+		
+		private void detach_InventoryEntries(InventoryEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.Food = null;
 		}
 	}
 }

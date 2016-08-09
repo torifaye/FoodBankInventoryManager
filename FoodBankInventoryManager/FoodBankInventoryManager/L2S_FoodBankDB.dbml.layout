@@ -20,33 +20,20 @@
         <elementListCompartment Id="8df70041-52a7-4eac-b380-0305f2b311c3" absoluteBounds="7.64, 5.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="93e01d48-e5fe-450b-99d8-9031411441b3" absoluteBounds="5, 1.25, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/Food" />
-      <nestedChildShapes>
-        <elementListCompartment Id="3aca1c5a-0fc0-44e8-be07-df4a9058dde2" absoluteBounds="5.015, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="14cd9a26-62f9-429b-a344-6291115e631b" absoluteBounds="4.625, 4.625, 2, 2.3478011067708335">
       <DataClassMoniker Name="/L2S_FoodBankDBDataContext/InventoryEntry" />
       <nestedChildShapes>
         <elementListCompartment Id="d8057f66-1312-4548-83e6-2c75afe8b871" absoluteBounds="4.64, 5.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 5.71079752604167); (4.22916416666667 : 5.71079752604167 : JumpStart); (4.39583083333333 : 5.71079752604167 : JumpEnd); (4.625 : 5.71079752604167)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 5.71079752604167); (4.625 : 5.71079752604167)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Bin/Bin_InventoryEntry" />
       <nodes>
         <classShapeMoniker Id="68c6aaaa-5abc-4c61-a223-3356343acb2c" />
         <classShapeMoniker Id="14cd9a26-62f9-429b-a344-6291115e631b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.8125 : 3.02089680989583); (5.8125 : 4.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Food/Food_InventoryEntry" />
-      <nodes>
-        <classShapeMoniker Id="93e01d48-e5fe-450b-99d8-9031411441b3" />
-        <classShapeMoniker Id="14cd9a26-62f9-429b-a344-6291115e631b" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.3124975 : 1.87669108072917); (4.3124975 : 6.39349609375); (4.625 : 6.39349609375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.3124975 : 1.87669108072917); (4.3124975 : 6.39349609375); (4.625 : 6.39349609375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Shelf/Shelf_InventoryEntry" />
       <nodes>
         <classShapeMoniker Id="31ae7161-4e44-4822-938f-9dfa2f861ce8" />
@@ -66,5 +53,18 @@
         <elementListCompartment Id="7d3abaeb-9812-48d4-aede-de8391b8182d" absoluteBounds="2.015, 3.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="cb939778-917e-4602-91a6-178675aed60a" absoluteBounds="5.75, 1.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/L2S_FoodBankDBDataContext/Food" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f1e5ffff-2d4b-4b96-9593-c7292521efb0" absoluteBounds="5.765, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.1875 : 2.82859537760417); (6.1875 : 4.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/L2S_FoodBankDBDataContext/Food/Food_InventoryEntry" />
+      <nodes>
+        <classShapeMoniker Id="cb939778-917e-4602-91a6-178675aed60a" />
+        <classShapeMoniker Id="14cd9a26-62f9-429b-a344-6291115e631b" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

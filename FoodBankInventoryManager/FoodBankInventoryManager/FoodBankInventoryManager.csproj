@@ -89,8 +89,8 @@
     <Compile Include="FoodSubmitWindow.xaml.cs">
       <DependentUpon>FoodSubmitWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemMaintenance.xaml.cs">
-      <DependentUpon>ItemMaintenance.xaml</DependentUpon>
+    <Compile Include="ItemsMaintenancePage.xaml.cs">
+      <DependentUpon>ItemsMaintenancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="L2S_FoodBankDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,6 +99,9 @@
     </Compile>
     <Compile Include="MinQuantityWindow.xaml.cs">
       <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyFoodWindow.xaml.cs">
+      <DependentUpon>ModifyFoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PasswordManagementWindow.xaml.cs">
       <DependentUpon>PasswordManagementWindow.xaml</DependentUpon>
@@ -137,7 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemMaintenance.xaml">
+    <Page Include="ItemsMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,6 +170,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MinQuantityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModifyFoodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -38,11 +38,10 @@ namespace FoodBankInventoryManager
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (Validate(txtMinQty.Text) && Validate(txtAvgQty.Text))
+            if (Validate(txtMinQty.Text) && Validate(txtFoodName.Text))
             {
                 Food toBeAdded = new Food();
                 toBeAdded.FoodName = myFoodName;
-                toBeAdded.AverageQty = Convert.ToInt32(txtAvgQty.Text);
                 toBeAdded.MinimumQty = Convert.ToInt32(txtMinQty.Text);
                 dbContext.Foods.InsertOnSubmit(toBeAdded);
                 dbContext.SubmitChanges();

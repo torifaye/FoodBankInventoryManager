@@ -1,11 +1,12 @@
-﻿<Window x:Class="FoodBankInventoryManager.FoodSubmitWindow"
+﻿<Window x:Class="FoodBankInventoryManager.ModifyFoodWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
-        Title="Food Info" Height="300" Width="300" Loaded="Window_Loaded">
+        Title="Modify Food" Height="300" Width="300"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -50,7 +51,7 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Width="40" Height="20"
-                 PreviewTextInput="txtQty_PreviewTextInput"/>
+                 PreviewTextInput="txtMinQty_PreviewTextInput"/>
         <!--<TextBlock Grid.Row="2"
                    Grid.Column="0"
                    FontSize="14"
@@ -91,6 +92,5 @@
                 Height="20"
                 Click="btnCancel_Click"
                 Style="{DynamicResource ButtonStyle}" />
-
     </Grid>
 </Window>

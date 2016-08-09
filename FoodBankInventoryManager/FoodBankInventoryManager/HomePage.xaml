@@ -75,7 +75,7 @@
             </Button.ToolTip>
 
             <TextBlock TextAlignment="Center">
-                Withdraw<LineBreak/>Items
+                Modify<LineBreak/>Items
             </TextBlock>
         </Button>
 

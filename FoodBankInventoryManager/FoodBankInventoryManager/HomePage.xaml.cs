@@ -46,8 +46,8 @@ namespace FoodBankInventoryManager
 
         private void btnRemove_Items_Click(object sender, RoutedEventArgs e)
         {
-            //ScannerEmulatorDelete w = new ScannerEmulatorDelete();
-            //this.NavigationService.Navigate(w);
+            ItemsMaintenancePage i = new ItemsMaintenancePage(myCurrentUser);
+            NavigationService.Navigate(i);
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)

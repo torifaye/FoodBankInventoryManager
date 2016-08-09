@@ -55,20 +55,20 @@ namespace FoodBankInventoryManager
                                         select items).ToList();
             List<Food> allFoods = (from foods in dbContext.GetTable<Food>()
                                    select foods).ToList();
-            watchList = (from items in dbContext.GetTable<Food>()
-                                            where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
-                                                                       where entries.FoodName == items.FoodName
-                                                                       select entries.ItemQty).ToList<int>().Sum())
-                                                  < items.MinimumQty
-                                            select new MinWatchInfo
-                                            {
-                                                FoodName = items.FoodName,
-                                                CurrentQuantity = items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
-                                                                                       where entries.FoodName == items.FoodName
-                                                                                       select entries.ItemQty).ToList().Sum()),
-                                                MinThreshold = items.MinimumQty
-                                            }).ToList();
-            gridMinWatch.ItemsSource = watchList;
+            //watchList = (from items in dbContext.GetTable<Food>()
+            //                                where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
+            //                                                           where entries.FoodName == items.FoodName
+            //                                                           select entries.ItemQty).ToList<int>().Sum())
+            //                                      < items.MinimumQty
+            //                                select new MinWatchInfo
+            //                                {
+            //                                    FoodName = items.FoodName,
+            //                                    CurrentQuantity = items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
+            //                                                                           where entries.FoodName == items.FoodName
+            //                                                                           select entries.ItemQty).ToList().Sum()),
+            //                                    MinThreshold = items.MinimumQty
+            //                                }).ToList();
+            //gridMinWatch.ItemsSource = watchList;
 
         }
 

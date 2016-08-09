@@ -721,7 +721,7 @@ namespace FoodBankInventoryManager
 		
 		private int _UserId;
 		
-		private int _BinQty;
+		private int _ItemQty;
 		
 		private System.DateTime _DateEntered;
 		
@@ -749,8 +749,8 @@ namespace FoodBankInventoryManager
     partial void OnShelfIdChanged();
     partial void OnUserIdChanging(int value);
     partial void OnUserIdChanged();
-    partial void OnBinQtyChanging(int value);
-    partial void OnBinQtyChanged();
+    partial void OnItemQtyChanging(int value);
+    partial void OnItemQtyChanged();
     partial void OnDateEnteredChanging(System.DateTime value);
     partial void OnDateEnteredChanged();
     partial void OnApplicationNameChanging(string value);
@@ -882,22 +882,22 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinQty", DbType="Int NOT NULL")]
-		public int BinQty
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemQty", DbType="Int NOT NULL")]
+		public int ItemQty
 		{
 			get
 			{
-				return this._BinQty;
+				return this._ItemQty;
 			}
 			set
 			{
-				if ((this._BinQty != value))
+				if ((this._ItemQty != value))
 				{
-					this.OnBinQtyChanging(value);
+					this.OnItemQtyChanging(value);
 					this.SendPropertyChanging();
-					this._BinQty = value;
-					this.SendPropertyChanged("BinQty");
-					this.OnBinQtyChanged();
+					this._ItemQty = value;
+					this.SendPropertyChanged("ItemQty");
+					this.OnItemQtyChanged();
 				}
 			}
 		}
@@ -1109,11 +1109,11 @@ namespace FoodBankInventoryManager
 		
 		private string _FoodName;
 		
-		private string _Binid;
+		private string _BinId;
 		
 		private string _ShelfId;
 		
-		private int _BinQty;
+		private int _ItemQty;
 		
 		private System.DateTime _Date_Action_Occured;
 		
@@ -1133,12 +1133,12 @@ namespace FoodBankInventoryManager
     partial void OnAuditEntryIdChanged();
     partial void OnFoodNameChanging(string value);
     partial void OnFoodNameChanged();
-    partial void OnBinidChanging(string value);
-    partial void OnBinidChanged();
+    partial void OnBinIdChanging(string value);
+    partial void OnBinIdChanged();
     partial void OnShelfIdChanging(string value);
     partial void OnShelfIdChanged();
-    partial void OnBinQtyChanging(int value);
-    partial void OnBinQtyChanged();
+    partial void OnItemQtyChanging(int value);
+    partial void OnItemQtyChanged();
     partial void OnDate_Action_OccuredChanging(System.DateTime value);
     partial void OnDate_Action_OccuredChanged();
     partial void OnUserNameChanging(string value);
@@ -1196,22 +1196,22 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Binid", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Binid
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinId", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string BinId
 		{
 			get
 			{
-				return this._Binid;
+				return this._BinId;
 			}
 			set
 			{
-				if ((this._Binid != value))
+				if ((this._BinId != value))
 				{
-					this.OnBinidChanging(value);
+					this.OnBinIdChanging(value);
 					this.SendPropertyChanging();
-					this._Binid = value;
-					this.SendPropertyChanged("Binid");
-					this.OnBinidChanged();
+					this._BinId = value;
+					this.SendPropertyChanged("BinId");
+					this.OnBinIdChanged();
 				}
 			}
 		}
@@ -1236,22 +1236,22 @@ namespace FoodBankInventoryManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinQty", DbType="Int NOT NULL")]
-		public int BinQty
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemQty", DbType="Int NOT NULL")]
+		public int ItemQty
 		{
 			get
 			{
-				return this._BinQty;
+				return this._ItemQty;
 			}
 			set
 			{
-				if ((this._BinQty != value))
+				if ((this._ItemQty != value))
 				{
-					this.OnBinQtyChanging(value);
+					this.OnItemQtyChanging(value);
 					this.SendPropertyChanging();
-					this._BinQty = value;
-					this.SendPropertyChanged("BinQty");
-					this.OnBinQtyChanged();
+					this._ItemQty = value;
+					this.SendPropertyChanged("ItemQty");
+					this.OnItemQtyChanged();
 				}
 			}
 		}

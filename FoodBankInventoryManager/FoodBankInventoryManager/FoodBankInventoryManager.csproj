@@ -89,6 +89,9 @@
     <Compile Include="FoodSubmitWindow.xaml.cs">
       <DependentUpon>FoodSubmitWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ItemMaintenance.xaml.cs">
+      <DependentUpon>ItemMaintenance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="L2S_FoodBankDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ItemMaintenance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -62,14 +62,14 @@ namespace FoodBankInventoryManager
             invEntry.ShelfId = cbShelf.SelectedValue.ToString();
             invEntry.DateEntered = DateTime.Now;
             invEntry.UserId = myCurrentUser.UserId;
-            invEntry.BinQty = Convert.ToInt32(txtQuantity.Text);
+            invEntry.ItemQty = Convert.ToInt32(txtQuantity.Text);
             invEntry.ApplicationName = APPLICATION_NAME;
 
             AuditEntry auditRecord = new AuditEntry();
             auditRecord.FoodName = invEntry.FoodName;
-            auditRecord.Binid = invEntry.BinId;
+            auditRecord.BinId = invEntry.BinId;
             auditRecord.ShelfId = invEntry.ShelfId;
-            auditRecord.BinQty = invEntry.BinQty;
+            auditRecord.ItemQty = invEntry.ItemQty;
             auditRecord.Date_Action_Occured = DateTime.Now;
             auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
             auditRecord.ApplicationName = APPLICATION_NAME;

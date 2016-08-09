@@ -55,18 +55,18 @@ namespace FoodBankInventoryManager
                             isChanged = true;
                             currentInvEntry.ShelfId = cbShelfSearch.SelectedValue.ToString();
                         }
-                        if (currentInvEntry.BinQty != Convert.ToInt32(txtQty.Text))
+                        if (currentInvEntry.ItemQty != Convert.ToInt32(txtQty.Text))
                         {
                             isChanged = true;
-                            currentInvEntry.BinQty = Convert.ToInt32(txtQty.Text);
+                            currentInvEntry.ItemQty = Convert.ToInt32(txtQty.Text);
                         }
                         if (isChanged)
                         {
                             AuditEntry auditRecord = new AuditEntry();
                             auditRecord.FoodName = currentInvEntry.FoodName;
-                            auditRecord.Binid = currentInvEntry.BinId;
+                            auditRecord.BinId = currentInvEntry.BinId;
                             auditRecord.ShelfId = currentInvEntry.ShelfId;
-                            auditRecord.BinQty = currentInvEntry.BinQty;
+                            auditRecord.ItemQty = currentInvEntry.ItemQty;
                             auditRecord.Date_Action_Occured = DateTime.Now;
                             auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
                             auditRecord.ApplicationName = APPLICATION_NAME;
@@ -123,7 +123,7 @@ namespace FoodBankInventoryManager
                                    select items).First();
                 String foodName = currentInvEntry.FoodName;
                 String shelfId = currentInvEntry.ShelfId;
-                int binQuantity = currentInvEntry.BinQty;
+                int binQuantity = currentInvEntry.ItemQty;
                 cbFoodSearch.SelectedValue = foodName;
                 cbShelfSearch.SelectedValue = shelfId;
                 txtQty.Text = binQuantity.ToString();

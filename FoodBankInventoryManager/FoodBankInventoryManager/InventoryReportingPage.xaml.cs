@@ -46,7 +46,7 @@ namespace FoodBankInventoryManager
                                     DateEntered = items.DateEntered,
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
-                                    BinQuantity = items.BinQty
+                                    Quantity = items.ItemQty
                                 }).ToList();
             grdItems.ItemsSource = currentInventory;
             txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
@@ -58,14 +58,14 @@ namespace FoodBankInventoryManager
             watchList = (from items in dbContext.GetTable<Food>()
                                             where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
                                                                        where entries.FoodName == items.FoodName
-                                                                       select entries.BinQty).ToList<int>().Sum())
+                                                                       select entries.ItemQty).ToList<int>().Sum())
                                                   < items.MinimumQty
                                             select new MinWatchInfo
                                             {
                                                 FoodName = items.FoodName,
                                                 CurrentQuantity = items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
                                                                                        where entries.FoodName == items.FoodName
-                                                                                       select entries.BinQty).ToList().Sum()),
+                                                                                       select entries.ItemQty).ToList().Sum()),
                                                 MinThreshold = items.MinimumQty
                                             }).ToList();
             gridMinWatch.ItemsSource = watchList;
@@ -101,13 +101,13 @@ namespace FoodBankInventoryManager
                                                                 && items.FoodName == selectedItem.FoodName
                                                                 && items.ShelfId == selectedItem.ShelfId
                                                                 && items.BinId == selectedItem.BinId
-                                                                && items.BinQty == selectedItem.BinQuantity
+                                                                && items.ItemQty == selectedItem.Quantity
                                                                 select items).First<InventoryEntry>();
                                 AuditEntry auditRecord = new AuditEntry();
                                 auditRecord.Action = "DELETION";
                                 auditRecord.ApplicationName = APPLICATION_NAME;
-                                auditRecord.Binid = entryToDelete.BinId;
-                                auditRecord.BinQty = entryToDelete.BinQty;
+                                auditRecord.BinId = entryToDelete.BinId;
+                                auditRecord.ItemQty = entryToDelete.ItemQty;
                                 auditRecord.Date_Action_Occured = DateTime.Now;
                                 auditRecord.FoodName = entryToDelete.FoodName;
                                 auditRecord.ShelfId = entryToDelete.ShelfId;
@@ -168,7 +168,7 @@ namespace FoodBankInventoryManager
         {
             get; set;
         }
-        public int BinQuantity
+        public int Quantity
         {
             get; set;
         }

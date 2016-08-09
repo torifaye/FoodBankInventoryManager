@@ -53,7 +53,7 @@ namespace FoodBankInventoryManager
                                     FoodName = items.FoodName,
                                     BinId = items.BinId,
                                     ShelfId = items.ShelfId,
-                                    BinQuantity = items.BinQty
+                                    Quantity = items.ItemQty
                                 };
             grdItems.ItemsSource = inventoryInfo;
             inputBox.Visibility = Visibility.Collapsed;
@@ -88,7 +88,7 @@ namespace FoodBankInventoryManager
         {
             get; set;
         }
-        public int BinQuantity
+        public int Quantity
         {
             get; set;
         }

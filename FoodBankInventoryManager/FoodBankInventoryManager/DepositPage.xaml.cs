@@ -64,7 +64,16 @@ namespace FoodBankInventoryManager
             this.NavigationService.Navigate(h);
         }
 
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(myCurrentUser);
+            NavigationService.Navigate(h);
+        }
+
     }
+
+
+
     public class DepositEntry
     {
         public string FoodName

@@ -43,8 +43,8 @@ namespace FoodBankInventoryManager
         private List<String> barcodeValues;
         private string barcodeData;
 
-        private const int BARCODE_WIDTH = 500;
-        private const int BARCODE_HEIGHT = 200;
+        private const int BARCODE_WIDTH = 75;
+        private const int BARCODE_HEIGHT = 280;
 
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;

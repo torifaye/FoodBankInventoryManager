@@ -89,8 +89,34 @@
                                FontWeight="Bold"
                                Height="Auto"></Label>
                     </StackPanel>-->
-            
-            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
+
+            <Button Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="btnExit_Click" Style="{DynamicResource returnHomeButton}">
+                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
+                    <Image x:Name="image"
+            		Source="Resources/reach-out-lakota.png" 
+                       HorizontalAlignment="Center" 
+                       Width="400"
+                       Stretch="UniformToFill"
+                       Margin="10, 0, 10, 0"/>
+
+                    <TextBlock FontSize="24" 
+                           TextAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontWeight="Bold" 
+                           FontFamily="Rockwell" 
+                           Margin="10, -30, 10, 0">
+                    Deposit Page
+                    </TextBlock>
+                </StackPanel>
+
+                <Button.ToolTip>
+                    <ToolTip Style="{DynamicResource Tooltip}">
+                        Return to homepage
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <!--<StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
 
                 <Image x:Name="image" 
             		Source="Resources/reach-out-lakota.png" 
@@ -105,7 +131,7 @@
                            FontFamily="Rockwell" 
                            Margin="0, -50, 10, 0">
                     <Run Text="Inventory"/><LineBreak/><Run Text="Deposit"/></TextBlock>
-            </StackPanel>
+            </StackPanel>-->
 
 
             <Button x:Name="btnScan"
@@ -117,7 +143,7 @@
                     FontSize="12"
                     FontWeight="Bold"
                     Height="70"
-                    Margin="5, 0, 10, 0"
+                    Margin="100, 0, 100, 0"
                     Click="btnScan_Click"
                     Style="{DynamicResource ButtonStyle}"></Button>
 
@@ -129,7 +155,7 @@
                     FontFamily="Rockwell" 
                     FontSize="12" 
                     FontWeight="Bold"
-                    Margin="5, 0, 10, 0"
+                    Margin="100, 0, 100, 0"
                     Height="70"
                     Style="{DynamicResource ButtonStyle}"
                     Click="btnCancel_Click"></Button>

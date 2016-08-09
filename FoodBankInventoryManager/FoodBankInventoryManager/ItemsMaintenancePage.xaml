@@ -76,10 +76,10 @@
                   HorizontalAlignment="Center">
             <DataGrid.Resources>
                 <ContextMenu  x:Key="DataRowContextMenu">
-                    <!--<MenuItem x:Name="RowContMenuModBin"  
+                    <MenuItem x:Name="RowContMenuModBin"  
                               Header="Modify"
                               Click="RowContMenuModBin_Click">
-                    </MenuItem>-->
+                    </MenuItem>
                     <MenuItem x:Name="RowContMenuDelBin"
                               Header="Delete"
                               Click="RowContMenuDelBin_Click">
@@ -113,10 +113,10 @@
                   HorizontalAlignment="Center">
             <DataGrid.Resources>
                 <ContextMenu  x:Key="DataRowContextMenu">
-                    <!--<MenuItem x:Name="RowContMenuModShelf"  
+                    <MenuItem x:Name="RowContMenuModShelf"  
                               Header="Modify"
                               Click="RowContMenuModShelf_Click">
-                    </MenuItem>-->
+                    </MenuItem>
                     <MenuItem x:Name="RowContMenuDelShelf"
                               Header="Delete"
                               Click="RowContMenuDelShelf_Click">

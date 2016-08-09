@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FoodBankInventoryManager.Misc
+namespace FoodBankInventoryManager
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

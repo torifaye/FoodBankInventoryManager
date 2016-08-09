@@ -73,82 +73,82 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ItemReportings\AuditPage.xaml.cs">
+    <Compile Include="AuditPage.xaml.cs">
       <DependentUpon>AuditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\BCrypt.cs" />
-    <Compile Include="ItemModifications\BinMaintenancePage.xaml.cs">
+    <Compile Include="BCrypt.cs" />
+    <Compile Include="BinMaintenancePage.xaml.cs">
       <DependentUpon>BinMaintenancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemAdditions\CreateAccountWindow.xaml.cs">
+    <Compile Include="CreateAccountWindow.xaml.cs">
       <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemAdditions\DepositPage.xaml.cs">
+    <Compile Include="DepositPage.xaml.cs">
       <DependentUpon>DepositPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemAdditions\FoodSubmitWindow.xaml.cs">
+    <Compile Include="FoodSubmitWindow.xaml.cs">
       <DependentUpon>FoodSubmitWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemModifications\ItemsMaintenancePage.xaml.cs">
+    <Compile Include="ItemsMaintenancePage.xaml.cs">
       <DependentUpon>ItemsMaintenancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\L2S_FoodBankDB.designer.cs">
+    <Compile Include="L2S_FoodBankDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="ItemModifications\ModifyBinWindow.xaml.cs">
-      <DependentUpon>ModifyBinWindow.xaml</DependentUpon>
+    <Compile Include="MinQuantityWindow.xaml.cs">
+      <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemModifications\ModifyFoodWindow.xaml.cs">
+    <Compile Include="ModifyFoodWindow.xaml.cs">
       <DependentUpon>ModifyFoodWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\PasswordManagementWindow.xaml.cs">
+    <Compile Include="PasswordManagementWindow.xaml.cs">
       <DependentUpon>PasswordManagementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemAdditions\ScannerEmulator.xaml.cs">
+    <Compile Include="ScannerEmulator.xaml.cs">
       <DependentUpon>ScannerEmulator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemReportings\InventoryReportingPage.xaml.cs">
+    <Compile Include="InventoryReportingPage.xaml.cs">
       <DependentUpon>InventoryReportingPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="ItemReportings\AuditPage.xaml">
+    <Page Include="AuditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemAdditions\BarcodeCreatorPage.xaml">
+    <Page Include="BarcodeCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemModifications\BinMaintenancePage.xaml">
+    <Page Include="BinMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemAdditions\CreateAccountWindow.xaml">
+    <Page Include="CreateAccountWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ItemAdditions\DepositPage.xaml">
+    <Page Include="DepositPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemAdditions\FoodSubmitWindow.xaml">
+    <Page Include="FoodSubmitWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Misc\HomePage.xaml">
+    <Page Include="HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemModifications\ItemsMaintenancePage.xaml">
+    <Page Include="ItemsMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Misc\LoginPage.xaml">
+    <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Misc\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -156,36 +156,36 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ItemAdditions\BarcodeCreatorPage.xaml.cs">
+    <Compile Include="BarcodeCreatorPage.xaml.cs">
       <DependentUpon>BarcodeCreatorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\HomePage.xaml.cs">
+    <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\LoginPage.xaml.cs">
+    <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ItemModifications\ModifyBinWindow.xaml">
+    <Page Include="MinQuantityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemModifications\ModifyFoodWindow.xaml">
+    <Page Include="ModifyFoodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Misc\PasswordManagementWindow.xaml">
+    <Page Include="PasswordManagementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ItemAdditions\ScannerEmulator.xaml">
+    <Page Include="ScannerEmulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemReportings\InventoryReportingPage.xaml">
+    <Page Include="InventoryReportingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,7 +205,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Resources\HelveticaNeue-Regular.ttf" />
-    <None Include="Misc\L2S_FoodBankDB.dbml.layout">
+    <None Include="L2S_FoodBankDB.dbml.layout">
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -213,7 +213,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Misc\L2S_FoodBankDB.dbml">
+    <None Include="L2S_FoodBankDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>L2S_FoodBankDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>

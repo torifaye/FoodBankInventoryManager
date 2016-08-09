@@ -50,7 +50,15 @@ namespace FoodBankInventoryManager
                                              where foods.FoodName == myFoodName
                                              select foods).First();
                         changedFood.FoodName = newFoodName;
-                                                
+
+                        //List<InventoryEntry> changedEntries = (from entries in dbContext.GetTable<InventoryEntry>()
+                        //                                       where entries.FoodName == myFoodName
+                        //                                       select entries).ToList();
+                        //foreach (InventoryEntry entry in changedEntries)
+                        //{
+                        //    entry.FoodName = newFoodName;
+                        //}
+                        
                         dbContext.SubmitChanges();
                         MessageBox.Show(myFoodName + " successfully changed to " + newFoodName + ".");
                     }

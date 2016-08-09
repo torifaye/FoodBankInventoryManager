@@ -45,6 +45,10 @@ namespace FoodBankInventoryManager
                 m.Owner = Application.Current.MainWindow;
                 m.ShowDialog();
             }
+            else
+            {
+                MessageBox.Show("Fuck");
+            }
         }
 
         private void RowContMenuDel_Click(object sender, RoutedEventArgs e)
@@ -98,72 +102,24 @@ namespace FoodBankInventoryManager
             dgridShelf.ItemsSource = allShelves;
         }
 
-        //private void RowContMenuModShelf_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
+        private void RowContMenuModShelf_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void RowContMenuDelShelf_Click(object sender, RoutedEventArgs e)
         {
-            if (sender != null)
-            {
-                ShelfInfo selectedItem = (ShelfInfo)dgridShelf.SelectedValue;
-                List<InventoryEntry> matchingShelves = (from shelves in dbContext.GetTable<InventoryEntry>()
-                                                     where shelves.ShelfId == selectedItem.ShelfId
-                                                     select shelves).ToList();
-                if (matchingShelves.Count != 0)
-                {
-                    MessageBox.Show("There are inventory entries containing " + selectedItem.ShelfId + ". To prevent " +
-                        "data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
-                }
-                else
-                {
-                    allShelves.Remove(selectedItem);
-                    dgridShelf.Items.Refresh();
-                    Shelf shelfToBeRemoved = (from shelves in dbContext.GetTable<Shelf>()
-                                          where shelves.ShelfId == selectedItem.ShelfId
-                                          select shelves).First();
-                    dbContext.Shelfs.DeleteOnSubmit(shelfToBeRemoved);
-                    dbContext.SubmitChanges();
-                }
-            }
+
         }
 
-        //private void RowContMenuModBin_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (sender != null)
-        //    {
-        //        BinInfo selectedItem = (BinInfo)dgridBin.SelectedValue;
-        //        ModifyBinWindow m = new ModifyBinWindow(Convert.ToInt32(selectedItem.BinId.Substring(1)));
-        //        m.Owner = Application.Current.MainWindow;
-        //        m.ShowDialog();
-        //    }
-        //}
+        private void RowContMenuModBin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void RowContMenuDelBin_Click(object sender, RoutedEventArgs e)
         {
-            if (sender != null)
-            {
-                BinInfo selectedItem = (BinInfo)dgridBin.SelectedValue;
-                List<InventoryEntry> matchingBins = (from bins in dbContext.GetTable<InventoryEntry>()
-                                                      where bins.BinId == selectedItem.BinId
-                                                      select bins).ToList();
-                if (matchingBins.Count != 0)
-                {
-                    MessageBox.Show("There are inventory entries containing " + selectedItem.BinId + ". To prevent " +
-                        "data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
-                }
-                else
-                {
-                    allBins.Remove(selectedItem);
-                    dgridBin.Items.Refresh();
-                    Bin binToBeRemoved = (from bins in dbContext.GetTable<Bin>()
-                                            where bins.BinId == selectedItem.BinId
-                                            select bins).First();
-                    dbContext.Bins.DeleteOnSubmit(binToBeRemoved);
-                    dbContext.SubmitChanges();
-                }
-            }
+
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)

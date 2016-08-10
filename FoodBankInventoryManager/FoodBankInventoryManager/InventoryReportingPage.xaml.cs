@@ -51,8 +51,8 @@ namespace FoodBankInventoryManager
                                     Quantity = (from foods in dbContext.GetTable<Food>()
                                                 where foods.FoodName == items.FoodName
                                                 select foods.Quantity).First()
-                                }).ToList().Distinct(new DistinctEntryComparer()).ToList();
-            grdItems.ItemsSource = currentInventory;
+                                }).ToList();
+            grdItems.ItemsSource = currentInventory.GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
             txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
 
             List<InventoryEntry> entireInv = (from items in dbContext.GetTable<InventoryEntry>()
@@ -198,10 +198,7 @@ namespace FoodBankInventoryManager
         public bool Equals(InventoryInfo item1, InventoryInfo item2)
         {
             return item1.BinId == item2.BinId
-                && item1.DateEntered == item2.DateEntered
-                && item1.FoodName == item2.FoodName
-                && item1.Quantity == item2.Quantity
-                && item1.ShelfId == item2.ShelfId;
+                && item1.FoodName == item2.FoodName;
         }
         public int GetHashCode(InventoryInfo item)
         {

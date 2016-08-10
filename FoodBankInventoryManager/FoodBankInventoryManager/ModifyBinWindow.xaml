@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
-        Title="ModifyBinWindow" Height="200" Width="300"
+        Title="ModifyBinWindow" Height="326.268" Width="300"
         Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                    FontSize="14"
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
-                   Width="100"
+                   Width="150"
                    HorizontalAlignment="Center"
                    Margin="5,26,0,26" 
                    Height="20"
@@ -58,6 +58,7 @@
                 FontFamily="Rockwell"
                 FontSize="12"
                 Width="50"
+                Margin="0, 0, 10, 10"
                 Height="20"
                 Click="btnCancel_Click"
                 Style="{DynamicResource ButtonStyle}" />

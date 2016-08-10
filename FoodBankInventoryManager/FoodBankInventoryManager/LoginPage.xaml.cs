@@ -24,6 +24,13 @@ namespace FoodBankInventoryManager
         public static bool isAdministrator;
         private L2S_FoodBankDBDataContext dbContext;
 
+        #region Project Admin (PA) Login Info
+#if DEBUG
+        private const string PA_USER = "gr3en";
+        private const string PA_PASS = "be@ns";
+        #endif
+        #endregion
+
         public LoginPage()
         {
             InitializeComponent();
@@ -41,6 +48,7 @@ namespace FoodBankInventoryManager
         {
             if (e.Key == Key.Enter)
             {
+                btnLogin_Click(sender, e);
             }
         }
 
@@ -58,13 +66,24 @@ namespace FoodBankInventoryManager
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            #region PA Access Check
+#if DEBUG
+            if (txtEmail.Text == PA_USER && pwBoxAdmin.Password == PA_PASS) {
+                User jubal = new User();
+                jubal.AccessLevel = 0;
+                HomePage h = new HomePage(jubal);
+                this.NavigationService.Navigate(h);
+                return;
+            }
+#endif
+            #endregion
+
             if (!loginUser(txtEmail.Text, pwBoxAdmin.Password))
             {
                 MessageBox.Show("The email address or password you provided is incorrect");
             }
 
-            //HomePage h = new HomePage();
-            //this.NavigationService.Navigate(h);
+            
         }
         /// <summary>
         /// Attempts to login the user with the provided credentials

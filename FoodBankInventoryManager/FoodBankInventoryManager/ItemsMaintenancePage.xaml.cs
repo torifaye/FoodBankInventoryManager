@@ -140,6 +140,12 @@ namespace FoodBankInventoryManager
         //    }
         //}
 
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            HomePage h = new HomePage(myCurrentUser);
+            NavigationService.Navigate(h);
+        }
+
         private void RowContMenuDelBin_Click(object sender, RoutedEventArgs e)
         {
             if (sender != null)

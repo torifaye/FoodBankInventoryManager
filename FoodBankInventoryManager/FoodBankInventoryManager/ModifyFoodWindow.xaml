@@ -25,24 +25,25 @@
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Margin="0,26,5,26"
-                   Text="Food Name:" Height="16" Width="78"/>
+                   Margin="0,39,181,35"
+                   Text="Food Name:" Height="16" Width="80" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtFoodName"
                    Grid.Row="0"
                    Grid.Column="1"
                    FontSize="14"
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
-                   Width="100"
+                   Width="150"
                    HorizontalAlignment="Center"
-                   Margin="5,26,0,26" Height="20"/>
+                   Margin="5,25,0,25" Height="20"/>
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    FontSize="14"
                    FontFamily="Rockwell"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Text="Min. Quantity:"/>
+                   Margin="0,39,180,34"
+                   Text="Min. Quantity:" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtMinQty"
                  Grid.Row="1"
                  Grid.Column="1"
@@ -50,7 +51,7 @@
                  FontFamily="Rockwell"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 Width="40" Height="20"
+                 Width="150" Height="20"
                  PreviewTextInput="txtMinQty_PreviewTextInput"/>
         <!--<TextBlock Grid.Row="2"
                    Grid.Column="0"
@@ -81,7 +82,7 @@
                 Style="{DynamicResource ButtonStyle}" />
 
         <Button x:Name="btnCancel"
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
@@ -90,6 +91,7 @@
                 FontSize="12"
                 Width="50"
                 Height="20"
+                Margin="0, 0, 10, 10"
                 Click="btnCancel_Click"
                 Style="{DynamicResource ButtonStyle}" />
     </Grid>

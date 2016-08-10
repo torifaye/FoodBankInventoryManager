@@ -1203,6 +1203,8 @@ namespace FoodBankInventoryManager
 		
 		private int _MinimumQty;
 		
+		private int _Quantity;
+		
 		private string _FoodId;
 		
 		private EntitySet<InventoryEntry> _InventoryEntries;
@@ -1217,6 +1219,8 @@ namespace FoodBankInventoryManager
     partial void OnFoodNameChanged();
     partial void OnMinimumQtyChanging(int value);
     partial void OnMinimumQtyChanged();
+    partial void OnQuantityChanging(int value);
+    partial void OnQuantityChanged();
     partial void OnFoodIdChanging(string value);
     partial void OnFoodIdChanged();
     #endregion
@@ -1283,6 +1287,26 @@ namespace FoodBankInventoryManager
 					this._MinimumQty = value;
 					this.SendPropertyChanged("MinimumQty");
 					this.OnMinimumQtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+		public int Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this.OnQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._Quantity = value;
+					this.SendPropertyChanged("Quantity");
+					this.OnQuantityChanged();
 				}
 			}
 		}

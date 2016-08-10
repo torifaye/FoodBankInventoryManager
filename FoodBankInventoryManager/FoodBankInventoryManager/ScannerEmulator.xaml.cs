@@ -63,6 +63,10 @@ namespace FoodBankInventoryManager
             invEntry.DateEntered = DateTime.Now;
             invEntry.UserId = myCurrentUser.UserId;
             invEntry.ItemQty = Convert.ToInt32(txtQuantity.Text);
+            Food associatedFood = (from foods in dbContext.GetTable<Food>()
+                                   where foods.FoodName == invEntry.FoodName
+                                   select foods).First();
+            associatedFood.Quantity += invEntry.ItemQty;
             invEntry.ApplicationName = APPLICATION_NAME;
 
             AuditEntry auditRecord = new AuditEntry();
@@ -114,10 +118,12 @@ namespace FoodBankInventoryManager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            List<string> entries = (from items in dbContext.GetTable<InventoryEntry>()
+                                    select items.BinId).ToList();
             cbFood.ItemsSource = (from foods in dbContext.GetTable<Food>()
                                   select foods.FoodName).ToList<String>();
             cbBin.ItemsSource = (from bins in dbContext.GetTable<Bin>()
+                                 where !entries.Contains(bins.BinId)
                                  select bins.BinId).ToList<String>();
             cbShelf.ItemsSource = (from shelves in dbContext.GetTable<Shelf>()
                                    select shelves.ShelfId).ToList<String>();

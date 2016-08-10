@@ -76,7 +76,9 @@
                     Margin="0,-5,5,20"
                     Padding="10, 2, 10, 2"
                     Style="{DynamicResource ButtonStyle}">
-                    <TextBlock TextWrapping="Wrap" FontSize="24">Create Barcode</TextBlock>
+                    <TextBlock 
+                        TextWrapping="Wrap" 
+                        FontSize="24">Create Barcode</TextBlock>
                 </Button>
                 <!--<Label
                FontSize="20"              
@@ -125,11 +127,14 @@
         <Button x:Name="btnPrintBarcode" 
                 Grid.Column="1"
                 Grid.Row="4"
-                Margin="277.8,60,24.8,20"
-                Click="btnPrintBarcode_Click"   
-                Style="{DynamicResource ButtonStyle}" Grid.ColumnSpan="2">
+                Click="btnPrintBarcode_Click"
+                Height="70"
+                Width="130"
+                HorizontalAlignment="Center"
+                Style="{DynamicResource ButtonStyle}"
+                Grid.ColumnSpan="2">
             <TextBlock TextAlignment="Center">
-                Print Barcode(s)
+                Print<LineBreak/>Barcode(s)
             </TextBlock>
         </Button>
 
@@ -169,9 +174,9 @@
 
 
         <!--<Button x:Name="bttnHome" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" FontSize="22" FontWeight="Bold" Click="bttnHome_Click">⌂</Button>-->
-        <!--<Button x:Name="btnExit"
+        <Button x:Name="btnExit"
                 Grid.Row="0"
-                Grid.Column="0"
+                Grid.Column="1"
                 FontFamily="Rockwell"
                 FontSize="14"
                 Height="50"
@@ -179,6 +184,7 @@
                 Margin="0, -20, 0, 0"
                 VerticalContentAlignment="Center"
                 Content="Go Back"
-                Click="btnExit_Click"/>-->
+                Style="{DynamicResource ButtonStyle}"
+                Click="btnExit_Click"/>
     </Grid>
 </Page>

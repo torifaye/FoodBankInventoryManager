@@ -44,10 +44,14 @@ namespace FoodBankInventoryManager
                                 {
                                     FoodName = items.FoodName,
                                     DateEntered = items.DateEntered,
-                                    BinId = items.BinId,
+                                    BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>()
+                                            where bins.FoodName == items.FoodName
+                                            select bins.BinId).ToList()),
                                     ShelfId = items.ShelfId,
-                                    Quantity = items.ItemQty
-                                }).ToList();
+                                    Quantity = (from foods in dbContext.GetTable<Food>()
+                                                where foods.FoodName == items.FoodName
+                                                select foods.Quantity).First()
+                                }).ToList().Distinct(new DistinctEntryComparer()).ToList();
             grdItems.ItemsSource = currentInventory;
             txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
 
@@ -138,8 +142,9 @@ namespace FoodBankInventoryManager
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    MessageBox.Show(ex.ToString());
                     MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager");
                     return;
                 } 
@@ -186,6 +191,25 @@ namespace FoodBankInventoryManager
         public int MinThreshold
         {
             get; set;
+        }
+    }
+    public class DistinctEntryComparer : IEqualityComparer<InventoryInfo>
+    {
+        public bool Equals(InventoryInfo item1, InventoryInfo item2)
+        {
+            return item1.BinId == item2.BinId
+                && item1.DateEntered == item2.DateEntered
+                && item1.FoodName == item2.FoodName
+                && item1.Quantity == item2.Quantity
+                && item1.ShelfId == item2.ShelfId;
+        }
+        public int GetHashCode(InventoryInfo item)
+        {
+            return item.BinId.GetHashCode()
+                ^ item.DateEntered.GetHashCode()
+                ^ item.FoodName.GetHashCode()
+                ^ item.Quantity.GetHashCode()
+                ^ item.ShelfId.GetHashCode();
         }
     }
 }

@@ -43,6 +43,7 @@ namespace FoodBankInventoryManager
                 Food toBeAdded = new Food();
                 toBeAdded.FoodName = myFoodName;
                 toBeAdded.MinimumQty = Convert.ToInt32(txtMinQty.Text);
+                toBeAdded.Quantity += 0;
                 dbContext.Foods.InsertOnSubmit(toBeAdded);
                 dbContext.SubmitChanges();
             }

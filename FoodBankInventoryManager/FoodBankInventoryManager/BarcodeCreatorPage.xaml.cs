@@ -196,8 +196,8 @@ namespace FoodBankInventoryManager
                 }
             }
 
-            int W = BARCODE_WIDTH;
-            int H = BARCODE_HEIGHT;
+            //int W = BARCODE_WIDTH;
+            //int H = BARCODE_HEIGHT;
             b.Alignment = AlignmentPositions.CENTER;
             TYPE type = TYPE.CODE39;
             b.IncludeLabel = true;
@@ -207,7 +207,6 @@ namespace FoodBankInventoryManager
 
             //string tempbarcode = txtBarcodedata.Text.Trim().ToUpper();
             string tempbarcode = barcodeData.Trim().ToUpper();
-
             while (tempbarcode.Length < 24)
             {
                 tempbarcode += " ";
@@ -220,7 +219,7 @@ namespace FoodBankInventoryManager
                     throw new Exception();
                 }
 
-                System.Drawing.Image g = b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, W, H);
+                System.Drawing.Image g = b.Encode(type, tempbarcode, System.Drawing.Color.Black, System.Drawing.Color.White, BARCODE_WIDTH, BARCODE_HEIGHT);
                 dImg = (Bitmap)g;
                 MemoryStream ms = new MemoryStream();
                 dImg.Save(ms, ImageFormat.Png);
@@ -263,9 +262,10 @@ namespace FoodBankInventoryManager
 
 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBox.Show("An error has occured, please enter a barcode string [1-24] characters.");
+                //MessageBox.Show("An error has occured, please enter a barcode string [1-24] characters.");
+                MessageBox.Show(exception.ToString());
                 imgBarcode.Source = null;
                 txtBarcodedata.Text = "";
 

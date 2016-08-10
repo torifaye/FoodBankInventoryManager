@@ -58,6 +58,7 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="FoodName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="MinimumQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FoodId" Type="System.String" DbType="VarChar(31)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Food_InventoryEntry" Member="InventoryEntries" ThisKey="FoodName" OtherKey="FoodName" Type="InventoryEntry" />
     </Type>

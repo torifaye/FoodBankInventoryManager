@@ -27,75 +27,64 @@ namespace FoodBankInventoryManager
             InitializeComponent();
 
             myCurrentUser = currentUser;
-
-            //if (isAdmin)
-            //{
-            //    btnAdd_Items.IsEnabled = true;
-            //    btnRemove_Items.IsEnabled = true;
-            //    btnCreateBarcode.IsEnabled = true;
-            //    btnCreateBarcode.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    btnAdd_Items.IsEnabled = false;
-            //    btnRemove_Items.IsEnabled = false;
-            //    btnCreateBarcode.IsEnabled = false;
-            //    btnCreateBarcode.Visibility = Visibility.Hidden;
-            //}
         }
 
-        private void btnRemove_Items_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            //If the user isn't an admin, disables access to more indepth data modification
+            if (myCurrentUser.AccessLevel == 1)
+            {
+                btnModify_Items.IsEnabled = false;
+                btnCreateBarcode.IsEnabled = false;
+                btnAuditTrail.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Navigates to the item modification page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnModify_Items_Click(object sender, RoutedEventArgs e)
         {
             ItemsMaintenancePage i = new ItemsMaintenancePage(myCurrentUser);
             NavigationService.Navigate(i);
         }
-
-        private void btnHelp_Click(object sender, RoutedEventArgs e)
-        {
-            if (helpLabels.Visibility == Visibility.Hidden)
-            {
-                //if (admin)
-                //{
-                //    helpAdd_Items.Visibility = Visibility.Visible;
-                //    helpRemove_Items.Visibility = Visibility.Visible;
-                //    //helpBarcode.Visibility = Visibility.Visible;
-                //}
-                //helpStats.Visibility = Visibility.Visible;
-                //helpMap.Visibility = Visibility.Visible;
-                //helpLabels.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                //if (admin)
-                //{
-                //    helpAdd_Items.Visibility = Visibility.Hidden;
-                //    helpRemove_Items.Visibility = Visibility.Hidden;
-                //    //helpBarcode.Visibility = Visibility.Hidden;
-                //}
-                //helpStats.Visibility = Visibility.Hidden;
-                //helpMap.Visibility = Visibility.Hidden;
-                //helpLabels.Visibility = Visibility.Hidden;
-            }
-        }
-
+        /// <summary>
+        /// Navigates to the barcode generator page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreateBarcode_Click(object sender, RoutedEventArgs e)
         {
             BarcodeCreatorPage b = new BarcodeCreatorPage(myCurrentUser);
             this.NavigationService.Navigate(b);
         }
-
+        /// <summary>
+        /// Navigates to the deposit items page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Items_Click(object sender, RoutedEventArgs e)
         {
             DepositPage d = new DepositPage(myCurrentUser);
             this.NavigationService.Navigate(d);
         }
-
+        /// <summary>
+        /// Navigates to the inventory report page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
             InventoryReportingPage i = new InventoryReportingPage(myCurrentUser);
             this.NavigationService.Navigate(i);
         }
-
+        /// <summary>
+        /// Navigates to the bin maintenance page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBinMaintenance_Click(object sender, RoutedEventArgs e)
         {
             BinMaintenance b = new BinMaintenance(myCurrentUser);
@@ -103,6 +92,11 @@ namespace FoodBankInventoryManager
             b.ShowDialog();
         }
 
+        /// <summary>
+        /// Navigates to the audit trail page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAuditTrail_Click(object sender, RoutedEventArgs e)
         {
             AuditPage a = new AuditPage(myCurrentUser);
@@ -114,21 +108,32 @@ namespace FoodBankInventoryManager
 
         }
 
+        /// <summary>
+        /// Navigates to the window where a user can change their password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mItemPassword_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: Probably move this to the login page and ask for email
             PasswordManagementWindow p = new PasswordManagementWindow(myCurrentUser);
             p.ShowInTaskbar = false;
             p.Owner = Application.Current.MainWindow;
             p.Show();
             Application.Current.MainWindow.Show();
         }
-
+        /// <summary>
+        /// Logs current user out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mItemLogout_Click(object sender, RoutedEventArgs e)
         {
             myCurrentUser = null;
             LoginPage l = new LoginPage();
             this.NavigationService.Navigate(l);
         }
+
     }
 }
 

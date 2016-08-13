@@ -19,9 +19,16 @@ namespace FoodBankInventoryManager
         private User myAccount;
         private int comboBoxChoice;
         private bool emailIsInvalid;
+
+        /*Data structure used to store whether a user has successfully filled out all the fields necessary to
+        * create a user
+        */
         private Dictionary<String, bool> nonEmptyFields;
         private bool readyToSubmit;
 
+        /// <summary>
+        /// Constructs a create account window object
+        /// </summary>
         public CreateAccountWindow()
         {
             InitializeComponent();
@@ -48,6 +55,7 @@ namespace FoodBankInventoryManager
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            //Set first name and last name of user if fields are filled out
             if (Validate("First Name", txtFirstName.Text))
             {
                 myAccount.FirstName = txtFirstName.Text; 
@@ -85,12 +93,9 @@ namespace FoodBankInventoryManager
             {
                 myAccount.Password = myHash;
             }
+            //Sets user's access level if an option is chosen
             if (cBoxAccessLevel.SelectedIndex != -1)
             {
-                /*TODO: Instead of having repeated code here, possibly send the object that
-                 * you're checking as an argument and check if it's a textbox, combobox, or 
-                 * passwordbox
-                 */ 
                 if (nonEmptyFields.ContainsKey("Access Level"))
                 {
                     nonEmptyFields.Remove("Access Level");
@@ -102,6 +107,7 @@ namespace FoodBankInventoryManager
             {
                 nonEmptyFields.Add("Access Level", false);
             }
+            //String that will be used in a messagebox to show the user what fields are not yet filled out
             string strEmptyReporter = "";
             foreach (KeyValuePair<String, bool> entry in nonEmptyFields)
             {
@@ -111,6 +117,7 @@ namespace FoodBankInventoryManager
                     strEmptyReporter += entry.Key + ", ";
                 }
             }
+            //If everything is filled out successfully, a user object is created
             if (readyToSubmit)
             {
                 dbContext.Users.InsertOnSubmit(myAccount);
@@ -122,7 +129,6 @@ namespace FoodBankInventoryManager
                 MessageBox.Show(this, "The following fields have not been filled out yet: " + strEmptyReporter);
             }
 
-            //TODO: Figure out if Reach Out Lakota uses outlook or gmail
             /*TODO: Eventually use google's api for securing an oauth token in order 
              * to login into email in most updated secure way (only an "issue" with gmail, outlook
              * doesn't care)
@@ -155,6 +161,7 @@ namespace FoodBankInventoryManager
                     //Ensures that the client uses Secure Socket Layer (SSL) to encrypt the connection
                     gmailServer.EnableSsl = true;
 
+                    //Sends an email to the user's email with their account creation details
                     gmailServer.Send(mail);
                     MessageBox.Show("Mail successfully sent to " + myAccount.Email);
                     Close();
@@ -170,7 +177,11 @@ namespace FoodBankInventoryManager
         {
             Close();
         }
-
+        /// <summary>
+        /// Makes sure that the user inputs an email in the current format (xxx@xxx.xxx)
+        /// </summary>
+        /// <param name="anEmail"></param>
+        /// <returns></returns>
         private bool isValidEmailFormat(string anEmail)
         {
             if (String.IsNullOrEmpty(anEmail))
@@ -221,6 +232,13 @@ namespace FoodBankInventoryManager
             }
             return match.Groups[1].Value + domainName;
         }
+
+        /// <summary>
+        /// Makes sure that the field is correctly filled out
+        /// </summary>
+        /// <param name="fieldName">Field that is being checked</param>
+        /// <param name="content">Content of the text field to be checked</param>
+        /// <returns></returns>
         private bool Validate(string fieldName, string content)
         {
             if (nonEmptyFields.ContainsKey(fieldName))

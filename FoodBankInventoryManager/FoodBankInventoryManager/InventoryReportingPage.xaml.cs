@@ -40,34 +40,21 @@ namespace FoodBankInventoryManager
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             updateDataGrids();
-
-            List<InventoryEntry> entireInv = (from items in dbContext.GetTable<InventoryEntry>()
-                                        select items).ToList();
-            List<Food> allFoods = (from foods in dbContext.GetTable<Food>()
-                                   select foods).ToList();
-            //watchList = (from items in dbContext.GetTable<Food>()
-            //                                where items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
-            //                                                           where entries.FoodName == items.FoodName
-            //                                                           select entries.ItemQty).ToList<int>().Sum())
-            //                                      < items.MinimumQty
-            //                                select new MinWatchInfo
-            //                                {
-            //                                    FoodName = items.FoodName,
-            //                                    CurrentQuantity = items.AverageQty * ((from entries in dbContext.GetTable<InventoryEntry>()
-            //                                                                           where entries.FoodName == items.FoodName
-            //                                                                           select entries.ItemQty).ToList().Sum()),
-            //                                    MinThreshold = items.MinimumQty
-            //                                }).ToList();
-            //gridMinWatch.ItemsSource = watchList;
-
         }
-
+        /// <summary>
+        /// Navigates back to the homepage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             HomePage h = new HomePage(myCurrentUser);
             NavigationService.Navigate(h);
         }
-
+        /// <summary>
+        /// Retrieves current inventory
+        /// </summary>
+        /// <returns></returns>
         private List<InventoryInfo> getCurrentInventory()
         {
             return (from items in dbContext.GetTable<InventoryEntry>()
@@ -75,23 +62,27 @@ namespace FoodBankInventoryManager
                     {
                         FoodName = items.FoodName,
                         DateEntered = items.DateEntered,
-                        BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>()
+                        BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>() //grabs all bins food is in and puts them in a comma seperated string
                                                    where bins.FoodName == items.FoodName
                                                    select bins.BinId).ToList()),
-                        ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>()
+                        ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>() //grabs all shelves that food is on and puts them in a comma seperated string
                                                      where shelves.FoodName == items.FoodName
                                                      select shelves.ShelfId).ToList().Distinct()),
                         Quantity = (from foods in dbContext.GetTable<Food>()
                                     where foods.FoodName == items.FoodName
                                     select foods.Quantity).First()
-                    }).GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
+                    }).GroupBy(i => i.FoodName).Select(g => g.First()).ToList(); //Groups inventory entries by food name
         }
+        /// <summary>
+        /// Retrieves current minimum watch list
+        /// </summary>
+        /// <returns></returns>
         private List<MinWatchInfo> getCurrentMinWatchList()
         {
-            List<Food> belowThreshold = (from foods in dbContext.GetTable<Food>()
+            List<Food> belowThreshold = (from foods in dbContext.GetTable<Food>() //Grabs items below their minimum threshold
                                          where foods.Quantity < foods.MinimumQty
                                          select foods).ToList();
-            return (from items in dbContext.GetTable<InventoryEntry>()
+            return (from items in dbContext.GetTable<InventoryEntry>() //Grabs inventory entries that contain foods below their minimum threshold
                     where belowThreshold.Contains((from foods in dbContext.GetTable<Food>()
                                                    where foods.FoodName == items.FoodName
                                                    select foods).First())
@@ -108,7 +99,7 @@ namespace FoodBankInventoryManager
         }
         private void RowContMenuDel_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Allow user to decide what bins they want to delete
+            //If a food is in more than one bin, a special window will pop up allowing user to delete each individual entry
             if ((from entries in dbContext.GetTable<InventoryEntry>()
                  where entries.FoodName == ((InventoryInfo)gridItems.SelectedValue).FoodName
                  select entries)
@@ -128,7 +119,6 @@ namespace FoodBankInventoryManager
                     {
                         if (sender != null)
                         {
-                            //TODO: Handle the user selecting multiple items
                             InventoryInfo selectedItem = ((InventoryInfo)gridItems.SelectedValue);
 
                             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
@@ -195,6 +185,10 @@ namespace FoodBankInventoryManager
                 }
             }
         }
+
+        /// <summary>
+        /// When the database is modified, the two datagrids on this page are updated
+        /// </summary>
         private void updateDataGrids()
         {
             currentInventory = getCurrentInventory();
@@ -204,6 +198,11 @@ namespace FoodBankInventoryManager
             gridMinWatch.ItemsSource = getCurrentMinWatchList();
             gridMinWatch.Items.Refresh();
         }
+        /// <summary>
+        /// When user double clicks, display inventory entry info in an easier to see messagebox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gridItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender != null)
@@ -220,10 +219,16 @@ namespace FoodBankInventoryManager
             }
             else
             {
+                MessageBox.Show("Please click on an inventory entry item");
                 throw new NullReferenceException();
             }
         }
 
+        /// <summary>
+        /// When clicked, exports current inventory to an excel spreadsheet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGenerateReport_Click(object sender, RoutedEventArgs e)
         {
             ExcelExporter<ReportEntry, ReportEntries> exporter =

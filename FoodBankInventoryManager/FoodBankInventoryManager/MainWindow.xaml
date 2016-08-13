@@ -12,7 +12,7 @@
                   MaxHeight="650" MaxWidth="1350" 
                   IsTabStop="False" 
                   FontFamily="Rockwell"
-                  Icon="Resources/Picture1.png" 
+                  Icon="Resources/logo-foodbank-retina-new.png" 
                   WindowStartupLocation="CenterScreen">
     <Frame Source="LoginPage.xaml"
            NavigationUIVisibility="Hidden"></Frame>

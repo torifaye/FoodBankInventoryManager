@@ -10,12 +10,20 @@ using System.Reflection;
 
 namespace FoodBankInventoryManager
 {
+    /// <summary>
+    /// When object of this class is instantiated, restricts the second type param to a list of the type of the
+    /// first type param
+    /// </summary>
+    /// <typeparam name="T">Class</typeparam>
+    /// <typeparam name="U">List of type T</typeparam>
     class ExcelExporter<T, U>
         where T : class
         where U : List<T>
     {
+        //Data to be printed to excel spreadsheet
         public List<T> dataToPrint;
 
+        //Excel associated objects and properties
         private Microsoft.Office.Interop.Excel.Application myExcelApp;
         private Workbooks myBooks;
         private Workbook myBook;
@@ -25,9 +33,6 @@ namespace FoodBankInventoryManager
         private Font myFont;
         private object myOptionalValue = Missing.Value;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public ExcelExporter()
         {
             myExcelApp = null;
@@ -45,6 +50,7 @@ namespace FoodBankInventoryManager
         {
             try
             {
+                //Assuming data isn't null or empty, goes through all of the steps to export data to an excel spreadsheet
                 if (dataToPrint != null)
                 {
                     if (dataToPrint.Count != 0)
@@ -91,6 +97,7 @@ namespace FoodBankInventoryManager
         /// <param name="header"></param>
         public void WriteData(object[] header)
         {
+            //All data that will fill out excel spreadsheet
             object[,] objectData = new object[dataToPrint.Count, header.Length];
 
             for (int i = 0; i < dataToPrint.Count; i++)

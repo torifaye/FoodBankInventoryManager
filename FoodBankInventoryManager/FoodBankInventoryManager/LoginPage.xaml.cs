@@ -24,13 +24,6 @@ namespace FoodBankInventoryManager
         public static bool isAdministrator;
         private L2S_FoodBankDBDataContext dbContext;
 
-        #region Project Admin (PA) Login Info
-#if DEBUG
-        private const string PA_USER = "gr3en";
-        private const string PA_PASS = "be@ns";
-        #endif
-        #endregion
-
         public LoginPage()
         {
             InitializeComponent();
@@ -46,6 +39,7 @@ namespace FoodBankInventoryManager
 
         private void pwBoxAdmin_KeyDown(object sender, KeyEventArgs e)
         {
+            //If user presses enter after entering password, click the login button
             if (e.Key == Key.Enter)
             {
                 btnLogin_Click(sender, e);
@@ -66,24 +60,11 @@ namespace FoodBankInventoryManager
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            #region PA Access Check
-#if DEBUG
-            if (txtEmail.Text == PA_USER && pwBoxAdmin.Password == PA_PASS) {
-                User jubal = new User();
-                jubal.AccessLevel = 0;
-                HomePage h = new HomePage(jubal);
-                this.NavigationService.Navigate(h);
-                return;
-            }
-#endif
-            #endregion
-
             if (!loginUser(txtEmail.Text, pwBoxAdmin.Password))
             {
-                MessageBox.Show("The email address or password you provided is incorrect");
-            }
-
-            
+                MessageBox.Show("The email address or password you provided is incorrect.");
+                pwBoxAdmin.Password = "";
+            }   
         }
         /// <summary>
         /// Attempts to login the user with the provided credentials
@@ -93,19 +74,26 @@ namespace FoodBankInventoryManager
         /// <returns>Whether or not the user is successfully able to sign in with the provided credentials</returns>
         private bool loginUser(string email, string aPassword)
         {
-            if (Validate(email)
+            if (Validate(email) //Makes sure both fields aren't empty, null, or whitespace
                 && Validate(aPassword)
                 )
             {
-                var emails = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Email).ToArray<string>();
+                var emails = (from items in dbContext.GetTable<User>() //grabs emails that match inputted email (should only be one)
+                              where items.Email == txtEmail.Text
+                              select items.Email).ToArray();
                 if (emails.Length != 0)
                 {
-                    var password = (from items in dbContext.GetTable<User>() where items.Email == txtEmail.Text select items.Password).ToArray<string>();
-                    bool validPassword = BCrypt.CheckPassword(pwBoxAdmin.Password, password[0]);
+                    var password = (from items in dbContext.GetTable<User>() //grabs password associated with account that has the provided email
+                                    where items.Email == txtEmail.Text
+                                    select items.Password).ToArray();
+                    bool validPassword = BCrypt.CheckPassword(pwBoxAdmin.Password, password[0]); //checks to see if provided password matches actual password
                     if (validPassword)
                     {
-                        User userToBeLoggedIn = (from users in dbContext.GetTable<User>() where users.Email == txtEmail.Text && validPassword select users).ToArray<User>()[0];
-                        HomePage h = new HomePage(userToBeLoggedIn);
+                        User userToBeLoggedIn = (from users in dbContext.GetTable<User>() //Gets user with credentials matching the provided ones
+                                                 where users.Email == txtEmail.Text 
+                                                 && validPassword
+                                                 select users).ToArray()[0];
+                        HomePage h = new HomePage(userToBeLoggedIn); //Navigates to application homepage
                         this.NavigationService.Navigate(h);
                         return true;
                     }
@@ -114,6 +102,10 @@ namespace FoodBankInventoryManager
                         return false;
                     }
                 }
+                else
+                {
+                    MessageBox.Show("There are no accounts associated with the email you provided.");
+                }
             }
             else
             {
@@ -121,6 +113,11 @@ namespace FoodBankInventoryManager
             }
             return false;
         }
+        /// <summary>
+        /// Makes sure content isn't null, empty, or just whitespace
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));

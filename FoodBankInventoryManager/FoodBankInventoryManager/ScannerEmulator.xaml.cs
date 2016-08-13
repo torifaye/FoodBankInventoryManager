@@ -22,7 +22,6 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class ScannerEmulator : Window
     {
-        private Random rand;
         private L2S_FoodBankDBDataContext dbContext;
         private DateTime dateEntered;
         private InventoryEntry invEntry;
@@ -55,9 +54,9 @@ namespace FoodBankInventoryManager
         {
             //An instance object to be added to the database
             //Sets a value for all of the columns in the invBin table
-            invEntry.FoodName = cbFood.SelectedValue.ToString();
-            invEntry.BinId = cbBin.SelectedValue.ToString();
-            invEntry.ShelfId = cbShelf.SelectedValue.ToString();
+            invEntry.FoodName = txtFood.Text;
+            invEntry.BinId = txtBin.Text;
+            invEntry.ShelfId = txtShelf.Text;
             invEntry.DateEntered = DateTime.Now;
             invEntry.UserId = myCurrentUser.UserId;
             invEntry.ItemQty = Convert.ToInt32(txtQuantity.Text);
@@ -97,6 +96,7 @@ namespace FoodBankInventoryManager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Populates comboboxes with possible entries based on database content
             List<string> entries = (from items in dbContext.GetTable<InventoryEntry>()
                                     select items.BinId).ToList();
             cbFood.ItemsSource = (from foods in dbContext.GetTable<Food>()
@@ -106,22 +106,17 @@ namespace FoodBankInventoryManager
                                  select bins.BinId).ToList<String>();
             cbShelf.ItemsSource = (from shelves in dbContext.GetTable<Shelf>()
                                    select shelves.ShelfId).ToList<String>();
-//#if DEBUG
-//            txtTempStorage.Visibility = Visibility.Visible;
-//            txtTempStorage.Width = 100;
-//            txtTempStorage.HorizontalAlignment = HorizontalAlignment.Left;
-//            txtTempStorage.Margin = new Thickness(75, 0, 0, 0);
-//            btnAddToInv.HorizontalAlignment = HorizontalAlignment.Right;
-//            btnAddToInv.Margin = new Thickness(0, 0, 75, 0);
-//#endif
-//            txtTempStorage.Focus();
         }
 
         private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-
+        /// <summary>
+        /// Fills out textboxes based on keyboard input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             TimeSpan elasped = DateTime.Now - lastKeyPress;
@@ -158,6 +153,11 @@ namespace FoodBankInventoryManager
                 }
             }
         }
+        /// <summary>
+        /// Capitalizes first letter of a word
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         static string UppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))

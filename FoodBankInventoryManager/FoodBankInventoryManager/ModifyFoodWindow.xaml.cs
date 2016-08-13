@@ -46,8 +46,8 @@ namespace FoodBankInventoryManager
                     if (result == MessageBoxResult.Yes)
                     {
                         string newFoodName = txtFoodName.Text;
-                        Food changedFood = (from foods in dbContext.GetTable<Food>()
-                                             where foods.FoodName == myFoodName
+                        Food changedFood = (from foods in dbContext.GetTable<Food>() //Queries for old food name, and
+                                             where foods.FoodName == myFoodName      //then sets it to new food name 
                                              select foods).First();
                         changedFood.FoodName = newFoodName;
                                                 
@@ -61,12 +61,21 @@ namespace FoodBankInventoryManager
                 }
                 if (Validate(txtMinQty.Text))
                 {
-                    if ((from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods).ToList().Count != 0)
+                    //if food with matching foodname exists and the desired min quantity is different from current, change the current min quantity to desired
+                    if ((from foods in dbContext.GetTable<Food>()
+                         where foods.FoodName == myFoodName
+                         select foods).ToList().Count != 0)
                     {
-                        if ((from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First() != Convert.ToInt32(txtMinQty.Text))
+                        if ((from foods in dbContext.GetTable<Food>()
+                             where foods.FoodName == myFoodName
+                             select foods.MinimumQty).First() != Convert.ToInt32(txtMinQty.Text))
                         {
-                            int oldQty = (from foods in dbContext.GetTable<Food>() where foods.FoodName == myFoodName select foods.MinimumQty).First();
-                            MessageBoxResult result = MessageBox.Show("Are you sure you want to change the minimum quantity of " + myFoodName + "?", "Confirm Change", MessageBoxButton.YesNo);
+                            int oldQty = (from foods in dbContext.GetTable<Food>()
+                                          where foods.FoodName == myFoodName
+                                          select foods.MinimumQty).First();
+                            MessageBoxResult result = MessageBox.Show("Are you sure you want to change the minimum quantity of " + myFoodName + "?", 
+                                "Confirm Change", 
+                                MessageBoxButton.YesNo);
                             if (result == MessageBoxResult.Yes)
                             {
                                 string newFoodName = txtFoodName.Text;
@@ -90,17 +99,22 @@ namespace FoodBankInventoryManager
         {
             Close();
         }
+        /// <summary>
+        /// Makes sure content isn't null, empty, or whitespace
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
         }
-
+        //Looks for content that is only numeric
         private static bool isTextAllowed(string text)
         {
             Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
         }
-
+        //Restricts min quantity textbox to numeric
         private void txtMinQty_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !isTextAllowed(e.Text);

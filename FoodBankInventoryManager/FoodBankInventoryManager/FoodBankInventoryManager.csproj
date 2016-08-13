@@ -101,12 +101,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>L2S_FoodBankDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="MinQuantityWindow.xaml.cs">
-      <DependentUpon>MinQuantityWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ModifyBinWindow.xaml.cs">
-      <DependentUpon>ModifyBinWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ModifyFoodWindow.xaml.cs">
       <DependentUpon>ModifyFoodWindow.xaml</DependentUpon>
     </Compile>
@@ -180,14 +174,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MinQuantityWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ModifyBinWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ModifyFoodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -245,6 +231,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\logo-foodbank-retina-new.png" />
     <Content Include="Resources\Picture1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

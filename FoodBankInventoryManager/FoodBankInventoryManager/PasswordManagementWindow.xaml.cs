@@ -28,7 +28,7 @@ namespace FoodBankInventoryManager
             myCurrentUser = currentUser;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
-
+        //Loads name of user wanting to change their password
         private void txtUserName_Loaded(object sender, RoutedEventArgs e)
         {
             txtUserName.Text = myCurrentUser.FirstName + " " + myCurrentUser.LastName;
@@ -36,6 +36,7 @@ namespace FoodBankInventoryManager
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            //If user enters a password that matches the database, user's password is changed to desired new password
             if (BCrypt.CheckPassword(pwBoxCurrent.Password, myCurrentUser.Password))
             {
                 string myHash = "";
@@ -51,7 +52,7 @@ namespace FoodBankInventoryManager
                 if (Validate(pwBoxConfirm.Password) && BCrypt.CheckPassword(pwBoxConfirm.Password, myHash))
                 {
                     //For some reason you have to query for the user instead of being able to use
-                    //the one passed to you (i.e. myCurrentUser)
+                    //the one passed to you (i.e. myCurrentUser), or at least that's only what works for me
                     User user = (from users in dbContext.GetTable<User>()
                                  where users.Email == myCurrentUser.Email
                                  select users).First<User>();
@@ -72,6 +73,11 @@ namespace FoodBankInventoryManager
             Close();
         }
 
+        /// <summary>
+        /// Makes sure desired content isn't null, empty, or just whitespace
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));

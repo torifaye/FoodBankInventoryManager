@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="725"
-      Title="HomePage">
+      Title="Home Page"
+      Loaded="Page_Loaded">
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -60,16 +61,17 @@
             </TextBlock>
         </Button>
 
-        <Button x:Name="btnRemove_Items" 
+        <Button x:Name="btnModify_Items" 
                 Grid.Column="2" 
                 Grid.Row="2" 
                 Margin="15,10,0,0" 
-                Click="btnRemove_Items_Click" 
+                Click="btnModify_Items_Click"
                 Cursor="Hand"
                 Style="{DynamicResource ButtonStyle}">
 
             <Button.ToolTip>
-                <ToolTip Style="{DynamicResource Tooltip}">
+                <ToolTip x:Name="tTipModifyItems"
+                         Style="{DynamicResource Tooltip}">
                     Withdraw items from the current inventory
                 </ToolTip>
             </Button.ToolTip>
@@ -107,7 +109,8 @@
                 Style="{DynamicResource ButtonStyle}">
 
             <Button.ToolTip>
-                <ToolTip Style="{DynamicResource Tooltip}">
+                <ToolTip x:Name="tTipBarcode"
+                         Style="{DynamicResource Tooltip}">
                     Create a new barcode
                 </ToolTip>
             </Button.ToolTip>
@@ -145,7 +148,8 @@
                 Style="{DynamicResource ButtonStyle}">
 
             <Button.ToolTip>
-                <ToolTip Style="{DynamicResource Tooltip}">
+                <ToolTip x:Name="tTipAudit"
+                         Style="{DynamicResource Tooltip}">
                     View past changes to the inventory
                 </ToolTip>
             </Button.ToolTip>

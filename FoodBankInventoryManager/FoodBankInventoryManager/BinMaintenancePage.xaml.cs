@@ -27,6 +27,10 @@ namespace FoodBankInventoryManager
         private const string APPLICATION_NAME = "BIN_MAINTENANCE";
         private bool isChanged;        
 
+        /// <summary>
+        /// Constructs a bin maintenance window object
+        /// </summary>
+        /// <param name="aUser">User currently logged in</param>
         public BinMaintenance(User aUser)
         {
             InitializeComponent();
@@ -40,11 +44,13 @@ namespace FoodBankInventoryManager
         {
             try
             {
+                //Get item currently being displayed in combobox
                 object item = cbBinSearch.SelectedItem;
                 if (item != null)
                 {
                     if (currentInvEntry != null)
                     {
+                        //Checks to see if any of the fields associated with the current bin are changed
                         if (currentInvEntry.FoodName != cbFoodSearch.SelectedValue.ToString())
                         {
                             isChanged = true;
@@ -85,6 +91,9 @@ namespace FoodBankInventoryManager
                         }
                     }
                     int currentIndex = cbBinSearch.SelectedIndex;
+                    /*Iterates to the next inventory entry containing food in it and removes the 
+                     * item that has just been checked from the combobox list
+                     */ 
                     object nextItem = cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count];
                     cbBinSearch.SelectedItem = nextItem;
                     binList.Remove(item.ToString());
@@ -104,14 +113,22 @@ namespace FoodBankInventoryManager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Grabs all of the bins containing items and sets the combobox's datasource to it
             binList = (from bins in dbContext.GetTable<InventoryEntry>() select bins.BinId).ToList();
             cbBinSearch.ItemsSource = binList;
 
+            //Gets all possible shelves that the user could change to
             cbShelfSearch.ItemsSource = (from shelves in dbContext.GetTable<Shelf>() select shelves.ShelfId).ToList<String>();
 
+            //Gets all possible foods that the user could change to
             cbFoodSearch.ItemsSource = (from foods in dbContext.GetTable<Food>() select foods.FoodName).ToList<String>();
         }
-
+        /// <summary>
+        /// If the user changes what bin they are looking at, it changes the data of the comboboxes to the
+        /// associated data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbBinSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (binList.Contains(cbBinSearch.SelectedValue.ToString()))

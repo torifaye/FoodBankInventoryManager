@@ -35,6 +35,11 @@ namespace FoodBankInventoryManager
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
+        /// <summary>
+        /// Displays items that are entered into database in current session page is opened in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
             inputBox.Visibility = Visibility.Visible;

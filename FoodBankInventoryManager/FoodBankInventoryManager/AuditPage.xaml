@@ -92,13 +92,15 @@
             </Button.ToolTip>
         </Button>
 
-        <Button Grid.Row="1" 
+        <Button x:Name="btnExport"
+                Grid.Row="1" 
                 Grid.Column="1"
                 Margin="20, 95, 20, 95"
                 FontSize="20"
-                Style="{DynamicResource ButtonStyle}">
+                Style="{DynamicResource ButtonStyle}"
+                Click="btnExport_Click">
             <TextBlock TextAlignment="Center">
-                Transfer to <LineBreak/> Microsoft Excel
+                Export to <LineBreak/> Microsoft Excel
             </TextBlock>
 
             <Button.ToolTip>

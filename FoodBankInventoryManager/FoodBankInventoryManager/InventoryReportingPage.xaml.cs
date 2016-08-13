@@ -27,7 +27,7 @@ namespace FoodBankInventoryManager
         List<InventoryInfo> currentInventory;
         List<MinWatchInfo> watchList;
 
-        private const string APPLICATION_NAME = "INVENTORY TRACKER";
+        private const string APPLICATION_NAME = "INVENTORY_TRACKER";
         public InventoryReportingPage(User aUser)
         {
             InitializeComponent();
@@ -39,23 +39,7 @@ namespace FoodBankInventoryManager
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            currentInventory = (from items in dbContext.GetTable<InventoryEntry>()
-                                select new InventoryInfo
-                                {
-                                    FoodName = items.FoodName,
-                                    DateEntered = items.DateEntered,
-                                    BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>()
-                                            where bins.FoodName == items.FoodName
-                                            select bins.BinId).ToList()),
-                                    ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>()
-                                                                 where shelves.FoodName == items.FoodName
-                                                                 select shelves.ShelfId).ToList().Distinct()),
-                                    Quantity = (from foods in dbContext.GetTable<Food>()
-                                                where foods.FoodName == items.FoodName
-                                                select foods.Quantity).First()
-                                }).GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
-            gridItems.ItemsSource = currentInventory;
-            txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
+            updateDataGrids();
 
             List<InventoryEntry> entireInv = (from items in dbContext.GetTable<InventoryEntry>()
                                         select items).ToList();
@@ -84,81 +68,142 @@ namespace FoodBankInventoryManager
             NavigationService.Navigate(h);
         }
 
-
+        private List<InventoryInfo> getCurrentInventory()
+        {
+            return (from items in dbContext.GetTable<InventoryEntry>()
+                    select new InventoryInfo
+                    {
+                        FoodName = items.FoodName,
+                        DateEntered = items.DateEntered,
+                        BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>()
+                                                   where bins.FoodName == items.FoodName
+                                                   select bins.BinId).ToList()),
+                        ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>()
+                                                     where shelves.FoodName == items.FoodName
+                                                     select shelves.ShelfId).ToList().Distinct()),
+                        Quantity = (from foods in dbContext.GetTable<Food>()
+                                    where foods.FoodName == items.FoodName
+                                    select foods.Quantity).First()
+                    }).GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
+        }
+        private List<MinWatchInfo> getCurrentMinWatchList()
+        {
+            List<Food> belowThreshold = (from foods in dbContext.GetTable<Food>()
+                                         where foods.Quantity < foods.MinimumQty
+                                         select foods).ToList();
+            return (from items in dbContext.GetTable<InventoryEntry>()
+                    where belowThreshold.Contains((from foods in dbContext.GetTable<Food>()
+                                                   where foods.FoodName == items.FoodName
+                                                   select foods).First())
+                    select new MinWatchInfo
+                    {
+                        FoodName = items.FoodName,
+                        CurrentQuantity = (from foods in dbContext.GetTable<Food>()
+                                           where foods.FoodName == items.FoodName
+                                           select foods.Quantity).First(),
+                        MinThreshold = (from foods in dbContext.GetTable<Food>()
+                                        where foods.FoodName == items.FoodName
+                                        select foods.MinimumQty).First()
+                    }).ToList();
+        }
         private void RowContMenuDel_Click(object sender, RoutedEventArgs e)
         {
             //TODO Allow user to decide what bins they want to delete
-            //0 = Admin, 1 = Standard
-            if (myCurrentUser.AccessLevel == 0)
+            if ((from entries in dbContext.GetTable<InventoryEntry>()
+                 where entries.FoodName == ((InventoryInfo)gridItems.SelectedValue).FoodName
+                 select entries)
+                 .ToList().Count > 1)
             {
-                try
-                {
-                    if (sender != null)
-                    {
-                        //TODO: Handle the user selecting multiple items
-                        InventoryInfo selectedItem = ((InventoryInfo)gridItems.SelectedValue);
-
-                        MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            if (!String.IsNullOrEmpty(selectedItem.FoodName))
-                            {
-                                InventoryEntry entryToDelete = (from items in dbContext.GetTable<InventoryEntry>()
-                                                                where items.DateEntered == selectedItem.DateEntered
-                                                                && items.FoodName == selectedItem.FoodName
-                                                                && items.ShelfId == selectedItem.ShelfId
-                                                                && items.BinId == selectedItem.BinId
-                                                                && items.ItemQty == selectedItem.Quantity
-                                                                select items).First<InventoryEntry>();
-                                AuditEntry auditRecord = new AuditEntry();
-                                auditRecord.Action = "DELETION";
-                                auditRecord.ApplicationName = APPLICATION_NAME;
-                                auditRecord.BinId = entryToDelete.BinId;
-                                auditRecord.ItemQty = entryToDelete.ItemQty;
-                                auditRecord.Date_Action_Occured = DateTime.Now;
-                                auditRecord.FoodName = entryToDelete.FoodName;
-                                auditRecord.ShelfId = entryToDelete.ShelfId;
-                                auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
-                                switch (myCurrentUser.AccessLevel)
-                                {
-                                    case 0:
-                                        auditRecord.AccessLevel = "Administrator";
-                                        break;
-                                    case 1:
-                                        auditRecord.AccessLevel = "Standard User";
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                dbContext.InventoryEntries.DeleteOnSubmit(entryToDelete);
-                                dbContext.AuditEntries.InsertOnSubmit(auditRecord);
-                                dbContext.SubmitChanges();
-                            }
-                            currentInventory.Remove((InventoryInfo)selectedItem);
-                            gridItems.ItemsSource = currentInventory;
-                            //TODO: Get the minwatch list to update when a user removes an item immediately
-                            gridMinWatch.Items.Refresh();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager Error System");
-                    return;
-                }
+                DeletionManagementWindow d = new DeletionManagementWindow(myCurrentUser, (InventoryInfo)gridItems.SelectedValue);
+                d.ShowInTaskbar = false;
+                d.Owner = Application.Current.MainWindow;
+                d.ShowDialog();
+                updateDataGrids();
             }
             else
             {
-                return;
+                if (myCurrentUser.AccessLevel == 0)
+                {
+                    try
+                    {
+                        if (sender != null)
+                        {
+                            //TODO: Handle the user selecting multiple items
+                            InventoryInfo selectedItem = ((InventoryInfo)gridItems.SelectedValue);
+
+                            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
+
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                if (!String.IsNullOrEmpty(selectedItem.FoodName))
+                                {
+                                    InventoryEntry entryToDelete = (from items in dbContext.GetTable<InventoryEntry>()
+                                                                    where items.FoodName == selectedItem.FoodName
+                                                                    select items).First<InventoryEntry>();
+
+                                    Food associatedFoodItem = (from items in dbContext.GetTable<Food>()
+                                                               where items.FoodName == entryToDelete.FoodName
+                                                               select items).First();
+
+                                    associatedFoodItem.Quantity -= entryToDelete.ItemQty;
+
+                                    AuditEntry auditRecord = new AuditEntry();
+                                    auditRecord.Action = "DELETION";
+                                    auditRecord.ApplicationName = APPLICATION_NAME;
+                                    auditRecord.BinId = entryToDelete.BinId;
+                                    auditRecord.ItemQty = -entryToDelete.ItemQty;
+                                    auditRecord.Date_Action_Occured = DateTime.Now;
+                                    auditRecord.FoodName = entryToDelete.FoodName;
+                                    auditRecord.ShelfId = entryToDelete.ShelfId;
+                                    auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
+                                    switch (myCurrentUser.AccessLevel)
+                                    {
+                                        case 0:
+                                            auditRecord.AccessLevel = "Administrator";
+                                            break;
+                                        case 1:
+                                            auditRecord.AccessLevel = "Standard User";
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    dbContext.InventoryEntries.DeleteOnSubmit(entryToDelete);
+                                    dbContext.AuditEntries.InsertOnSubmit(auditRecord);
+                                    dbContext.SubmitChanges();
+                                }
+                                currentInventory.Remove((InventoryInfo)selectedItem);
+                                updateDataGrids();
+                                
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager Error System");
+                        return;
+
+                    }
+                }
+                else
+                {
+                    return;
+                }
             }
         }
-
+        private void updateDataGrids()
+        {
+            currentInventory = getCurrentInventory();
+            gridItems.ItemsSource = currentInventory;
+            txtItemCount.Text = currentInventory.Count.ToString();
+            gridItems.Items.Refresh();
+            gridMinWatch.ItemsSource = getCurrentMinWatchList();
+            gridMinWatch.Items.Refresh();
+        }
         private void gridItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender != null)

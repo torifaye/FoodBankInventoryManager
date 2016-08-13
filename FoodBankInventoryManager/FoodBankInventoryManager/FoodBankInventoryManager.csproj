@@ -83,6 +83,9 @@
     <Compile Include="CreateAccountWindow.xaml.cs">
       <DependentUpon>CreateAccountWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeletionManagementWindow.xaml.cs">
+      <DependentUpon>DeletionManagementWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DepositPage.xaml.cs">
       <DependentUpon>DepositPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
     <Page Include="CreateAccountWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeletionManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DepositPage.xaml">
       <SubType>Designer</SubType>

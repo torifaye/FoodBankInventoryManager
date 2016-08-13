@@ -24,6 +24,8 @@ namespace FoodBankInventoryManager
         private User myCurrentUser;
         private L2S_FoodBankDBDataContext dbContext;
 
+        List<AuditInfo> auditEntries;
+
         public AuditPage(User aUser)
         {
             InitializeComponent();
@@ -34,19 +36,19 @@ namespace FoodBankInventoryManager
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            List<AuditInfo> auditEntries = (from entries in dbContext.GetTable<AuditEntry>()
-                                                select new AuditInfo
-                                                {
-                                                    EntryId = entries.AuditEntryId,
-                                                    FoodName = entries.FoodName,
-                                                    BinId = entries.BinId,
-                                                    ShelfId = entries.ShelfId,
-                                                    Qty = entries.ItemQty,
-                                                    Date_Action_Occured = entries.Date_Action_Occured,
-                                                    UserName = entries.UserName,
-                                                    ApplicationName = entries.ApplicationName,
-                                                    Action = entries.Action
-                                                }).ToList();
+            auditEntries = (from entries in dbContext.GetTable<AuditEntry>()
+                                select new AuditInfo
+                                {
+                                    EntryId = entries.AuditEntryId,
+                                    FoodName = entries.FoodName,
+                                    BinId = entries.BinId,
+                                    ShelfId = entries.ShelfId,
+                                    Qty = entries.ItemQty,
+                                    Date_Action_Occured = entries.Date_Action_Occured,
+                                    UserName = entries.UserName,
+                                    ApplicationName = entries.ApplicationName,
+                                    Action = entries.Action
+                                }).ToList();
 
             gridAudit.ItemsSource = auditEntries;
         }
@@ -57,7 +59,16 @@ namespace FoodBankInventoryManager
             NavigationService.Navigate(h);
         }
 
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            ExcelExporter<AuditInfo, AuditInfos> auditTrail = new ExcelExporter<AuditInfo, AuditInfos>();
+            auditTrail.dataToPrint = auditEntries;
+            auditTrail.GenerateReport();
+        }
     }
+
+    public class AuditInfos : List<AuditInfo> { }
+
     public class AuditInfo
     {
         public int EntryId

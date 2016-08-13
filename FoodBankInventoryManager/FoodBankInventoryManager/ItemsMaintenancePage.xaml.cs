@@ -63,6 +63,7 @@ namespace FoodBankInventoryManager
                 else
                 {
                     allFoods.Remove(selectedItem);
+                    dgridFood.ItemsSource = allFoods;
                     dgridFood.Items.Refresh();
                     Food foodToBeRemoved = (from foods in dbContext.GetTable<Food>()
                                             where foods.FoodName == selectedItem.FoodName
@@ -98,11 +99,6 @@ namespace FoodBankInventoryManager
             dgridShelf.ItemsSource = allShelves;
         }
 
-        //private void RowContMenuModShelf_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
-
         private void RowContMenuDelShelf_Click(object sender, RoutedEventArgs e)
         {
             if (sender != null)
@@ -119,6 +115,7 @@ namespace FoodBankInventoryManager
                 else
                 {
                     allShelves.Remove(selectedItem);
+                    dgridShelf.ItemsSource = allShelves;
                     dgridShelf.Items.Refresh();
                     Shelf shelfToBeRemoved = (from shelves in dbContext.GetTable<Shelf>()
                                           where shelves.ShelfId == selectedItem.ShelfId
@@ -162,6 +159,7 @@ namespace FoodBankInventoryManager
                 else
                 {
                     allBins.Remove(selectedItem);
+                    dgridBin.ItemsSource = allBins;
                     dgridBin.Items.Refresh();
                     Bin binToBeRemoved = (from bins in dbContext.GetTable<Bin>()
                                             where bins.BinId == selectedItem.BinId

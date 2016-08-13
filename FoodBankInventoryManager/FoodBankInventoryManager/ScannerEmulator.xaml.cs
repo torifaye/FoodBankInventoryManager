@@ -27,24 +27,22 @@ namespace FoodBankInventoryManager
         private DateTime dateEntered;
         private InventoryEntry invEntry;
         private User myCurrentUser;
-        private Regex binRegex;
-        private Regex shelfRegex;
-        private Regex foodRegex;
+
+        private DateTime lastKeyPress;
+
+        private List<String> textStream;
 
         private const string APPLICATION_NAME = "SCANNER";
 
         public ScannerEmulator(User aUser)
         {
-            binRegex = new Regex("^[B][0-9]*$");
-            shelfRegex = new Regex("^[S][0-9]*$");
-            foodRegex = new Regex("^[a-zA-Z ]*$");
-
-            rand = new Random();
             dateEntered = DateTime.Now;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             invEntry = new InventoryEntry();
             myCurrentUser = aUser;
 
+            lastKeyPress = new DateTime(0);
+            textStream = new List<String>();
             InitializeComponent();
         }
 
@@ -96,25 +94,6 @@ namespace FoodBankInventoryManager
             Close();
         }
 
-        //private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if (binRegex.IsMatch(txtTempStorage.Text))
-        //    {
-        //        System.Threading.Thread.Sleep(10000);
-        //        txtBin.Text = txtTempStorage.Text;
-        //    }
-        //    else if(shelfRegex.IsMatch(txtTempStorage.Text))
-        //    {
-        //        System.Threading.Thread.Sleep(10000);
-        //        txtShelf.Text = txtTempStorage.Text;
-        //    }
-        //    else if(foodRegex.IsMatch(txtTempStorage.Text))
-        //    {
-        //        System.Threading.Thread.Sleep(10000);
-        //        txtFood.Text = txtTempStorage.Text;
-        //    }
-        //    txtTempStorage.Text = "";
-        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -141,6 +120,53 @@ namespace FoodBankInventoryManager
         private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            TimeSpan elasped = DateTime.Now - lastKeyPress;
+            if (elasped.TotalMilliseconds > 1000)
+            {
+                textStream.Clear();
+            }
+            if ((e.Key >= Key.D0) && (e.Key <= Key.D9))
+            {
+                textStream.Add(e.Key.ToString()[1].ToString()); 
+            }
+            else
+            {
+                textStream.Add(e.Key.ToString());
+            }
+            lastKeyPress = DateTime.Now;
+            if (e.Key == Key.Return && textStream.Count > 1)
+            {
+                String barcodeData = String.Join("", textStream);
+                barcodeData = barcodeData.Substring(0, barcodeData.IndexOf("Return"));
+
+                String nums = "0123456789";
+                if (barcodeData[0] == 'B' && nums.Contains(barcodeData[1]))
+                {
+                    txtBin.Text = barcodeData.ToString();
+                }
+                else if (barcodeData[0] == 'S' && nums.Contains(barcodeData[1]))
+                {
+                    txtShelf.Text = barcodeData.ToString();
+                }
+                else
+                {
+                    txtFood.Text = UppercaseFirst(barcodeData.ToString().ToLower());
+                }
+            }
+        }
+        static string UppercaseFirst(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            char[] a = s.ToCharArray();
+            a[0] = char.ToUpper(a[0]);
+            return new string(a);
         }
     }
 }

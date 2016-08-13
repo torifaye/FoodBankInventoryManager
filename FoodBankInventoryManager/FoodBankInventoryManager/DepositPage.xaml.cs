@@ -35,12 +35,6 @@ namespace FoodBankInventoryManager
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            //useful if you need to get data from the database such as table names
-            //var dataModel = new AttributeMappingSource().GetModel(typeof(L2S_FoodBankDBDataContext));
-        }
-
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
             inputBox.Visibility = Visibility.Visible;
@@ -71,8 +65,6 @@ namespace FoodBankInventoryManager
         }
 
     }
-
-
 
     public class DepositEntry
     {

@@ -310,20 +310,4 @@ namespace FoodBankInventoryManager
             get; set;
         }
     }
-    public class DistinctEntryComparer : IEqualityComparer<InventoryInfo>
-    {
-        public bool Equals(InventoryInfo item1, InventoryInfo item2)
-        {
-            return item1.BinId == item2.BinId
-                && item1.FoodName == item2.FoodName;
-        }
-        public int GetHashCode(InventoryInfo item)
-        {
-            return item.BinId.GetHashCode()
-                ^ item.DateEntered.GetHashCode()
-                ^ item.FoodName.GetHashCode()
-                ^ item.Quantity.GetHashCode()
-                ^ item.ShelfId.GetHashCode();
-        }
-    }
 }

@@ -12,7 +12,8 @@
         Width="420" 
         MinHeight="260" 
         MinWidth="420"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -134,13 +135,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--<TextBox x:Name="txtFood"
-                 Grid.Row="0"
-                 FontSize="14"
-                 FontFamily="Rockwell"
-                 Width="120"
-                 VerticalAlignment="Center"
-                 />-->
         <ComboBox x:Name="cbFood"
                   Grid.Row="0"
                   FontSize="14"
@@ -148,7 +142,15 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
+                  Visibility="Hidden"
                   IsEditable="True"/>
+        <TextBox x:Name="txtFood"
+                 Grid.Row="0"
+                 FontSize="14"
+                 FontFamily="Rockwell"
+                 Width="120"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"/>
         <TextBlock IsHitTestVisible="False" 
                    Grid.Row="0"
                    Text="Food Code" 
@@ -164,7 +166,7 @@
                     <Setter Property="FontSize"
                             Value="14"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=cbFood}" 
+                        <DataTrigger Binding="{Binding Text, ElementName=txtFood}" 
                                      Value="">
                             <Setter Property="Visibility" 
                                     Value="Visible"/>
@@ -173,14 +175,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <!--<TextBox x:Name="txtBin"
-                 Grid.Row="1"
-                 FontSize="14"
-                 FontFamily="Rockwell"
-                 Width="120"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 />-->
         <ComboBox x:Name="cbBin"
                   Grid.Row="1"
                   FontSize="14"
@@ -188,7 +182,15 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
+                  Visibility="Hidden"
                   IsEditable="True"/>
+        <TextBox x:Name="txtBin"
+                 Grid.Row="1"
+                 FontSize="14"
+                 FontFamily="Rockwell"
+                 Width="120"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Bin Code"
                    Grid.Row="1"
@@ -204,7 +206,7 @@
                     <Setter Property="FontFamily"
                             Value="Rockwell"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=cbBin}" 
+                        <DataTrigger Binding="{Binding Text, ElementName=txtBin}" 
                                      Value="">
                             <Setter Property="Visibility" 
                                     Value="Visible"/>
@@ -213,14 +215,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <!--<TextBox x:Name="txtShelf"
-                 Grid.Row="2"
-                 FontSize="14"
-                 FontFamily="Rockwell"
-                 Width="120"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 />-->
         <ComboBox x:Name="cbShelf"
                   Grid.Row="2"
                   FontSize="14"
@@ -228,7 +222,15 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
+                  Visibility="Hidden"
                   IsEditable="True"/>
+        <TextBox x:Name="txtShelf"
+                 Grid.Row="2"
+                 FontSize="14"
+                 FontFamily="Rockwell"
+                 Width="120"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Shelf Code"
                    Grid.Row="2"
@@ -244,7 +246,7 @@
                     <Setter Property="FontFamily"
                             Value="Rockwell"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=cbShelf}" 
+                        <DataTrigger Binding="{Binding Text, ElementName=txtShelf}" 
                                      Value="">
                             <Setter Property="Visibility" 
                                     Value="Visible"/>
@@ -284,27 +286,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TextBox x:Name="txtTempStorage"
-                 Grid.Row="4"
-                 FontSize="14"
-                 FontFamily="Rockwell"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Left"
-                 Margin="10"
-                 Width="100"
-                 Visibility="Hidden"
-                 TextChanged="txtTempStorage_TextChanged"
-                 />
-        <!--<Button x:Name="btnRandomizeAll"
-                Grid.Row="4" Grid.Column="0"
-                Content="Randomize All"
-                Click="btnRandomizeAll_Click"
-                Height="22"
-                Width="100"
-                Margin="75,0,0,0"
-                FontFamily="Rockwell"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"/>-->
         <Button x:Name="btnAddToInv"
                 Grid.Row="4"
                 Grid.ColumnSpan="2"

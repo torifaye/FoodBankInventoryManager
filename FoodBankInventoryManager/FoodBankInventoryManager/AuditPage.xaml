@@ -47,9 +47,9 @@
                 <DataGridTextColumn Header="Shelf"
                                             Width=".8*"
                                             Binding="{Binding Path=ShelfId}"/>
-                <DataGridTextColumn Header="Bin Qty"
+                <DataGridTextColumn Header="Qty"
                                     Width=".3*"
-                                    Binding="{Binding Path=BinQty}"/>
+                                    Binding="{Binding Path=Qty}"/>
                 <DataGridTextColumn Header="Date"
                                             Width="1*"
                                             Binding="{Binding Path=Date_Action_Occured}"/>

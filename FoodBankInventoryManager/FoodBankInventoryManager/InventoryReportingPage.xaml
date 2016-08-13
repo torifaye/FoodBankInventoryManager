@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FoodBankInventoryManager"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="330"
+      d:DesignHeight="650" d:DesignWidth="1350"
       Title="Statistics"
       Loaded="Page_Loaded">
 
@@ -137,12 +137,27 @@
                     Grid.RowSpan="2">
             <TextBlock TextAlignment="Center"
                        FontWeight="Bold">Items</TextBlock>
-            <DataGrid x:Name="grdItems"
+            <DataGrid x:Name="gridItems"
                       FontFamily="Rockwell"
                       FontSize="12"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
-                      MouseDoubleClick="grdItems_MouseDoubleClick">
+                      MouseDoubleClick="gridItems_MouseDoubleClick">
+                <DataGrid.Resources>
+                    <ContextMenu  x:Key="DataRowContextMenu">
+                        <MenuItem x:Name="RowContMenuDel"
+                              Header="Delete"
+                              Click="RowContMenuDel_Click">
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.Resources>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="ContextMenu" Value="{StaticResource DataRowContextMenu}" />
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name"
                                         Width="*" 
@@ -168,17 +183,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <DockPanel Grid.Row="2"
-                   VerticalAlignment="Bottom" 
-                   Height="25" 
-                   Background="LightGray" 
-                   Margin="10,10,10,10">
-            <Label FontWeight="Bold"
-                   FontFamily="Rockwell">Search Items:</Label>
-            <TextBox Margin="2" 
-                     Width="Auto"></TextBox>
-        </DockPanel>
-
 
         <StackPanel Margin="10,10,10,0" Grid.Column="3">
             <TextBlock TextAlignment="Center" FontWeight="Bold"
@@ -196,14 +200,14 @@
                                         Width="*" 
                                         IsReadOnly="True"
                                         Binding="{Binding Path=CurrentQuantity}"/>
-                    <DataGridTextColumn Header="Below" 
+                    <DataGridTextColumn Header="Threshold" 
                                             Width="*" 
                                             IsReadOnly="True"
                                             Binding="{Binding Path=MinThreshold}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <DockPanel VerticalAlignment="Bottom" 
+        <!--<DockPanel VerticalAlignment="Bottom" 
                    Height="25" 
                    Background="LightGray"
                    Margin="10,10,10,10" 
@@ -212,7 +216,7 @@
                    FontFamily="Rockwell">Search Items:</Label>
             <TextBox Margin="2"
                      Width="Auto" ></TextBox>
-        </DockPanel>
+        </DockPanel>-->
 
         <Grid Grid.Column="3" 
               Grid.Row="2">
@@ -229,6 +233,19 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Button x:Name="btnGenerateReport"
+                    Grid.Row="1"
+                    Grid.RowSpan="3"
+                    Height="60"
+                    Padding="5, 0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Style="{DynamicResource ButtonStyle}"
+                    Click="btnGenerateReport_Click">
+                <TextBlock TextAlignment="Center">
+                Generate<LineBreak/>Inventory Report
+                </TextBlock>
+            </Button>
             <Label Grid.RowSpan="1" 
                    FontWeight="Bold"
                    FontFamily="Rockwell">Total Items:</Label>
@@ -239,10 +256,10 @@
                        FontSize="14"
                        HorizontalAlignment="Center"
                        Margin="0,5,150,0"/>
-            <Label Grid.Row="1" 
+            <!--<Label Grid.Row="1" 
                    Grid.RowSpan="2" 
                    FontWeight="Bold"
-                   FontFamily="Rockwell">Total Weight:</Label>
+                   FontFamily="Rockwell">Total Weight:</Label>-->
 
             <Button x:Name="btnHome"
                     Grid.Row="5" 

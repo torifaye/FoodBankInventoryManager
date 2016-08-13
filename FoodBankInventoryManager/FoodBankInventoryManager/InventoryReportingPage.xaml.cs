@@ -47,12 +47,14 @@ namespace FoodBankInventoryManager
                                     BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>()
                                             where bins.FoodName == items.FoodName
                                             select bins.BinId).ToList()),
-                                    ShelfId = items.ShelfId,
+                                    ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>()
+                                                                 where shelves.FoodName == items.FoodName
+                                                                 select shelves.ShelfId).ToList().Distinct()),
                                     Quantity = (from foods in dbContext.GetTable<Food>()
                                                 where foods.FoodName == items.FoodName
                                                 select foods.Quantity).First()
-                                }).ToList();
-            grdItems.ItemsSource = currentInventory.GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
+                                }).GroupBy(i => i.FoodName).Select(g => g.First()).ToList();
+            gridItems.ItemsSource = currentInventory;
             txtItemCount.Text = currentInventory.ToArray<InventoryInfo>().Length.ToString();
 
             List<InventoryEntry> entireInv = (from items in dbContext.GetTable<InventoryEntry>()
@@ -82,8 +84,10 @@ namespace FoodBankInventoryManager
             NavigationService.Navigate(h);
         }
 
-        private void grdItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void RowContMenuDel_Click(object sender, RoutedEventArgs e)
         {
+            //TODO Allow user to decide what bins they want to delete
             //0 = Admin, 1 = Standard
             if (myCurrentUser.AccessLevel == 0)
             {
@@ -92,7 +96,7 @@ namespace FoodBankInventoryManager
                     if (sender != null)
                     {
                         //TODO: Handle the user selecting multiple items
-                        InventoryInfo selectedItem = ((InventoryInfo)grdItems.SelectedValue);
+                        InventoryInfo selectedItem = ((InventoryInfo)gridItems.SelectedValue);
 
                         MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this row?", "Food Bank Manager", MessageBoxButton.YesNo);
 
@@ -132,7 +136,7 @@ namespace FoodBankInventoryManager
                                 dbContext.SubmitChanges();
                             }
                             currentInventory.Remove((InventoryInfo)selectedItem);
-                            grdItems.Items.Refresh();
+                            gridItems.ItemsSource = currentInventory;
                             //TODO: Get the minwatch list to update when a user removes an item immediately
                             gridMinWatch.Items.Refresh();
                         }
@@ -145,16 +149,84 @@ namespace FoodBankInventoryManager
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager");
+                    MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager Error System");
                     return;
-                } 
+                }
             }
             else
             {
                 return;
             }
         }
+
+        private void gridItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender != null)
+            {
+                DataGrid grid = sender as DataGrid;
+
+                InventoryInfo selectedRow = (InventoryInfo)grid.SelectedItem;
+                MessageBox.Show(String.Format("Item Name: {0}\nBins item is in: {1}\nShelves item is on: {2}\nQuantity: {3}\nDate Entered: {4}",
+                    selectedRow.FoodName, 
+                    selectedRow.BinId, 
+                    selectedRow.ShelfId, 
+                    selectedRow.Quantity, 
+                    selectedRow.DateEntered), "Entry Info");
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
+        }
+
+        private void btnGenerateReport_Click(object sender, RoutedEventArgs e)
+        {
+            ExcelExporter<ReportEntry, ReportEntries> exporter =
+                new ExcelExporter<ReportEntry, ReportEntries>();
+            exporter.dataToPrint = (from entries in dbContext.GetTable<InventoryEntry>()
+                                    select new ReportEntry
+                                    {
+                                        Shelf = entries.ShelfId,
+                                        Bin = entries.BinId,
+                                        Recorded_Food = entries.FoodName,
+                                        Actual_Food = "",
+                                        Recorded_Quantity = entries.ItemQty,
+                                        Actual_Quantity = ""
+                                    }).ToList();
+            exporter.GenerateReport();
+        }
     }
+
+    public class ReportEntries : List<ReportEntry> { }
+
+    public class ReportEntry
+    {
+        public string Shelf
+        {
+            get; set;
+        }
+        public string Bin
+        {
+            get; set;
+        }
+        public string Recorded_Food
+        {
+            get; set;
+        }
+        public string Actual_Food
+        {
+            get; set;
+        }
+        public int Recorded_Quantity
+        {
+            get; set;
+        }
+        public string Actual_Quantity
+        {
+            get; set;
+        }
+    }
+
     public class InventoryInfo
     {
         public string FoodName

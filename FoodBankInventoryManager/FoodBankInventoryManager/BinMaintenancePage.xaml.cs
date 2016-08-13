@@ -85,7 +85,6 @@ namespace FoodBankInventoryManager
                         }
                     }
                     int currentIndex = cbBinSearch.SelectedIndex;
-                    //TODO: Somehow make this only go to the next inventory entry with actual stuff at it's location
                     object nextItem = cbBinSearch.Items[(currentIndex + 1) % cbBinSearch.Items.Count];
                     cbBinSearch.SelectedItem = nextItem;
                     binList.Remove(item.ToString());

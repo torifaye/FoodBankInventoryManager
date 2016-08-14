@@ -156,11 +156,23 @@
             </TextBlock>
         </Button>
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Grid.ColumnSpan="2" HorizontalAlignment ="Center" Grid.RowSpan="2" Margin="0, 25, 0, 0">
-            <Image x:Name="image" Visibility="Visible" Height="150"
-               Grid.Row="0" Grid.Column="0" 
-               Source="Resources/reach-out-lakota.png" Cursor="Hand"/>
-            <TextBlock FontSize="32" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Rockwell" Margin="0, -30, 0, 0">
+        <StackPanel Grid.Column="1" 
+                    Grid.Row="0" 
+                    Orientation="Vertical" 
+                    Grid.ColumnSpan="2" 
+                    HorizontalAlignment ="Center" 
+                    Grid.RowSpan="2" 
+                    Margin="0, 25, 0, 0">
+            <Image x:Name="image" 
+                   Visibility="Visible" 
+                   Height="150"
+               Source="Resources/reach-out-lakota.png"/>
+            <TextBlock FontSize="32" 
+                       TextAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontWeight="Bold" 
+                       FontFamily="Rockwell" 
+                       Margin="0, -30, 0, 0">
                 Reach Out Lakota<LineBreak/>Food Bank Manager
             </TextBlock>
         </StackPanel>

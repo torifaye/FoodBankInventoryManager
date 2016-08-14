@@ -83,20 +83,22 @@ namespace FoodBankInventoryManager
                         }
                         if (!allFieldsAreFilled)
                         {
-                            MessageBox.Show("Please fill out all fields before submitting.");
+                            MessageBox.Show("Please fill out all fields before submitting.", "Inventory Manager Error System");
                             return;
                         }
                         if (isChanged)
                         {
-                            AuditEntry auditRecord = new AuditEntry();
-                            auditRecord.FoodName = currentInvEntry.FoodName;
-                            auditRecord.BinId = currentInvEntry.BinId;
-                            auditRecord.ShelfId = currentInvEntry.ShelfId;
-                            auditRecord.ItemQty = currentInvEntry.ItemQty;
-                            auditRecord.Date_Action_Occured = DateTime.Now;
-                            auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
-                            auditRecord.ApplicationName = APPLICATION_NAME;
-                            auditRecord.Action = "UPDATE";
+                            AuditEntry auditRecord = new AuditEntry
+                            {
+                                FoodName = currentInvEntry.FoodName,
+                                BinId = currentInvEntry.BinId,
+                                ShelfId = currentInvEntry.ShelfId,
+                                ItemQty = currentInvEntry.ItemQty,
+                                Date_Action_Occured = DateTime.Now,
+                                UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName,
+                                ApplicationName = APPLICATION_NAME,
+                                Action = "UPDATE"
+                            };
                             switch (myCurrentUser.AccessLevel)
                             {
                                 case 0: auditRecord.AccessLevel = "Administrator";
@@ -126,7 +128,7 @@ namespace FoodBankInventoryManager
                 cbFoodSearch.SelectedValue = "";
                 cbShelfSearch.SelectedValue = "";
                 txtQty.Text = "";
-                MessageBox.Show("There are no more items in the list to check.");
+                MessageBox.Show("There are no more items in the list to check.", "Maintenance Check Completed");
                 Close();
             }
         }

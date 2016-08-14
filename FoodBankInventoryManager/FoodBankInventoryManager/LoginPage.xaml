@@ -144,6 +144,9 @@
                 <MenuItem Header="Account Management" FontWeight="Bold">
                     <MenuItem Header="_Create new account..."
                               Click="mItemNewAccount_Click"/>
+                    <MenuItem x:Name="mItemPassword"
+                              Header="_Change password..."
+                              Click="mItemPassword_OnClick"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

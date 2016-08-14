@@ -43,9 +43,11 @@ namespace FoodBankInventoryManager
 
         private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
         {
-            CreateAccountWindow c = new CreateAccountWindow();
-            c.ShowInTaskbar = false;
-            c.Owner = Application.Current.MainWindow;
+            CreateAccountWindow c = new CreateAccountWindow
+            {
+                ShowInTaskbar = false,
+                Owner = Application.Current.MainWindow
+            };
             c.ShowDialog();
         }
 
@@ -53,7 +55,7 @@ namespace FoodBankInventoryManager
         {
             if (!loginUser(txtEmail.Text, pwBoxAdmin.Password))
             {
-                MessageBox.Show("The email address or password you provided is incorrect.");
+                MessageBox.Show("The email address or password you provided is incorrect.", "Inventory Manager Error System");
                 pwBoxAdmin.Password = "";
             }   
         }
@@ -95,7 +97,7 @@ namespace FoodBankInventoryManager
                 }
                 else
                 {
-                    MessageBox.Show("There are no accounts associated with the email you provided.");
+                    MessageBox.Show("There are no accounts associated with the email you provided.", "Inventory Manager Error System");
                 }
             }
             else
@@ -112,6 +114,15 @@ namespace FoodBankInventoryManager
         private bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+        }
+
+        private void mItemPassword_OnClick(object sender, RoutedEventArgs e)
+        {
+            PasswordManagementWindow p = new PasswordManagementWindow();
+            p.ShowInTaskbar = false;
+            p.Owner = Application.Current.MainWindow;
+            p.Show();
+            Application.Current.MainWindow.Show();
         }
     }
 }

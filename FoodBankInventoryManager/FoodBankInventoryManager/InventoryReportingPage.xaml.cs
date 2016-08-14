@@ -224,17 +224,26 @@ namespace FoodBankInventoryManager
         {
             ExcelExporter<ReportEntry, ReportEntries> exporter =
                 new ExcelExporter<ReportEntry, ReportEntries>();
-            exporter.dataToPrint = (from entries in dbContext.GetTable<InventoryEntry>()
-                                    select new ReportEntry
-                                    {
-                                        Shelf = entries.ShelfId,
-                                        Bin = entries.BinId,
-                                        Recorded_Food = entries.FoodName,
-                                        Actual_Food = "",
-                                        Recorded_Quantity = entries.ItemQty,
-                                        Actual_Quantity = ""
-                                    }).ToList();
-            exporter.GenerateReport();
+            if (getCurrentInventory().Count > 0)
+            {
+                exporter.dataToPrint = (from entries in dbContext.GetTable<InventoryEntry>()
+                                        select new ReportEntry
+                                        {
+                                            Shelf = entries.ShelfId,
+                                            Bin = entries.BinId,
+                                            Recorded_Food = entries.FoodName,
+                                            Actual_Food = "",
+                                            Recorded_Quantity = entries.ItemQty,
+                                            Actual_Quantity = ""
+                                        }).ToList();
+                exporter.GenerateReport();
+            }
+            else
+            {
+                MessageBox.Show("Nothing is currently in inventory", "Inventory Manager Error System");
+                return;
+            }
+            
         }
     }
 

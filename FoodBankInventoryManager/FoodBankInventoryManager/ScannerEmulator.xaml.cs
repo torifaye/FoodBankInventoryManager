@@ -46,17 +46,17 @@ namespace FoodBankInventoryManager
         {
             //An instance object to be added to the database
             //Sets a value for all of the columns in the invBin table
-            if (Validate(txtBin.Text))
+            if (Validate(cbBin.Text))
             {
-                invEntry.BinId = txtBin.Text; 
+                invEntry.BinId = cbBin.Text; 
             }
             else
             {
                 readyToSubmit = false;
             }
-            if (Validate(txtShelf.Text))
+            if (Validate(cbShelf.Text))
             {
-                invEntry.ShelfId = txtShelf.Text; 
+                invEntry.ShelfId = cbShelf.Text; 
             }
             else
             {
@@ -73,9 +73,9 @@ namespace FoodBankInventoryManager
             {
                 readyToSubmit = false;
             }
-            if (Validate(txtFood.Text))
+            if (Validate(cbFood.Text))
             {
-                invEntry.FoodName = txtFood.Text;
+                invEntry.FoodName = cbFood.Text;
 
                 Food associatedFood = (from foods in dbContext.GetTable<Food>()
                                        where foods.FoodName == invEntry.FoodName
@@ -110,7 +110,7 @@ namespace FoodBankInventoryManager
             }
             if (!readyToSubmit)
             {
-                MessageBox.Show("Please don't leave any field blank.");
+                MessageBox.Show("Please don't leave any field blank.", "Inventory Manager Error System");
                 return;
             }
             ////Sets the changes ready to insert when changes are submitted
@@ -135,11 +135,6 @@ namespace FoodBankInventoryManager
                                  select bins.BinId).ToList();
             cbShelf.ItemsSource = (from shelves in dbContext.GetTable<Shelf>()
                                    select shelves.ShelfId).ToList();
-        }
-
-        private void txtTempStorage_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
         /// <summary>
         /// Fills out textboxes based on keyboard input
@@ -170,15 +165,15 @@ namespace FoodBankInventoryManager
                 String nums = "0123456789";
                 if (barcodeData[0] == 'B' && nums.Contains(barcodeData[1]))
                 {
-                    txtBin.Text = barcodeData;
+                    cbBin.Text = barcodeData;
                 }
                 else if (barcodeData[0] == 'S' && nums.Contains(barcodeData[1]))
                 {
-                    txtShelf.Text = barcodeData;
+                    cbShelf.Text = barcodeData;
                 }
                 else
                 {
-                    txtFood.Text = UppercaseFirst(barcodeData.ToLower());
+                    cbFood.Text = UppercaseFirst(barcodeData.ToLower());
                 }
             }
         }

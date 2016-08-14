@@ -103,12 +103,7 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void mItemPassword_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Probably move this to the login page and ask for email
-            PasswordManagementWindow p = new PasswordManagementWindow(myCurrentUser);
-            p.ShowInTaskbar = false;
-            p.Owner = Application.Current.MainWindow;
-            p.Show();
-            Application.Current.MainWindow.Show();
+            
         }
         /// <summary>
         /// Logs current user out

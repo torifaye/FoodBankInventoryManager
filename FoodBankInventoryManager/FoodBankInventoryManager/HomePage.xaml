@@ -33,9 +33,6 @@
                    Height="20">
             <Menu DockPanel.Dock="Top" Background="White">
                 <MenuItem Header="Account Management" FontWeight="Bold">
-                    <MenuItem x:Name="mItemPassword"
-                              Header="_Change password..."
-                              Click="mItemPassword_Click"/>
                     <MenuItem x:Name="mItemLogout"
                               Header="Logout..."
                               Click="mItemLogout_Click"/>

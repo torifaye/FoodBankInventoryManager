@@ -10,23 +10,27 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class PasswordManagementWindow : Window
     {
-        private User myCurrentUser;
-        private L2S_FoodBankDBDataContext dbContext;
-        public PasswordManagementWindow(User currentUser)
+        private readonly L2S_FoodBankDBDataContext dbContext;
+        public PasswordManagementWindow()
         {
             InitializeComponent();
-            myCurrentUser = currentUser;
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
         }
         //Loads name of user wanting to change their password
         private void txtUserName_Loaded(object sender, RoutedEventArgs e)
         {
-            txtUserName.Text = myCurrentUser.FirstName + " " + myCurrentUser.LastName;
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             //If user enters a password that matches the database, user's password is changed to desired new password
+            User myCurrentUser = new User();
+            if (Validate(txtEmail.Text))
+            {
+                myCurrentUser = (from users in dbContext.GetTable<User>()
+                    where users.Email == txtEmail.Text
+                    select users).First();
+            }
             if (BCrypt.CheckPassword(pwBoxCurrent.Password, myCurrentUser.Password))
             {
                 string myHash = "";
@@ -37,7 +41,7 @@ namespace FoodBankInventoryManager
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a password");
+                    MessageBox.Show("Please enter a password.", "Inventory Manager Error System");
                 }
                 if (Validate(pwBoxConfirm.Password) && BCrypt.CheckPassword(pwBoxConfirm.Password, myHash))
                 {
@@ -54,7 +58,7 @@ namespace FoodBankInventoryManager
             }
             else
             {
-                MessageBox.Show("Incorrect password provided");
+                MessageBox.Show("Incorrect password provided.", "Inventory Manager Error System");
             }
         }
 

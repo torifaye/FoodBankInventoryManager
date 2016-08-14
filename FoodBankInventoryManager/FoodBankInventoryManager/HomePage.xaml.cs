@@ -20,11 +20,16 @@ namespace FoodBankInventoryManager
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //If the user isn't an admin, disables access to more indepth data modification
-            if (myCurrentUser.AccessLevel == 1)
+            if (myCurrentUser.AccessLevel > 0)
             {
                 btnModify_Items.IsEnabled = false;
                 btnCreateBarcode.IsEnabled = false;
                 btnAuditTrail.IsEnabled = false;
+            }
+            if (myCurrentUser.AccessLevel == 2)
+            {
+                btnAdd_Items.IsEnabled = false;
+                btnBinMaintenance.IsEnabled = false;
             }
         }
 
@@ -36,7 +41,7 @@ namespace FoodBankInventoryManager
         private void btnModify_Items_Click(object sender, RoutedEventArgs e)
         {
             ItemsMaintenancePage i = new ItemsMaintenancePage(myCurrentUser);
-            NavigationService.Navigate(i);
+            this.NavigationService.Navigate(i);
         }
         /// <summary>
         /// Navigates to the barcode generator page
@@ -57,16 +62,6 @@ namespace FoodBankInventoryManager
         {
             DepositPage d = new DepositPage(myCurrentUser);
             this.NavigationService.Navigate(d);
-        }
-        /// <summary>
-        /// Navigates to the inventory report page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnStats_Click(object sender, RoutedEventArgs e)
-        {
-            InventoryReportingPage i = new InventoryReportingPage(myCurrentUser);
-            this.NavigationService.Navigate(i);
         }
         /// <summary>
         /// Navigates to the bin maintenance page
@@ -90,21 +85,6 @@ namespace FoodBankInventoryManager
             AuditPage a = new AuditPage(myCurrentUser);
             this.NavigationService.Navigate(a);
         }
-
-        private void btnAdd_Items_ToolTipOpening(object sender, ToolTipEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Navigates to the window where a user can change their password
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mItemPassword_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
         /// <summary>
         /// Logs current user out
         /// </summary>
@@ -117,6 +97,16 @@ namespace FoodBankInventoryManager
             this.NavigationService.Navigate(l);
         }
 
+        /// <summary>
+        /// Navigates to the inventory report page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnInvReport_OnClick(object sender, RoutedEventArgs e)
+        {
+            InventoryReportingPage i = new InventoryReportingPage(myCurrentUser);
+            this.NavigationService.Navigate(i);
+        }
     }
 }
 

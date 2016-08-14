@@ -11,8 +11,8 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class FoodSubmitWindow : Window
     {
-        private string myFoodName;
-        private L2S_FoodBankDBDataContext dbContext;
+        private readonly string myFoodName;
+        private readonly L2S_FoodBankDBDataContext dbContext;
 
         /// <summary>
         /// Constructs a food submit window object
@@ -40,16 +40,18 @@ namespace FoodBankInventoryManager
             //If all of the fields are filled out, submits food item to the database
             if (Validate(txtMinQty.Text) && Validate(txtFoodName.Text))
             {
-                Food toBeAdded = new Food();
-                toBeAdded.FoodName = myFoodName;
-                toBeAdded.MinimumQty = Convert.ToInt32(txtMinQty.Text);
+                Food toBeAdded = new Food
+                {
+                    FoodName = myFoodName,
+                    MinimumQty = Convert.ToInt32(txtMinQty.Text)
+                };
                 toBeAdded.Quantity += 0;
                 dbContext.Foods.InsertOnSubmit(toBeAdded);
                 dbContext.SubmitChanges();
             }
             else
             {
-                MessageBox.Show("Please fill out all fields");
+                MessageBox.Show("Please fill out all fields.", "Inventory Manager Error System");
             }
             Close();
         }
@@ -93,7 +95,7 @@ namespace FoodBankInventoryManager
             if (answer.Equals(MessageBoxResult.Yes))
             {
                 Close();
-                throw new Exception("ExceptionNoFoodToday");
+                throw new Exception("NoFoodTodayException");
             }
            
         }

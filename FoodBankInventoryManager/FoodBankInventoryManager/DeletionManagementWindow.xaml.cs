@@ -11,12 +11,12 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class DeletionManagementWindow : Window
     {
-        private User myCurrentUser;
-        private InventoryInfo selectedEntry;
+        private readonly User myCurrentUser;
+        private readonly InventoryInfo selectedEntry;
 
         private List<InventoryInfo> individualEntries;
 
-        private L2S_FoodBankDBDataContext dbContext;
+        private readonly L2S_FoodBankDBDataContext dbContext;
 
         private const string APPLICATION_NAME = "INVENTORY_TRACKER";
 
@@ -83,15 +83,17 @@ namespace FoodBankInventoryManager
                 gridItems.Items.Refresh();
 
                 //Creates a record in the audit trail
-                AuditEntry auditRecord = new AuditEntry();
-                auditRecord.Action = "DELETION";
-                auditRecord.ApplicationName = APPLICATION_NAME;
-                auditRecord.BinId = entryToDelete.BinId;
-                auditRecord.ItemQty = entryToDelete.ItemQty;
-                auditRecord.Date_Action_Occured = DateTime.Now;
-                auditRecord.FoodName = entryToDelete.FoodName;
-                auditRecord.ShelfId = entryToDelete.ShelfId;
-                auditRecord.UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName;
+                AuditEntry auditRecord = new AuditEntry
+                {
+                    Action = "DELETION",
+                    ApplicationName = APPLICATION_NAME,
+                    BinId = entryToDelete.BinId,
+                    ItemQty = entryToDelete.ItemQty,
+                    Date_Action_Occured = DateTime.Now,
+                    FoodName = entryToDelete.FoodName,
+                    ShelfId = entryToDelete.ShelfId,
+                    UserName = myCurrentUser.LastName + ", " + myCurrentUser.FirstName
+                };
                 switch (myCurrentUser.AccessLevel)
                 {
                     case 0:

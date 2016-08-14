@@ -23,9 +23,14 @@ namespace FoodBankInventoryManager
 
         private void btnLoginGuest_Click(object sender, RoutedEventArgs e)
         {
-            //HomePage h = new HomePage(false);
-            //isAdministrator = false;
-            //this.NavigationService.Navigate(h);
+            User guestUser = new User
+            {
+                AccessLevel = 2,
+                FirstName = "Guest",
+                LastName = "Guest"
+            };
+            HomePage h = new HomePage(guestUser);
+            this.NavigationService.Navigate(h);
         }
 
         private void pwBoxAdmin_KeyDown(object sender, KeyEventArgs e)
@@ -35,10 +40,6 @@ namespace FoodBankInventoryManager
             {
                 btnLogin_Click(sender, e);
             }
-        }
-
-        private void btnLoginAdmin_Click(object sender, RoutedEventArgs e)
-        {
         }
 
         private void mItemNewAccount_Click(object sender, RoutedEventArgs e)
@@ -53,7 +54,7 @@ namespace FoodBankInventoryManager
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (!loginUser(txtEmail.Text, pwBoxAdmin.Password))
+            if (!LoginUser(txtEmail.Text, pwBoxAdmin.Password))
             {
                 MessageBox.Show("The email address or password you provided is incorrect.", "Inventory Manager Error System");
                 pwBoxAdmin.Password = "";
@@ -65,7 +66,7 @@ namespace FoodBankInventoryManager
         /// <param name = "email" > The email the user provides</param>
         /// <param name = "aPassword" > The password the user provides</param>
         /// <returns>Whether or not the user is successfully able to sign in with the provided credentials</returns>
-        private bool loginUser(string email, string aPassword)
+        private bool LoginUser(string email, string aPassword)
         {
             if (Validate(email) //Makes sure both fields aren't empty, null, or whitespace
                 && Validate(aPassword)

@@ -111,7 +111,7 @@ namespace FoodBankInventoryManager
             }
             catch (Exception)
             {
-                MessageBox.Show("Item unable to be deleted at this time", "Food Bank Manager");
+                MessageBox.Show("Item unable to be deleted at this time", "Inventory Manager Error System");
                 return;
             }
 
@@ -206,7 +206,7 @@ namespace FoodBankInventoryManager
             }
             catch (Exception ex)
             {
-                if (ex.Message == "ExceptionNoFoodToday") //Refer to FoodSubmitWindow.xaml.cs in method btnCancel_Click for use description
+                if (ex.Message == "NoFoodTodayException") //Refer to FoodSubmitWindow.xaml.cs in method btnCancel_Click for use description
                 {
                     txtBarcodedata.Text = "";
                     return;
@@ -214,7 +214,7 @@ namespace FoodBankInventoryManager
                 else
                 {
                     //This exception should never happen
-                    MessageBox.Show("An Unknown Error has occured in the database. Please try again", "Food Bank Manager");
+                    MessageBox.Show("An unknown error has occured in the database. Please try again", "Inventory Manager Error System");
                     return;
                 }
             }

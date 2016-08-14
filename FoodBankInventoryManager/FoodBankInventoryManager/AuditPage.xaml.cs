@@ -12,8 +12,8 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class AuditPage : Page
     {
-        private User myCurrentUser;
-        private L2S_FoodBankDBDataContext dbContext;
+        private readonly User myCurrentUser;
+        private readonly L2S_FoodBankDBDataContext dbContext;
 
         List<AuditInfo> auditEntries;
 
@@ -65,8 +65,10 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            ExcelExporter<AuditInfo, AuditInfos> auditTrail = new ExcelExporter<AuditInfo, AuditInfos>();
-            auditTrail.dataToPrint = auditEntries;
+            ExcelExporter<AuditInfo, AuditInfos> auditTrail = new ExcelExporter<AuditInfo, AuditInfos>
+            {
+                dataToPrint = auditEntries
+            };
             auditTrail.GenerateReport();
         }
     }

@@ -69,7 +69,7 @@ namespace FoodBankInventoryManager
         /// </summary>
         /// <param name="content">content to be checked against</param>
         /// <returns></returns>
-        private bool Validate(string content)
+        private static bool Validate(string content)
         {
             return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
         }
@@ -80,14 +80,14 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void txtQty_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !isTextAllowed(e.Text);
+            e.Handled = !IsTextAllowed(e.Text);
         }
         /// <summary>
         /// Looks for numeric input only
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private static bool isTextAllowed(string text)
+        private static bool IsTextAllowed(string text)
         {
             Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);

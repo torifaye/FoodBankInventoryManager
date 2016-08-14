@@ -39,7 +39,7 @@ namespace FoodBankInventoryManager
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            updateDataGrids();
+            UpdateDataGrids();
         }
         /// <summary>
         /// Navigates back to the homepage
@@ -109,7 +109,7 @@ namespace FoodBankInventoryManager
                 d.ShowInTaskbar = false;
                 d.Owner = Application.Current.MainWindow;
                 d.ShowDialog();
-                updateDataGrids();
+                UpdateDataGrids();
             }
             else
             {
@@ -162,7 +162,7 @@ namespace FoodBankInventoryManager
                                     dbContext.SubmitChanges();
                                 }
                                 currentInventory.Remove((InventoryInfo)selectedItem);
-                                updateDataGrids();
+                                UpdateDataGrids();
                                 
                             }
                             else
@@ -189,7 +189,7 @@ namespace FoodBankInventoryManager
         /// <summary>
         /// When the database is modified, the two datagrids on this page are updated
         /// </summary>
-        private void updateDataGrids()
+        private void UpdateDataGrids()
         {
             currentInventory = getCurrentInventory();
             gridItems.ItemsSource = currentInventory;

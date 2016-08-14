@@ -164,26 +164,26 @@
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Height="Auto"
+                Height="20"
                 Width="38"
                 Margin="10, 0, 0, 0"
-                FontFamily="Rockwell"
                 FontSize="14"
                 Content="Ok"
-                Click="btnOK_Click">
+                Click="btnOK_Click"
+                Style="{DynamicResource ButtonStyle}">
         </Button>
         <Button x:Name="btnCancel"
                 Grid.Row="7"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Width="Auto"
-                Height="Auto"
+                Width="55"
+                Height="20"
                 Margin="0, 0, 10, 0"
-                FontFamily="Rockwell"
                 FontSize="14"
                 Content="Cancel"
-                Click="btnCancel_Click">
+                Click="btnCancel_Click"
+                Style="{DynamicResource ButtonStyle}">
         </Button>
     </Grid>
 </Window>

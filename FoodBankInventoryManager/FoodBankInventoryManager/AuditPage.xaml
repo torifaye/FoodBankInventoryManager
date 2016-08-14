@@ -30,7 +30,7 @@
                           FontFamily="Rockwell"
                           CanUserAddRows="False"
                           VerticalAlignment="Top"
-                          Grid.RowSpan="2"
+                          IsReadOnly="True"
                   BorderBrush="Black"
                   BorderThickness=".5"
                   FontSize="12">

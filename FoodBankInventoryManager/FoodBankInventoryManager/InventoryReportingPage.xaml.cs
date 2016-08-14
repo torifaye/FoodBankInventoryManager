@@ -276,7 +276,6 @@ namespace FoodBankInventoryManager
             get; set;
         }
     }
-
     public class InventoryInfo
     {
         public string FoodName

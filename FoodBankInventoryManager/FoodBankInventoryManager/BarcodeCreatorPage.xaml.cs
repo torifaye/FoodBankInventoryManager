@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 #region Message for Programmers
@@ -45,7 +46,6 @@ namespace FoodBankInventoryManager
 
         private const int BARCODE_WIDTH = 800;
         private const int BARCODE_HEIGHT = 275;
-        private const int MAX_BIN_LENGTH = 3;
         private const int MAX_SHELF_LENGTH = 4;
 
         private L2S_FoodBankDBDataContext dbContext;
@@ -94,9 +94,9 @@ namespace FoodBankInventoryManager
         {
             try
             {
+                Debug.Assert(e.OriginalSource != null, "e.OriginalSource != null");
                 var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
                 String strItem = item.Content.ToString();
-                if (item != null)
                 {
                     // ListBox item clicked - do some cool things here
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to delete \"" + strItem + "\"?", "Food Bank Manager", MessageBoxButton.YesNo);
@@ -129,11 +129,11 @@ namespace FoodBankInventoryManager
         {
             if (cbItemEnter.SelectedIndex == 1 || cbItemEnter.SelectedIndex == 2)
             {
-                e.Handled = !isTextAllowed(e.Text);
+                e.Handled = !IsTextAllowed(e.Text);
             }
         }
 
-        private static bool isTextAllowed(string text)
+        private static bool IsTextAllowed(string text)
         {
             Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
@@ -173,19 +173,18 @@ namespace FoodBankInventoryManager
                             f.ShowDialog();
                             break;
                         case 1:
-                            if (barcodeData.Length > MAX_BIN_LENGTH) {
-                                MessageBox.Show("Bin codes are required to be " + MAX_BIN_LENGTH + " characters long", "Food Bank Manager");
-                                return;
-                            }
-
-                            MessageBoxResult Banswer = MessageBox.Show("Are you sure you want to add NEW bin #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
-                            if (Banswer.Equals(MessageBoxResult.Yes))
+                            MessageBoxResult bAnswer = MessageBox.Show("Are you sure you want to add NEW bin #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
+                            if (bAnswer.Equals(MessageBoxResult.Yes))
                             {
                                 Bin bin = new Bin();
                                 barcodeData = "B" + barcodeData;
                                 bin.BinId = barcodeData;
                                 dbContext.Bins.InsertOnSubmit(bin);
                                 dbContext.SubmitChanges();
+                            }
+                            else
+                            {
+                                return;
                             }
                             break;
                         case 2:
@@ -194,14 +193,18 @@ namespace FoodBankInventoryManager
                                 return;
                             }
 
-                            MessageBoxResult Sanswer = MessageBox.Show("Are you sure you want to add NEW shelf #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
-                            if (Sanswer.Equals(MessageBoxResult.Yes))
+                            MessageBoxResult sAnswer = MessageBox.Show("Are you sure you want to add NEW shelf #" + barcodeData + "?", "Food Bank Manager", MessageBoxButton.YesNo);
+                            if (sAnswer.Equals(MessageBoxResult.Yes))
                             {
                                 Shelf shelf = new Shelf();
                                 barcodeData = "S" + barcodeData;
                                 shelf.ShelfId = barcodeData;
                                 dbContext.Shelfs.InsertOnSubmit(shelf);
                                 dbContext.SubmitChanges();
+                            }
+                            else
+                            {
+                                return;
                             }
                             break;
                         default:
@@ -290,10 +293,9 @@ namespace FoodBankInventoryManager
 
 
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                //MessageBox.Show("An error has occured, please enter a barcode string [1-24] characters.");
-                MessageBox.Show(exception.ToString());
+                MessageBox.Show("Please enter a barcode string 1-24 characters.");
                 imgBarcode.Source = null;
                 txtBarcodedata.Text = "";
 

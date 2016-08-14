@@ -19,13 +19,14 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class BinMaintenance : Window
     {
-        private User myCurrentUser;
-        private L2S_FoodBankDBDataContext dbContext;
-        private List<String> binList;
+        private readonly User myCurrentUser;
+        private readonly L2S_FoodBankDBDataContext dbContext;
+        private List<string> binList;
         private InventoryEntry currentInvEntry;
 
         private const string APPLICATION_NAME = "BIN_MAINTENANCE";
-        private bool isChanged;        
+        private bool isChanged;
+        private bool allFieldsAreFilled;  
 
         /// <summary>
         /// Constructs a bin maintenance window object
@@ -42,6 +43,7 @@ namespace FoodBankInventoryManager
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            allFieldsAreFilled = true;
             try
             {
                 //Get item currently being displayed in combobox
@@ -51,20 +53,46 @@ namespace FoodBankInventoryManager
                     if (currentInvEntry != null)
                     {
                         //Checks to see if any of the fields associated with the current bin are changed
-                        if (currentInvEntry.FoodName != cbFoodSearch.SelectedValue.ToString())
+                        if (Validate(cbFoodSearch.Text))
                         {
-                            isChanged = true;
-                            currentInvEntry.FoodName = cbFoodSearch.SelectedValue.ToString();
+                            if (currentInvEntry.FoodName != cbFoodSearch.SelectedValue.ToString())
+                            {
+                                isChanged = true;
+                                currentInvEntry.FoodName = cbFoodSearch.SelectedValue.ToString();
+                            } 
                         }
-                        if (currentInvEntry.ShelfId != cbShelfSearch.SelectedValue.ToString())
+                        else
                         {
-                            isChanged = true;
-                            currentInvEntry.ShelfId = cbShelfSearch.SelectedValue.ToString();
+                            allFieldsAreFilled = false;
                         }
-                        if (currentInvEntry.ItemQty != Convert.ToInt32(txtQty.Text))
+                        if (Validate(cbShelfSearch.Text))
                         {
-                            isChanged = true;
-                            currentInvEntry.ItemQty = Convert.ToInt32(txtQty.Text);
+                            if (currentInvEntry.ShelfId != cbShelfSearch.SelectedValue.ToString())
+                            {
+                                isChanged = true;
+                                currentInvEntry.ShelfId = cbShelfSearch.SelectedValue.ToString();
+                            } 
+                        }
+                        else
+                        {
+                            allFieldsAreFilled = false;
+                        }
+                        if (Validate(txtQty.Text))
+                        {
+                            if (currentInvEntry.ItemQty != Convert.ToInt32(txtQty.Text))
+                            {
+                                isChanged = true;
+                                currentInvEntry.ItemQty = Convert.ToInt32(txtQty.Text);
+                            } 
+                        }
+                        else
+                        {
+                            allFieldsAreFilled = false;
+                        }
+                        if (!allFieldsAreFilled)
+                        {
+                            MessageBox.Show("Please fill out all fields before submitting.");
+                            return;
                         }
                         if (isChanged)
                         {
@@ -145,6 +173,11 @@ namespace FoodBankInventoryManager
                 txtQty.Text = binQuantity.ToString();
                 btnSubmit.IsEnabled = true; 
             }
+        }
+
+        private static bool Validate(string content)
+        {
+            return !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content));
         }
     }
 }

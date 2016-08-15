@@ -113,6 +113,9 @@
     <Compile Include="InventoryReportingPage.xaml.cs">
       <DependentUpon>InventoryReportingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VariableRemoveItemWindow.xaml.cs">
+      <DependentUpon>VariableRemoveItemWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AuditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryReportingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VariableRemoveItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

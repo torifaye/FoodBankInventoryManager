@@ -13,8 +13,8 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class InventoryReportingPage : Page
     {
-        private L2S_FoodBankDBDataContext dbContext;
-        private User myCurrentUser;
+        private readonly L2S_FoodBankDBDataContext dbContext;
+        private readonly User myCurrentUser;
         List<InventoryInfo> currentInventory;
         List<MinWatchInfo> watchList;
 
@@ -96,9 +96,12 @@ namespace FoodBankInventoryManager
                  select entries)
                  .ToList().Count > 1)
             {
-                DeletionManagementWindow d = new DeletionManagementWindow(myCurrentUser, (InventoryInfo)gridItems.SelectedValue);
-                d.ShowInTaskbar = false;
-                d.Owner = Application.Current.MainWindow;
+                DeletionManagementWindow d = new DeletionManagementWindow(myCurrentUser,
+                    (InventoryInfo) gridItems.SelectedValue)
+                {
+                    ShowInTaskbar = false,
+                    Owner = Application.Current.MainWindow
+                };
                 d.ShowDialog();
                 UpdateDataGrids();
             }

@@ -34,6 +34,7 @@ namespace FoodBankInventoryManager
 
             lastKeyPress = new DateTime(0);
             textStream = new List<String>();
+            readyToSubmit = true;
             InitializeComponent();
         }
 

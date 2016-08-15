@@ -54,7 +54,9 @@ namespace FoodBankInventoryManager
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (!LoginUser(txtEmail.Text, pwBoxAdmin.Password))
+            if (!LoginUser(txtEmail.Text, pwBoxAdmin.Password) && (from users in dbContext.GetTable<User>()
+                                                                   where users.Email == txtEmail.Text
+                                                                   select users).ToList().Count > 0)
             {
                 MessageBox.Show("The email address or password you provided is incorrect.", "Inventory Manager Error System");
                 pwBoxAdmin.Password = "";
@@ -99,6 +101,7 @@ namespace FoodBankInventoryManager
                 else
                 {
                     MessageBox.Show("There are no accounts associated with the email you provided.", "Inventory Manager Error System");
+                    return false;
                 }
             }
             else

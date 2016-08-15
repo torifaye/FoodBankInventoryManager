@@ -153,8 +153,8 @@
                   Width="127"
                   Margin="10.5,8,0,8"
                   Height="Auto"
-                  FontFamily="14"
-                  FontSize="14"
+                  FontFamily="Rockwell"
+                  FontSize="12"
                   Loaded="cBoxAccessLevel_Loaded"
                   SelectionChanged="cBoxAccessLevel_SelectionChanged">
         </ComboBox>

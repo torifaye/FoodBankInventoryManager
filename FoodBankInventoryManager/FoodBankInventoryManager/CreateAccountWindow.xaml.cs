@@ -77,6 +77,11 @@ namespace FoodBankInventoryManager
             {
                 myAccount.Email = txtEmail.Text;
             }
+            else
+            {
+                MessageBox.Show("Emails do not match.", "Inventory Manager Error System");
+                return;
+            }
             /*
              * Encrypts and salts a user's password using BCrypt. Might eventually want
              * to change to PBKDF2 since that's the only NIST-approved encryption algorithm
@@ -89,9 +94,14 @@ namespace FoodBankInventoryManager
                 myHash = BCrypt.HashPassword(pwBoxPassword.Password, mySalt); 
             }
             if (Validate("Confirm Password", pwBoxConfirmPassword.Password)
-                && BCrypt.CheckPassword(pwBoxConfirmPassword.Password, myHash))
+                && BCrypt.CheckPassword(pwBoxConfirmPassword.Password, myHash)) //CheckPassword() checks a plaintext string to a hashed password
             {
                 myAccount.Password = myHash;
+            }
+            else
+            {
+                MessageBox.Show("Passwords do not match.", "Inventory Manager Error System");
+                return;
             }
             //Sets user's access level if an option is chosen
             if (cBoxAccessLevel.SelectedIndex != -1)

@@ -55,7 +55,7 @@ namespace FoodBankInventoryManager
                         DateEntered = items.DateEntered,
                         BinId = String.Join(", ", (from bins in dbContext.GetTable<InventoryEntry>() //grabs all bins food is in and puts them in a comma seperated string
                                                    where bins.FoodName == items.FoodName
-                                                   select bins.BinId).ToList()),
+                                                   select bins.BinId).Distinct().ToList()),
                         ShelfId = String.Join(", ", (from shelves in dbContext.GetTable<InventoryEntry>() //grabs all shelves that food is on and puts them in a comma seperated string
                                                      where shelves.FoodName == items.FoodName
                                                      select shelves.ShelfId).ToList().Distinct()),

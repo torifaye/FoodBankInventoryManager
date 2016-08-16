@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FoodBankInventoryManager
@@ -36,6 +35,17 @@ namespace FoodBankInventoryManager
             textStream = new List<String>();
             readyToSubmit = true;
             InitializeComponent();
+
+            //txtTemp.Focus();
+        }
+
+        public static Visibility IsDebug
+        {
+#if DEBUG
+            get { return Visibility.Visible; }
+#else
+            get { return Visibility.Hidden; }
+#endif
         }
 
         /// <summary>
@@ -153,15 +163,31 @@ namespace FoodBankInventoryManager
             {
                 textStream.Add(e.Key.ToString()[1].ToString()); 
             }
+            else if (e.Key == Key.LeftShift)
+            {
+                return;
+            }
+            else if (e.Key == Key.Space)
+            {
+                textStream.Add(" ");
+            }
             else
             {
                 textStream.Add(e.Key.ToString());
             }
             lastKeyPress = DateTime.Now;
-            if (e.Key == Key.Return && textStream.Count > 1)
+            //int lShiftIndex = tempStrBuffer.IndexOf("LeftShift");
+            //int spaceIndex = tempStrBuffer.IndexOf("Space", StringComparison.Ordinal);
+            //string cleanPath = (lShiftIndex < 0)
+            //    ? tempStrBuffer
+            //    : tempStrBuffer.Remove(lShiftIndex, "LeftShift".Length);
+            //tempStrBuffer = cleanPath;
+            //txtTemp.Text = tempStrBuffer;
+            if (e.Key == Key.Tab && textStream.Count > 1)
             {
-                String barcodeData = String.Join("", textStream);
-                barcodeData = barcodeData.Substring(0, barcodeData.IndexOf("Return", StringComparison.Ordinal));
+                String barcodeData = String.Join("", textStream).TrimEnd();
+                barcodeData = barcodeData.Substring(0, barcodeData.IndexOf("Tab", StringComparison.Ordinal));
+                //txtTemp.Text = barcodeData;
 
                 String nums = "0123456789";
                 if (barcodeData[0] == 'B' && nums.Contains(barcodeData[1]))

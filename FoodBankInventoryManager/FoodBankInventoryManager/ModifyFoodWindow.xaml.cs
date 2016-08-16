@@ -12,7 +12,7 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class ModifyFoodWindow : Window
     {
-        private readonly string myFoodName;
+        private string myFoodName;
         private readonly int oldMinQty;
 
         private readonly L2S_FoodBankDBDataContext dbContext;
@@ -44,6 +44,7 @@ namespace FoodBankInventoryManager
                                                 
                         dbContext.SubmitChanges();
                         MessageBox.Show(myFoodName + " successfully changed to " + newFoodName + ".");
+                        myFoodName = newFoodName;
                     }
                     else
                     {

@@ -11,12 +11,14 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class ItemsMaintenancePage : Page
     {
+        #region Instance variables
         private User myCurrentUser;
         private L2S_FoodBankDBDataContext dbContext;
 
         private List<FoodInfo> allFoods;
         private List<BinInfo> allBins;
         private List<ShelfInfo> allShelves;
+        #endregion
 
         public ItemsMaintenancePage(User aUser)
         {
@@ -26,19 +28,93 @@ namespace FoodBankInventoryManager
             InitializeComponent();
         }
 
+        #region Methods to retrieve all foods, bins, and shelves from database
+        private List<FoodInfo> GetFoods()
+        {
+            return (from foods in dbContext.GetTable<Food>()
+                    select new FoodInfo
+                    {
+                        FoodName = foods.FoodName,
+                        MinimumQty = foods.MinimumQty
+                    }).ToList();
+        }
+
+        private List<BinInfo> GetBins()
+        {
+            return (from bins in dbContext.GetTable<Bin>()
+                    select new BinInfo
+                    {
+                        BinId = bins.BinId
+                    }).ToList();
+        }
+
+        private List<ShelfInfo> GetShelves()
+        {
+            return (from shelves in dbContext.GetTable<Shelf>()
+                    select new ShelfInfo
+                    {
+                        ShelfId = shelves.ShelfId
+                    }).ToList();
+        }
+        #endregion
+        #region Context Menu Event Handlers
+        #region Context Menu Delete Event Handlers
         /// <summary>
-        /// Opens food modification window
+        /// Deletes a shelf from the database, as long as it doesn't have any bins on it with food in it
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RowContMenuMod_Click(object sender, RoutedEventArgs e)
+        private void RowContMenuDelShelf_Click(object sender, RoutedEventArgs e)
         {
             if (sender != null)
             {
-                FoodInfo selectedItem = (FoodInfo)dgridFood.SelectedValue;
-                ModifyFoodWindow m = new ModifyFoodWindow(selectedItem.FoodName, selectedItem.MinimumQty);
-                m.Owner = Application.Current.MainWindow;
-                m.ShowDialog();
+                ShelfInfo selectedItem = (ShelfInfo)dgridShelf.SelectedValue;
+                List<InventoryEntry> matchingShelves = (from shelves in dbContext.GetTable<InventoryEntry>() //checks to see if there are any
+                                                        where shelves.ShelfId == selectedItem.ShelfId           //shelves that have bins with food in them on it
+                                                        select shelves).ToList();
+                if (matchingShelves.Count != 0)
+                {
+                    MessageBox.Show("There are inventory entries containing " + selectedItem.ShelfId + ". To prevent " +
+                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
+                }
+                else
+                {
+                    allShelves.Remove(selectedItem); //Removes shelf from database and datagrid
+                    dgridShelf.ItemsSource = allShelves;
+                    dgridShelf.Items.Refresh();
+                    Shelf shelfToBeRemoved = (from shelves in dbContext.GetTable<Shelf>()
+                                              where shelves.ShelfId == selectedItem.ShelfId
+                                              select shelves).First();
+                    dbContext.Shelfs.DeleteOnSubmit(shelfToBeRemoved);
+                    dbContext.SubmitChanges();
+                }
+            }
+        }
+
+        private void RowContMenuDelBin_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender != null)
+            {
+                BinInfo selectedItem = (BinInfo)dgridBin.SelectedValue;
+                List<InventoryEntry> matchingBins = (from bins in dbContext.GetTable<InventoryEntry>() //checks to see if there are any
+                                                     where bins.BinId == selectedItem.BinId           //inventory entries with the selected food in them
+                                                     select bins).ToList();
+                if (matchingBins.Count != 0)
+                {
+                    MessageBox.Show("There are inventory entries containing " + selectedItem.BinId + ". To prevent " +
+                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
+                }
+                else
+                {
+                    allBins.Remove(selectedItem); //removes food item from database and datagrid
+                    dgridBin.ItemsSource = allBins;
+                    dgridBin.Items.Refresh();
+                    Bin binToBeRemoved = (from bins in dbContext.GetTable<Bin>()
+                                          where bins.BinId == selectedItem.BinId
+                                          select bins).First();
+                    dbContext.Bins.DeleteOnSubmit(binToBeRemoved);
+                    dbContext.SubmitChanges();
+                }
             }
         }
         /// <summary>
@@ -52,12 +128,12 @@ namespace FoodBankInventoryManager
             {
                 FoodInfo selectedItem = (FoodInfo)dgridFood.SelectedValue;
                 List<InventoryEntry> matchingFoods = (from foods in dbContext.GetTable<InventoryEntry>() //Checks to see if there are any inventory entries
-                                            where foods.FoodName == selectedItem.FoodName                //containing the food the user clicked
-                                            select foods).ToList();
+                                                      where foods.FoodName == selectedItem.FoodName                //containing the food the user clicked
+                                                      select foods).ToList();
                 if (matchingFoods.Count != 0)
                 {
                     MessageBox.Show("There are inventory entries containing " + selectedItem.FoodName + ". To prevent " +
-                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete",MessageBoxButton.OK);
+                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
                 }
                 else
                 {
@@ -72,7 +148,29 @@ namespace FoodBankInventoryManager
                 }
             }
         }
-
+        #endregion
+        /// <summary>
+        /// Opens food modification window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RowContMenuMod_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender != null)
+            {
+                FoodInfo selectedItem = (FoodInfo)dgridFood.SelectedValue;
+                ModifyFoodWindow m = new ModifyFoodWindow(selectedItem.FoodName, selectedItem.MinimumQty)
+                {
+                    Owner = Application.Current.MainWindow
+                };
+                m.ShowDialog();
+                allFoods = GetFoods();
+                dgridFood.ItemsSource = allFoods;
+                dgridFood.Items.Refresh();
+            }
+        }
+        #endregion
+        #region Misc. Event Handlers
         /// <summary>
         /// Grabs all of the foods, bins, and shelves in the database
         /// </summary>
@@ -80,105 +178,23 @@ namespace FoodBankInventoryManager
         /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            allFoods = (from foods in dbContext.GetTable<Food>()
-                        select new FoodInfo
-                        {
-                            FoodName = foods.FoodName,
-                            MinimumQty = foods.MinimumQty
-                        }).ToList();
+            allFoods = GetFoods();
             dgridFood.ItemsSource = allFoods;
 
-            allBins = (from bins in dbContext.GetTable<Bin>()
-                       select new BinInfo
-                       {
-                           BinId = bins.BinId
-                       }).ToList();
+            allBins = GetBins();
             dgridBin.ItemsSource = allBins;
 
-            allShelves = (from shelves in dbContext.GetTable<Shelf>()
-                          select new ShelfInfo
-                          {
-                              ShelfId = shelves.ShelfId
-                          }).ToList();
+            allShelves = GetShelves();
             dgridShelf.ItemsSource = allShelves;
         }
-        /// <summary>
-        /// Deletes a shelf from the database, as long as it doesn't have any bins on it with food in it
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RowContMenuDelShelf_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender != null)
-            {
-                ShelfInfo selectedItem = (ShelfInfo)dgridShelf.SelectedValue;
-                List<InventoryEntry> matchingShelves = (from shelves in dbContext.GetTable<InventoryEntry>() //checks to see if there are any
-                                                     where shelves.ShelfId == selectedItem.ShelfId           //shelves that have bins with food in them on it
-                                                     select shelves).ToList();
-                if (matchingShelves.Count != 0)
-                {
-                    MessageBox.Show("There are inventory entries containing " + selectedItem.ShelfId + ". To prevent " +
-                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
-                }
-                else
-                {
-                    allShelves.Remove(selectedItem); //Removes shelf from database and datagrid
-                    dgridShelf.ItemsSource = allShelves;
-                    dgridShelf.Items.Refresh();
-                    Shelf shelfToBeRemoved = (from shelves in dbContext.GetTable<Shelf>()
-                                          where shelves.ShelfId == selectedItem.ShelfId
-                                          select shelves).First();
-                    dbContext.Shelfs.DeleteOnSubmit(shelfToBeRemoved);
-                    dbContext.SubmitChanges();
-                }
-            }
-        }
-
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             HomePage h = new HomePage(myCurrentUser);
             NavigationService.Navigate(h);
         }
-
-        private void RowContMenuDelBin_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender != null)
-            {
-                BinInfo selectedItem = (BinInfo)dgridBin.SelectedValue;
-                List<InventoryEntry> matchingBins = (from bins in dbContext.GetTable<InventoryEntry>() //checks to see if there are any
-                                                      where bins.BinId == selectedItem.BinId           //inventory entries with the selected food in them
-                                                      select bins).ToList();
-                if (matchingBins.Count != 0)
-                {
-                    MessageBox.Show("There are inventory entries containing " + selectedItem.BinId + ". To prevent " +
-                        "unintentional data loss please delete those entries before deleting this item.", "Unable to Delete", MessageBoxButton.OK);
-                }
-                else
-                {
-                    allBins.Remove(selectedItem); //removes food item from database and datagrid
-                    dgridBin.ItemsSource = allBins;
-                    dgridBin.Items.Refresh();
-                    Bin binToBeRemoved = (from bins in dbContext.GetTable<Bin>()
-                                            where bins.BinId == selectedItem.BinId
-                                            select bins).First();
-                    dbContext.Bins.DeleteOnSubmit(binToBeRemoved);
-                    dbContext.SubmitChanges();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns user to homepage
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-            HomePage h = new HomePage(myCurrentUser);
-            NavigationService.Navigate(h);
-        }
+        #endregion
     }
-
+    #region Quasi-anonymous classes to be used when loading data into datagrid
     public class FoodInfo
     {
         public string FoodName
@@ -204,4 +220,5 @@ namespace FoodBankInventoryManager
             get; set;
         }
     }
+    #endregion
 }

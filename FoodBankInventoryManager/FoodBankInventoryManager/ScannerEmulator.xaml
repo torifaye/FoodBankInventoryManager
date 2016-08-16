@@ -139,13 +139,15 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
-                  IsEditable="True"/>
+                  IsEditable="True"
+                  KeyboardNavigation.TabNavigation="None"/>
         <TextBlock IsHitTestVisible="False" 
                    Grid.Row="0"
                    Text="Food Code" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center" 
-                   Foreground="DarkGray">
+                   Foreground="DarkGray"
+                   KeyboardNavigation.IsTabStop="False">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" 
@@ -171,12 +173,14 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
-                  IsEditable="True"/>
+                  IsEditable="True"
+                  KeyboardNavigation.TabNavigation="None"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Bin Code"
                    Grid.Row="1"
                    VerticalAlignment="Center" 
-                   HorizontalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   KeyboardNavigation.IsTabStop="False"
                    Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -203,12 +207,14 @@
                   Width="120"
                   VerticalAlignment="Center"
                   IsTextSearchEnabled="True"
-                  IsEditable="True"/>
+                  IsEditable="True"
+                  KeyboardNavigation.TabNavigation="None"/>
         <TextBlock IsHitTestVisible="False" 
                    Text="Shelf Code"
                    Grid.Row="2"
                    VerticalAlignment="Center" 
-                   HorizontalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   KeyboardNavigation.IsTabStop="False"
                    Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -234,12 +240,15 @@
                  FontFamily="Rockwell"
                  Width="120"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"/>
+                 HorizontalAlignment="Center"
+                 IsTabStop="False"
+                 KeyboardNavigation.TabNavigation="None"/>
         <TextBlock IsHitTestVisible="False"
                    Grid.Row="3"
                    Text="Quantity of Item" 
                    VerticalAlignment="Center" 
-                   HorizontalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   KeyboardNavigation.IsTabStop="False"
                    Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -259,6 +268,13 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+        <!--<TextBox x:Name="txtTemp"
+                 Grid.Row="4"
+                 Width="100"
+                 Height="20"
+                 HorizontalAlignment="Left"
+                 Visibility="{x:Static local:ScannerEmulator.IsDebug}"
+                 PreviewTextInput="txtTemp_PreviewTextInput"/>-->
         <Button x:Name="btnAddToInv"
                 Grid.Row="4"
                 Grid.ColumnSpan="2"
@@ -268,6 +284,8 @@
                 Width="120"
                 FontFamily="Rockwell"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center"
+                IsTabStop="False"
+                KeyboardNavigation.TabNavigation="None"/>
     </Grid>
 </Window>

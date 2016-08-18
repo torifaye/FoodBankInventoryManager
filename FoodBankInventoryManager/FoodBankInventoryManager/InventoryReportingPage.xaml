@@ -202,8 +202,20 @@
                 </TextBlock>
             </Button>
             
-            <Button Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="btnExit_Click" Style="{DynamicResource returnHomeButton}">
-            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment ="Center">
+            <Button Grid.Column="1" 
+                    Grid.Row="0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment ="Center" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Cursor="Hand" 
+                    Click="btnHome_Click" 
+                    Style="{DynamicResource returnHomeButton}">
+            <StackPanel Grid.Column="1" 
+                        Grid.Row="0" 
+                        Orientation="Vertical"  
+                        VerticalAlignment="Center"
+                        HorizontalAlignment ="Center">
                 <Image x:Name="image"
             		Source="Resources/reach-out-lakota.png" 
                        HorizontalAlignment="Center" 

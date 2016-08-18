@@ -17,6 +17,7 @@ namespace FoodBankInventoryManager
         private readonly InventoryEntry invEntry;
         private readonly User myCurrentUser;
         private bool readyToSubmit;
+        private bool oldEntry;
 
         private DateTime lastKeyPress;
 
@@ -34,6 +35,7 @@ namespace FoodBankInventoryManager
             lastKeyPress = new DateTime(0);
             textStream = new List<String>();
             readyToSubmit = true;
+            oldEntry = false;
             InitializeComponent();
 
             //txtTemp.Focus();
@@ -57,6 +59,15 @@ namespace FoodBankInventoryManager
         {
             //An instance object to be added to the database
             //Sets a value for all of the columns in the invBin table
+            InventoryEntry existingEntry = new InventoryEntry();
+            List<InventoryEntry> entriesExisting = (from entries in dbContext.GetTable<InventoryEntry>()
+                                                    where entries.FoodName == cbFood.Text
+                                                    select entries).ToList();
+            if (Validate(cbFood.Text) && entriesExisting.Count > 0)
+            {
+                existingEntry = entriesExisting.First();
+                oldEntry = true;
+            }
             if (Validate(cbBin.Text))
             {
                 invEntry.BinId = cbBin.Text; 
@@ -78,7 +89,10 @@ namespace FoodBankInventoryManager
             if (Validate(txtQuantity.Text))
             {
                 invEntry.ItemQty = Convert.ToInt32(txtQuantity.Text);
-                
+                if (oldEntry)
+                {
+                    existingEntry.ItemQty += Convert.ToInt32(txtQuantity.Text);
+                }
             }
             else
             {
@@ -125,7 +139,10 @@ namespace FoodBankInventoryManager
                 return;
             }
             ////Sets the changes ready to insert when changes are submitted
-            dbContext.InventoryEntries.InsertOnSubmit(invEntry);
+            if (!oldEntry)
+            {
+                dbContext.InventoryEntries.InsertOnSubmit(invEntry); 
+            }
             dbContext.AuditEntries.InsertOnSubmit(auditRecord);
             //Submits the changes to the database
             dbContext.SubmitChanges();

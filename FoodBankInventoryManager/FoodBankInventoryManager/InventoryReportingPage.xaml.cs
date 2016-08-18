@@ -184,7 +184,6 @@ namespace FoodBankInventoryManager
         {
             currentInventory = getCurrentInventory();
             gridItems.ItemsSource = currentInventory;
-            txtItemCount.Text = currentInventory.Count.ToString();
             gridItems.Items.Refresh();
             gridMinWatch.ItemsSource = getCurrentMinWatchList();
             gridMinWatch.Items.Refresh();

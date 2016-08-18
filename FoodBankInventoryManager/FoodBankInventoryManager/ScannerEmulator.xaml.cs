@@ -61,11 +61,18 @@ namespace FoodBankInventoryManager
             //Sets a value for all of the columns in the invBin table
             InventoryEntry existingEntry = new InventoryEntry();
             List<InventoryEntry> entriesExisting = (from entries in dbContext.GetTable<InventoryEntry>()
-                                                    where entries.FoodName == cbFood.Text
+                                                    where 
+                                                    Validate(cbFood.Text)
+                                                    && Validate(cbShelf.Text)
+                                                    && Validate(cbBin.Text)
+                                                    && entries.FoodName == cbFood.Text
+                                                    && entries.BinId == cbBin.Text
+                                                    && entries.ShelfId == cbShelf.Text
                                                     select entries).ToList();
-            if (Validate(cbFood.Text) && entriesExisting.Count > 0)
+            if (entriesExisting.Count > 0)
             {
                 existingEntry = entriesExisting.First();
+                existingEntry.DateEntered = DateTime.Now;
                 oldEntry = true;
             }
             if (Validate(cbBin.Text))

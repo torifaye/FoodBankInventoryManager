@@ -108,7 +108,6 @@ namespace FoodBankInventoryManager
             {
                 return false;
             }
-            return false;
         }
         /// <summary>
         /// Makes sure content isn't null, empty, or just whitespace

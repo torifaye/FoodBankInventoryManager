@@ -155,12 +155,12 @@ namespace FoodBankInventoryManager
         {
             if (binList.Contains(cbBinSearch.SelectedValue.ToString()))
             {
-                String binId = cbBinSearch.SelectedItem.ToString();
+                string binId = cbBinSearch.SelectedItem.ToString();
                 currentInvEntry = (from items in dbContext.GetTable<InventoryEntry>()
                                    where binId == items.BinId
                                    select items).First();
-                String foodName = currentInvEntry.FoodName;
-                String shelfId = currentInvEntry.ShelfId;
+                string foodName = currentInvEntry.FoodName;
+                string shelfId = currentInvEntry.ShelfId;
                 int binQuantity = currentInvEntry.ItemQty;
                 cbFoodSearch.SelectedValue = foodName;
                 cbShelfSearch.SelectedValue = shelfId;

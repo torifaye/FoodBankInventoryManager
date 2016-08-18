@@ -74,7 +74,7 @@ namespace FoodBankInventoryManager
         /// <returns></returns>
         private bool Validate(string content)
         {
-            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+            return !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content));
         }
     }
 }

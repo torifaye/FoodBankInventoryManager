@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Configuration;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Windows.Documents;
 
 #region Message for Programmers
 /*Everthing is neatly wrapped in regions here, so if you add something make sure to wrap it!
@@ -33,7 +34,7 @@ namespace FoodBankInventoryManager
         private Bitmap dImg = null;
         private List<Bitmap> barcodes;
 
-        private List<String> barcodeValues;
+        private List<string> barcodeValues;
         private string barcodeData;
 
         private const int BARCODE_WIDTH = 800;
@@ -51,7 +52,7 @@ namespace FoodBankInventoryManager
             b = new Barcode();
             myCurrentUser = aUser;
             barcodes = new List<Bitmap>();
-            barcodeValues = new List<String>();
+            barcodeValues = new List<string>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             InitializeComponent();
         }
@@ -76,7 +77,7 @@ namespace FoodBankInventoryManager
 
         private bool Validate(string content)
         {
-            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+            return !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content));
         }
        
         /// <summary>
@@ -88,7 +89,7 @@ namespace FoodBankInventoryManager
             {
                 Debug.Assert(e.OriginalSource != null, "e.OriginalSource != null");
                 var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
-                String strItem = item.Content.ToString();
+                string strItem = item.Content.ToString();
                 {
                     // ListBox item clicked - do some cool things here
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to delete \"" + strItem + "\"?", "Food Bank Manager", MessageBoxButton.YesNo);
@@ -257,7 +258,7 @@ namespace FoodBankInventoryManager
 
                 if (dImg != null && imgBarcode.Source != null)
                 {
-                    foreach (String item in barcodeValues)
+                    foreach (string item in barcodeValues)
                     {
                         if (item == barcodeData)
                         {
@@ -574,7 +575,7 @@ namespace FoodBankInventoryManager
             /// <summary>
             /// Alternate label to be displayed.  (IncludeLabel must be set to true as well)
             /// </summary>
-            public String AlternateLabel
+            public string AlternateLabel
             {
                 get;
                 set;
@@ -1455,7 +1456,7 @@ namespace FoodBankInventoryManager
                 this.init_ExtendedCode39();
 
                 string strNoAstr = Raw_Data.Replace("*", "");
-                string strFormattedData = "*" + strNoAstr + (_EnableChecksum ? getChecksumChar(strNoAstr).ToString() : String.Empty) + "*";
+                string strFormattedData = "*" + strNoAstr + (_EnableChecksum ? getChecksumChar(strNoAstr).ToString() : string.Empty) + "*";
 
                 if (_AllowExtended)
                     InsertExtendedCharsIfNeeded(ref strFormattedData);
@@ -1690,6 +1691,8 @@ namespace FoodBankInventoryManager
             }
 
 
+
+            PrintDialog pd = new PrintDialog();
             PrintDocument printDocument1 = new PrintDocument();
             printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
             printDocument1.Print();
@@ -1712,7 +1715,7 @@ namespace FoodBankInventoryManager
 
                         if (r < 10)
                         {
-                            e.Graphics.DrawImage(barcodes[i], c, ((BARCODE_HEIGHT - 120) * r));
+                            e.Graphics.DrawImage(barcodes[i], c, ((BARCODE_HEIGHT - 115) * r));
                         }
                         else
                         {

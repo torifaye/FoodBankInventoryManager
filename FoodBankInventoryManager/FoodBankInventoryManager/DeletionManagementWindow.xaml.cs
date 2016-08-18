@@ -15,6 +15,7 @@ namespace FoodBankInventoryManager
         private readonly InventoryInfo selectedEntry;
 
         private List<InventoryInfo> individualEntries;
+        private bool isScanned;
 
         private readonly L2S_FoodBankDBDataContext dbContext;
 
@@ -25,10 +26,12 @@ namespace FoodBankInventoryManager
         /// </summary>
         /// <param name="aUser">User that is currently logged in</param>
         /// <param name="anEntry">Entry item that will be looked at (a food that is in multiple bins)</param>
-        public DeletionManagementWindow(User aUser, InventoryInfo anEntry)
+        /// <param name="isScanned">Whether the user got to this page through scanning a bin code</param>
+        public DeletionManagementWindow(User aUser, InventoryInfo anEntry, bool isScanned)
         {
             myCurrentUser = aUser;
             selectedEntry = anEntry;
+            this.isScanned = isScanned;
             individualEntries = new List<InventoryInfo>();
             dbContext = new L2S_FoodBankDBDataContext(ConfigurationManager.ConnectionStrings["FoodBankInventoryManager.Properties.Settings.FoodBankDBConnectionString"].ConnectionString);
             InitializeComponent();

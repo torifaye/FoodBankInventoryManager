@@ -12,7 +12,6 @@ namespace FoodBankInventoryManager
     /// </summary>
     public partial class LoginPage : Page
     {
-        public static bool isAdministrator;
         private L2S_FoodBankDBDataContext dbContext;
 
         public LoginPage()
@@ -116,7 +115,7 @@ namespace FoodBankInventoryManager
         /// <returns></returns>
         private bool Validate(string content)
         {
-            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+            return !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content));
         }
 
         private void mItemPassword_OnClick(object sender, RoutedEventArgs e)

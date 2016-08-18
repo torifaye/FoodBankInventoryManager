@@ -675,7 +675,7 @@ public class BCrypt {
 
         int rounds = Int32.Parse(salt.Substring(offset, 2), NumberFormatInfo.InvariantInfo);
 
-        byte[] passwordBytes = Encoding.UTF8.GetBytes(password + (minor >= 'a' ? "\0" : String.Empty));
+        byte[] passwordBytes = Encoding.UTF8.GetBytes(password + (minor >= 'a' ? "\0" : string.Empty));
         byte[] saltBytes = DecodeBase64(salt.Substring(offset + 3, 22),
                                         BCRYPT_SALT_LEN);
 

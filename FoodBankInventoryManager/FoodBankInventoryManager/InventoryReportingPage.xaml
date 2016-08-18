@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1350"
       Title="Statistics"
-      Loaded="Page_Loaded">
+      Loaded="Page_Loaded"
+      KeyDown="Page_KeyDown">
 
     <Page.Resources>
         <Style x:Key="FocusVisual">
@@ -329,5 +330,9 @@
                     Click="btnHome_Click">Back to Home</Button>
 
         </Grid>-->
+        <TextBox x:Name="txtHidden"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 Visibility="Hidden"/>
     </Grid>
 </Page>

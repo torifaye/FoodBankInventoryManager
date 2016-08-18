@@ -63,7 +63,7 @@ namespace FoodBankInventoryManager
         /// <returns></returns>
         private static bool Validate(string content)
         {
-            return !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content));
+            return !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content));
         }
         /// <summary>
         /// If user is creating a shelf or bin barcode, restricts text input to only numeric

@@ -23,7 +23,7 @@ namespace FoodBankInventoryManager
         /*Data structure used to store whether a user has successfully filled out all the fields necessary to
         * create a user
         */
-        private Dictionary<String, bool> nonEmptyFields;
+        private Dictionary<string, bool> nonEmptyFields;
         private bool readyToSubmit;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FoodBankInventoryManager
 
         private void cBoxAccessLevel_Loaded(object sender, RoutedEventArgs e)
         {
-            List<String> accessLevels = new List<string>();
+            List<string> accessLevels = new List<string>();
             accessLevels.Add("Administrator");
             accessLevels.Add("Standard User");
             //Assign the combobox's item source to the list
@@ -119,7 +119,7 @@ namespace FoodBankInventoryManager
             }
             //String that will be used in a messagebox to show the user what fields are not yet filled out
             string strEmptyReporter = "";
-            foreach (KeyValuePair<String, bool> entry in nonEmptyFields)
+            foreach (KeyValuePair<string, bool> entry in nonEmptyFields)
             {
                 if (!entry.Value)
                 {
@@ -156,7 +156,7 @@ namespace FoodBankInventoryManager
                     mail.To.Add(myAccount.Email);
                     mail.Subject = "Account Created for " + myAccount.LastName + ", " + myAccount.FirstName;
                     mail.Body = "You have successfully created an account! Below is a summary of your account information: \n" +
-                        "Name: " + String.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
+                        "Name: " + string.Format("{0} {1}\n", myAccount.FirstName, myAccount.LastName) +
                         "Access Level: " + cBoxAccessLevel.Items[myAccount.AccessLevel].ToString() + "\n" +//Determines access level based on access level value
                         "Time of Account Creation: " + DateTime.Now;
                     //Useful to know for later when sending exported spreadsheet for quarterly inventory reports
@@ -194,7 +194,7 @@ namespace FoodBankInventoryManager
         /// <returns></returns>
         private bool isValidEmailFormat(string anEmail)
         {
-            if (String.IsNullOrEmpty(anEmail))
+            if (string.IsNullOrEmpty(anEmail))
             {
                 return false;
             }
@@ -255,7 +255,7 @@ namespace FoodBankInventoryManager
             {
                 nonEmptyFields.Remove(fieldName);
             }
-            nonEmptyFields.Add(fieldName, !(String.IsNullOrWhiteSpace(content) || String.IsNullOrEmpty(content))); 
+            nonEmptyFields.Add(fieldName, !(string.IsNullOrWhiteSpace(content) || string.IsNullOrEmpty(content))); 
             return nonEmptyFields[fieldName];
         }
     }

@@ -33,7 +33,7 @@ namespace FoodBankInventoryManager
             myCurrentUser = aUser;
 
             lastKeyPress = new DateTime(0);
-            textStream = new List<String>();
+            textStream = new List<string>();
             readyToSubmit = true;
             oldEntry = false;
             InitializeComponent();
@@ -200,20 +200,13 @@ namespace FoodBankInventoryManager
                 textStream.Add(e.Key.ToString());
             }
             lastKeyPress = DateTime.Now;
-            //int lShiftIndex = tempStrBuffer.IndexOf("LeftShift");
-            //int spaceIndex = tempStrBuffer.IndexOf("Space", StringComparison.Ordinal);
-            //string cleanPath = (lShiftIndex < 0)
-            //    ? tempStrBuffer
-            //    : tempStrBuffer.Remove(lShiftIndex, "LeftShift".Length);
-            //tempStrBuffer = cleanPath;
-            //txtTemp.Text = tempStrBuffer;
             if (e.Key == Key.Tab && textStream.Count > 1)
             {
-                String barcodeData = String.Join("", textStream).TrimEnd();
+                string barcodeData = string.Join("", textStream).TrimEnd();
                 barcodeData = barcodeData.Substring(0, barcodeData.IndexOf("Tab", StringComparison.Ordinal));
                 //txtTemp.Text = barcodeData;
 
-                String nums = "0123456789";
+                string nums = "0123456789";
                 if (barcodeData[0] == 'B' && nums.Contains(barcodeData[1]))
                 {
                     cbBin.Text = barcodeData;

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:FoodBankInventoryManager"
         mc:Ignorable="d"
         Title="Delete Items" Height="300" Width="300"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel Margin="10,10,10,0">
             <TextBlock TextAlignment="Center"

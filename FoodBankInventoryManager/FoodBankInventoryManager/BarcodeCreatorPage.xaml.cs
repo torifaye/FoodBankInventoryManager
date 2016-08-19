@@ -39,7 +39,7 @@ namespace FoodBankInventoryManager
 
         private const int BARCODE_WIDTH = 800;
         private const int BARCODE_HEIGHT = 275;
-        private const int MAX_SHELF_LENGTH = 4;
+        private const int MAX_SHELF_LENGTH = 5;
 
         private L2S_FoodBankDBDataContext dbContext;
         private User myCurrentUser;
@@ -1713,13 +1713,13 @@ namespace FoodBankInventoryManager
                     for (int i = 0; i < barcodes.Count; i++)
                     {
 
-                        if (r < 10)
+                        if (r < 6) //r < 10
                         {
                             e.Graphics.DrawImage(barcodes[i], c, ((BARCODE_HEIGHT - 115) * r));
                         }
                         else
                         {
-                            c += 200;
+                            c += 400; //was 200
                             r = 0;
                             e.Graphics.DrawImage(barcodes[i], c, 0);
                         }

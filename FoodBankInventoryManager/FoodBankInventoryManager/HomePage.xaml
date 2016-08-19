@@ -93,7 +93,7 @@
             </Button.ToolTip>
 
             <TextBlock TextAlignment="Center">
-                Inventory<LineBreak/>Reports
+                Inventory<LineBreak/>Report
             </TextBlock>
         </Button>
 
